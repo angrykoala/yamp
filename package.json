@@ -1,0 +1,35 @@
+{
+    "name": "yamp",
+    "version": "0.1.0",
+    "description": "Yet Another Markdown Parser",
+    "main": "index.js",
+    "bin": {
+        "yamp": "./index.js"
+    },
+    "scripts": {
+        "start": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/angrykoala/yamp.git"
+    },
+    "keywords": [
+        "markdown",
+        "parser",
+        "html",
+        "pdf",
+        "yamp"
+    ],
+    "author": "angrykoala <demiurgosoft@hotmail.com>",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/angrykoala/yamp/issues"
+    },
+    "homepage": "https://github.com/angrykoala/yamp#readme",
+    "dependencies": {
+        "commander": "^2.9.0",
+        "markdown-it": "^7.0.1",
+        "pkginfo": "^0.4.0"
+    }
+}
