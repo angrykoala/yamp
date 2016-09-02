@@ -25,16 +25,11 @@ commander.version(version)
     .option("-o, --output <file>", "output file")
     .parse(process.argv);
 
-let prev = '<link rel="stylesheet" href="github-markdown.css"><style>.markdown-body {box-sizing: border-box;        min-width: 200px;        max-width: 980px;        margin: 0 auto;      padding: 45px;    }</style> <article class="markdown-body">';
-
-let prev2 = '<link rel="stylesheet" href="acm-sig.css">';
-
 if (commander.output) outputFile = commander.output;
 
 if (!inputFile || !outputFile) {
     return console.error("Invalid Input", "usage: yamp [options] <file>");
 }
-console.log(__dirname);
 
 fs.readFile(inputFile, 'utf8', function(err, data) {
     if (err) {
@@ -58,7 +53,7 @@ fs.readFile(inputFile, 'utf8', function(err, data) {
             console.log("HTML successfully created");
             pdf.create(html, {
                 "base": "file://" + __dirname + "/styles/"
-            }).toFile(outputFile + '.pdf', function(err, res) {
+            }).toFile(outputFile + '.pdf', function(err) {
                 if (err) return console.error(err);
                 return console.log("PDF successfully created");
             });
