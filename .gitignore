@@ -38,3 +38,8 @@ jspm_packages
 
 # Custom ignores
 ncp
+
+
+# Example files
+*.pdf
+*.html
