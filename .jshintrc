@@ -1,6 +1,6 @@
 {
-    "node":true,
-    "eqeqeq":true,
+    "node": true,
+    "eqeqeq": true,
     "esversion": 6,
     "forin": true,
     "futurehostile": true,
