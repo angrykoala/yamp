@@ -1,0 +1,16 @@
+{
+    "node":true,
+    "eqeqeq":true,
+    "esversion": 6,
+    "forin": true,
+    "futurehostile": true,
+    "latedef": true,
+    "maxcomplexity": 6,
+    "maxdepth": 6,
+    "nocomma": true,
+    "nonew": true,
+    "strict": "global",
+    "undef": true,
+    "unused": true,
+    "varstmt": true
+}

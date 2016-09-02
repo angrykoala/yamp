@@ -29,6 +29,7 @@
   "homepage": "https://github.com/angrykoala/yamp#readme",
   "dependencies": {
     "commander": "^2.9.0",
+    "ejs": "^2.5.1",
     "html-pdf": "^2.1.0",
     "markdown-it": "^7.0.1",
     "pkginfo": "^0.4.0"
