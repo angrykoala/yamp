@@ -43,7 +43,8 @@ fs.readFile(inputFile, 'utf8', function(err, data) {
     data = md.render(data);
     ejs.renderFile('./templates/default.ejs', {
         title : "My own title",
-        content : data
+        content : data,
+        styleFile: "github-markdown.css"
     }, {}, function(err, html) {
         if (err) {
             return console.error("Error parsing ejs\n", err);
