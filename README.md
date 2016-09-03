@@ -7,14 +7,16 @@ Yet Another Markdown Parser <https://github.com/angrykoala/yamp>
 The aim of this package is to provide an easy-to-use toolbox for markdown-related task including html & pdf conversion.
 
 ## Features
-- [x] HTML conversion
-- [x] PDF conversion
-- [x] Code highlight support
-- [x] Github-style output
-- [ ] Custom styles
-- [ ] Custom templates
-- [ ] Include support
-- [ ] [HTML presentations](https://remarkjs.com/)
+* HTML conversion
+* PDF conversion
+* Code highlight support
+* Github-style output
+
+### Upcoming
+* Custom styles
+* Custom templates
+* Include support
+* [HTML presentations](https://remarkjs.com/)
 
 ## Installation
 

@@ -11,8 +11,8 @@ module.exports = function(inputFile, outputFile, cb) {
         if (err) return cb(new Error("Error reading file: " + err));
         md2html(data, function(err, htmlContent) {
             if (err) return cb(err);
-            ejs.renderFile('./templates/default.ejs', {
-                title: "My own title",
+            ejs.renderFile(__dirname+'/../templates/default.ejs', {
+                title: outputFile,
                 content: htmlContent,
                 styleFile: "github-markdown.css"
             }, {}, function(err, html) {
