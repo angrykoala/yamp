@@ -4,6 +4,8 @@
         <meta charset="UTF-8">
         <title><%= title %></title>
         <style><%- include("../styles/"+styleFile) %></style>
+        <style><%- include("../node_modules/highlight.js/styles/default.css")%></style>
+        <script><%- include("../node_modules/highlight.js/lib/highlight.js")%></script>    
     </head>
     <body>
         <%- content %>

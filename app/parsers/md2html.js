@@ -1,12 +1,12 @@
 "use strict";
 
-const Highlight = require('highlight.js');
+const Hljs = require('highlight.js');
 const MarkdownIt = require('markdown-it');
 
 function highlightRenderer(str, lang) {
-    if (lang && Highlight.getLanguage(lang)) {
+    if (lang && Hljs.getLanguage(lang)) {
         try {
-            return Highlight.highlight(lang, str, true).value;
+            return Hljs.highlight(lang, str).value;
         } catch (e) {
             console.error("highlight error ", e);
         }
