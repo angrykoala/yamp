@@ -3,14 +3,12 @@
 "use strict";
 
 //If using npm use -- before arguments
-let commander = require('commander');
-let md = require('markdown-it')();
+const commander = require('commander');
 require('pkginfo')(module, "version", "author", "license", "description");
-let fs = require('fs');
-let pdf = require('html-pdf');
-let ejs = require('ejs');
+const renderer=require('./app/renderer');
 
-let version = module.exports.version;
+
+const version = module.exports.version;
 
 let inputFile;
 let outputFile;
@@ -31,32 +29,9 @@ if (!inputFile || !outputFile) {
     return console.error("Invalid Input", "usage: yamp [options] <file>");
 }
 
-fs.readFile(inputFile, 'utf8', function(err, data) {
-    if (err) {
-        return console.error("Error reading file\n", err);
-    }
-    data = md.render(data);
-    ejs.renderFile('./templates/default.ejs', {
-        title: "My own title",
-        content: data,
-        styleFile: "github-markdown.css"
-    }, {}, function(err, html) {
-        if (err) {
-            return console.error("Error parsing ejs\n", err);
-        }
-
-        fs.writeFile(outputFile + '.html', html, function(err) {
-            if (err) {
-                return console.error("Error writing file\n", err);
-            }
-
-            console.log("HTML successfully created");
-            pdf.create(html, {
-                "base": "file://" + __dirname + "/styles/"
-            }).toFile(outputFile + '.pdf', function(err) {
-                if (err) return console.error(err);
-                return console.log("PDF successfully created");
-            });
-        });
-    });
+renderer(inputFile,outputFile,function(err){
+    if(err) return console.log("Error: "+err);
+    else console.log("Succesfully converted");
+    
+    
 });

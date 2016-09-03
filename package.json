@@ -1,6 +1,6 @@
 {
   "name": "yamp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Yet Another Markdown Parser",
   "main": "index.js",
   "bin": {
@@ -30,6 +30,7 @@
   "dependencies": {
     "commander": "^2.9.0",
     "ejs": "^2.5.1",
+    "highlight.js": "^9.6.0",
     "html-pdf": "^2.1.0",
     "markdown-it": "^7.0.1",
     "pkginfo": "^0.4.0"
