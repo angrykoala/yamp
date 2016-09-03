@@ -19,10 +19,27 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 * [HTML presentations](https://remarkjs.com/)
 
 ## Installation
+To use _yamp_ install it globally using **npm**:
+```
+npm install -g yamp
+```
 
 ## Usage
+To create a html and pdf files from your _markdown_ simply type:
+```
+yamp <file.md> <output_filename>
+```
 
+For example:
+```
+yamp README.md readme
+```
+Will generate `readme.html` and `readme.pdf`
 
+### Options
+* `-h`, `--help` to display a basic man
+* `-V`, `--version` to display _yamp_ version installed
+* `-o`, `--output` to select the output file name
 
 ## Acknowledgements
 * [markdown-it](https://github.com/markdown-it/markdown-it) as markdown parser

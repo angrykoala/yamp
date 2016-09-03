@@ -13,7 +13,7 @@ const version = module.exports.version;
 let inputFile;
 let outputFile;
 commander.version(version)
-    .usage("yamp [options] <file>")
+    .usage("[options] <file>")
     .description(module.exports.description)
     .arguments('<file> [output]')
     .action(function(file, output) {
