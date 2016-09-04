@@ -50,4 +50,20 @@ module.exports = [{
 	title: "Unordered lists"
 }, {
 	title: "Images"
+}, {
+	title: "Plugin sup",
+	md: "normaltext^suptext^normaltext",
+	html: "<p>normaltext<sup>suptext</sup>normaltext</p>"
+}, {
+	title: "Plugin mark",
+	md: "normaltext==marktext==normaltext",
+	html: "<p>normaltext<mark>marktext</mark>normaltext</p>"
+}, {
+	title: "Plugin inserted",
+	md: "normaltext++instext++normaltext",
+	html: "<p>normaltext<ins>instext</ins>normaltext</p>"
+}, {
+	title: "Escaped characters",
+	md: "\\# \\^normal\\^ \\*\\*normal\\*\\*",
+	html: "<p># ^normal^ **normal**</p>"
 }];
