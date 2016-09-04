@@ -14,16 +14,16 @@ function highlightRenderer(str, lang) {
     return "";
 }
 
-let config={
+let config = {
     html: true,
     linkify: true, //automatic links
     breaks: true, //automatic jump on new line
-    highlight: highlightRenderer 
+    highlight: highlightRenderer
 };
 
 const md = new MarkdownIt(config);
 
-module.exports = function(content,cb) {
-    let res=md.render(content);
-    return cb(null,res);
+module.exports = function(content, cb) {
+    let res = md.render(content);
+    return cb(null, res);
 };

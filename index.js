@@ -13,17 +13,17 @@ const version = module.exports.version;
 let inputFile;
 
 commander.version(version)
-    .usage("[options] <file>")
-    .description(module.exports.description)
-    .arguments('<file>')
-    .action(function(file) {
-        inputFile = file;
-    })
-    .option("--html", "html output")
-    .option("--pdf", "pdf output")
-    .parse(process.argv);
+	.usage("[options] <file>")
+	.description(module.exports.description)
+	.arguments('<file>')
+	.action(function(file) {
+		inputFile = file;
+	})
+	.option("--html", "html output")
+	.option("--pdf", "pdf output")
+	.parse(process.argv);
 if (!inputFile) {
-    return console.error("Invalid Input", "usage: yamp [options] <file>");
+	return console.error("Invalid Input", "usage: yamp [options] <file>");
 }
 
 let fileNameArr = inputFile.split(".");
@@ -31,24 +31,24 @@ if (fileNameArr.length > 1) fileNameArr.pop();
 let fileName = fileNameArr.join(".");
 
 if (commander.html) {
-    let rendererOptions = {
-        fileName: fileName,
-        output: "html",
-        highlight: true
-    };
-    renderer(inputFile, rendererOptions, function(err) {
-        if (err) return console.log("Error: " + err);
-        else console.log("HTML succesfully generated");
-    });
+	let rendererOptions = {
+		fileName: fileName,
+		output: "html",
+		highlight: true
+	};
+	renderer(inputFile, rendererOptions, function(err) {
+		if (err) return console.log("Error: " + err);
+		else console.log("HTML succesfully generated");
+	});
 }
 if (commander.pdf || (!commander.pdf && !commander.html)) {
-    let rendererOptions = {
-        fileName: fileName,
-        output: "pdf",
-        highlight: true
-    };
-    renderer(inputFile, rendererOptions, function(err) {
-        if (err) return console.log("Error: " + err);
-        else console.log("PDF succesfully generated");
-    });
+	let rendererOptions = {
+		fileName: fileName,
+		output: "pdf",
+		highlight: true
+	};
+	renderer(inputFile, rendererOptions, function(err) {
+		if (err) return console.log("Error: " + err);
+		else console.log("PDF succesfully generated");
+	});
 }

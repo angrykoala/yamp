@@ -1,6 +1,6 @@
 {
   "name": "yamp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Yet Another Markdown Parser",
   "main": "index.js",
   "bin": {
@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "istanbul cover _mocha"
+    "test": "istanbul cover _mocha",
+    "beautify": "js-beautify --indent-with-tabs --brace-style collapse -r *.js test/*.js app/*.js test/**/*.js app/**/*.js "
   },
   "repository": {
     "type": "git",

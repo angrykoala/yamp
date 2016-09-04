@@ -6,7 +6,7 @@ const renderer = require('../app/renderer.js');
 
 
 describe.skip("Renderer", function() {
-    it.skip("Basic test",function(){
-        throw new Error("Not implemented");
-    });
+	it.skip("Basic test", function() {
+		throw new Error("Not implemented");
+	});
 });
