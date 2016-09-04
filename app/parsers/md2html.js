@@ -31,9 +31,6 @@ module.exports = function(content, options, cb) {
 		.use(markdownitSup)
 		.use(markdownitMark)
 		.use(markdownitIns);
-
-
-
 	let res = md.render(content);
 	return cb(null, res);
 };

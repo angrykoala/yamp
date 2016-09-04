@@ -5,7 +5,7 @@
     "esversion": 6,
     "forin": true,
     "futurehostile": true,
-    "latedef": true,
+    "latedef": false,
     "maxcomplexity": 6,
     "maxdepth": 6,
     "nocomma": true,
