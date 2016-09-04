@@ -33,21 +33,27 @@ npm install -g yamp
 ```
 
 ## Usage
-To create a html and pdf files from your _markdown_ simply type:
+To create a `.pdf` file from your _markdown_ file, simply type:
 ```
-yamp <file.md> <output_filename>
+yamp <file.md>
 ```
-
 For example:
 ```
-yamp README.md readme
+yamp README.md
 ```
-Will generate `readme.html` and `readme.pdf`
+Will generate `readme.pdf`.
+
 
 ### Options
 * `-h`, `--help` to display a basic man
 * `-V`, `--version` to display _yamp_ version installed
-* `-o`, `--output` to select the output file name
+* `--pdf` to generate a pdf (default)
+* `--html`to generate html
+
+To generate pdf and html:
+```
+yamp myFile.md --pdf --html
+```
 
 ## Acknowledgments
 * [Markdown-it](https://github.com/markdown-it/markdown-it) as markdown parser
