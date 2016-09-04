@@ -1,5 +1,6 @@
 {
     "node": true,
+    "mocha": true,
     "eqeqeq": true,
     "esversion": 6,
     "forin": true,

@@ -1,6 +1,6 @@
 {
   "name": "yamp",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Yet Another Markdown Parser",
   "main": "index.js",
   "bin": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "istanbul cover _mocha"
   },
   "repository": {
     "type": "git",
@@ -34,5 +34,11 @@
     "html-pdf": "^2.1.0",
     "markdown-it": "^7.0.1",
     "pkginfo": "^0.4.0"
+  },
+  "devDependencies": {
+    "async": "^2.0.1",
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.0.2"
   }
 }
