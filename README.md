@@ -1,6 +1,9 @@
 Yamp
 ====
 _by @angrykoala_
+[![Build Status](https://travis-ci.org/angrykoala/yamp.svg?branch=master)](https://travis-ci.org/angrykoala/yamp)
+[![codecov](https://codecov.io/gh/angrykoala/yamp/branch/master/graph/badge.svg)](https://codecov.io/gh/angrykoala/yamp)
+
 
 Yet Another Markdown Parser <https://github.com/angrykoala/yamp>
 
