@@ -1,6 +1,8 @@
 Yamp
 ====
 _by @angrykoala_
+
+[![npm version](https://badge.fury.io/js/yamp.svg)](https://badge.fury.io/js/yamp)
 [![Build Status](https://travis-ci.org/angrykoala/yamp.svg?branch=master)](https://travis-ci.org/angrykoala/yamp)
 [![codecov](https://codecov.io/gh/angrykoala/yamp/branch/master/graph/badge.svg)](https://codecov.io/gh/angrykoala/yamp)
 
@@ -44,9 +46,10 @@ Will generate `readme.html` and `readme.pdf`
 * `-V`, `--version` to display _yamp_ version installed
 * `-o`, `--output` to select the output file name
 
-## Acknowledgements
-* [markdown-it](https://github.com/markdown-it/markdown-it) as markdown parser
-* [github-markdown.css](https://github.com/sindresorhus/github-markdown-css) as default parse style
+## Acknowledgments
+* [Markdown-it](https://github.com/markdown-it/markdown-it) as markdown parser
+* [Github-markdown.css](https://github.com/sindresorhus/github-markdown-css) as default parse style
+* [Highlight.js](https://highlightjs.org) for code highlighting
 
 >YAMP is developed under GNU GPL-3 license by @angrykoala
 >github-markdown.css 
