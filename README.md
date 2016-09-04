@@ -7,9 +7,12 @@ _by @angrykoala_
 [![codecov](https://codecov.io/gh/angrykoala/yamp/branch/master/graph/badge.svg)](https://codecov.io/gh/angrykoala/yamp)
 
 
-Yet Another Markdown Parser <https://github.com/angrykoala/yamp>
+>Yet Another Markdown Parser
 
 The aim of this package is to provide an easy-to-use toolbox for markdown-related task including html & pdf conversion.
+
+* **GitHub:** <https://github.com/angrykoala/yamp>
+* **Npm:** <https://www.npmjs.com/package/yamp>
 
 ## Features
 * HTML conversion
@@ -51,5 +54,4 @@ Will generate `readme.html` and `readme.pdf`
 * [Github-markdown.css](https://github.com/sindresorhus/github-markdown-css) as default parse style
 * [Highlight.js](https://highlightjs.org) for code highlighting
 
->YAMP is developed under GNU GPL-3 license by @angrykoala
->github-markdown.css 
+>YAMP is developed under GNU GPL-3 license by @angrykoala 
