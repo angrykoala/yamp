@@ -23,7 +23,7 @@ function highlightRenderer(str, lang) {
 let config = {
 	html: true,
 	linkify: true, //automatic links
-	breaks: true, //automatic jump on new line
+	breaks: false, //automatic jump on new line
 	highlight: highlightRenderer
 };
 
