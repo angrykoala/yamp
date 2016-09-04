@@ -20,8 +20,6 @@ function highlightRenderer(str, lang) {
 	return "";
 }
 
-
-
 module.exports = function(content, options, cb) {
 	let config = {
 		html: true,

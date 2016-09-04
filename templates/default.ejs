@@ -3,12 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <title><%= title %></title>
+        <%if(style===true){%>
         <style><%- include("../styles/"+styleFile) %></style>
+        <%}%>
         <% if(highlight===true){%>
             <style><%- include("../node_modules/highlight.js/styles/default.css")%></style>
             <script><%- include("../node_modules/highlight.js/lib/highlight.js")%></script>
         <%}%>
-        <% if(output==="pdf"){ %>
+        <% if(output==="pdf" && style===true){ %>
             <style>
                 pre code {
                     word-wrap: break-word;

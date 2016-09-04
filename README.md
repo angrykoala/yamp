@@ -51,6 +51,7 @@ Will generate `readme.pdf`.
 * `--html`to generate html
 * `--minify` to minify html output
 * `--no-highlight` to disable code highlight
+* `--no-style` to disable css <styling
 
 To generate pdf and html:
 ```

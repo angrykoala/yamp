@@ -20,7 +20,8 @@ module.exports = function(inputFile, options, cb) {
 						content: htmlContent,
 						output: "html",
 						highlight: options.highlight,
-						styleFile: "github-markdown.css"
+						styleFile: "github-markdown.css",
+						style: options.style
 					}, {}, function(err, html) {
 						if (err) return cb(new Error("Error parsing ejs: " + err));
 						if (options.minify) html = htmlMinifier(html);
@@ -37,7 +38,8 @@ module.exports = function(inputFile, options, cb) {
 						content: htmlContent,
 						output: "pdf",
 						highlight: options.highlight,
-						styleFile: "github-markdown.css"
+						styleFile: "github-markdown.css",
+						style: options.style
 					}, {}, function(err, html) {
 						if (err) return cb(new Error("Error parsing ejs: " + err));
 						//if(options.minify) html=htmlMinifier(html);
