@@ -20,20 +20,22 @@ function highlightRenderer(str, lang) {
 	return "";
 }
 
-let config = {
-	html: true,
-	linkify: true, //automatic links
-	breaks: false, //automatic jump on new line
-	highlight: highlightRenderer
-};
-
-const md = new Markdownit(config)
-	.use(markdownitSup)
-	.use(markdownitMark)
-	.use(markdownitIns);
 
 
-module.exports = function(content, cb) {
+module.exports = function(content, options, cb) {
+	let config = {
+		html: true,
+		linkify: true, //automatic links
+		breaks: false, //automatic jump on new line
+	};
+	if (options.highlight) config.highlight = highlightRenderer;
+	let md = new Markdownit(config)
+		.use(markdownitSup)
+		.use(markdownitMark)
+		.use(markdownitIns);
+
+
+
 	let res = md.render(content);
 	return cb(null, res);
 };

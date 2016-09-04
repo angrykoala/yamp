@@ -21,6 +21,8 @@ commander.version(version)
 	})
 	.option("--html", "html output")
 	.option("--pdf", "pdf output")
+	.option("--minify", "minifies html output")
+	.option("--no-highlight", "disable code highlight")
 	.parse(process.argv);
 if (!inputFile) {
 	return console.error("Invalid Input", "usage: yamp [options] <file>");
@@ -34,7 +36,8 @@ if (commander.html) {
 	let rendererOptions = {
 		fileName: fileName,
 		output: "html",
-		highlight: true
+		highlight: commander.highlight,
+		minify: commander.minify || false
 	};
 	renderer(inputFile, rendererOptions, function(err) {
 		if (err) return console.log("Error: " + err);
@@ -45,7 +48,8 @@ if (commander.pdf || (!commander.pdf && !commander.html)) {
 	let rendererOptions = {
 		fileName: fileName,
 		output: "pdf",
-		highlight: true
+		highlight: commander.highlight,
+		minify: commander.minify || false
 	};
 	renderer(inputFile, rendererOptions, function(err) {
 		if (err) return console.log("Error: " + err);

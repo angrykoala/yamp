@@ -13,8 +13,12 @@ function removeNewlines(str) {
 
 describe("Parsers", function() {
 	describe("mM2html", function() {
+		const rendererOptions = {
+			highlight: true
+		};
+
 		it("Basic test", function(done) {
-			md2html("example", function(err, res) {
+			md2html("example", rendererOptions, function(err, res) {
 				assert.notOk(err);
 				assert.ok(res);
 				done();
@@ -23,7 +27,7 @@ describe("Parsers", function() {
 
 		async.eachSeries(mdTestData, function iteratee(testCase, cb) {
 			if (testCase.md && testCase.html) it(testCase.title, function(done) {
-				md2html(testCase.md, function(err, res) {
+				md2html(testCase.md, rendererOptions, function(err, res) {
 					assert.notOk(err);
 					assert.ok(res);
 					assert.strictEqual(removeNewlines(res), testCase.html);

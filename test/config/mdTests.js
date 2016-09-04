@@ -16,9 +16,9 @@ module.exports = [{
 	md: "line1   \nline2",
 	html: "<p>line1<br>line2</p>"
 }, {
-	title: "Automatic new line",
+	title: "Not automatic new line",
 	md: "line1\nline2",
-	html: "<p>line1<br>line2</p>"
+	html: "<p>line1line2</p>"
 }, {
 	title: "Multiple paragraphs",
 	md: "paragraph1\n\nnew paragraph",
@@ -31,6 +31,12 @@ module.exports = [{
 	title: "Code highlight js",
 	md: "```js\nexample code\n```\n",
 	html: "<pre><code class=\"language-js\">example code</code></pre>"
+}, {
+	title: "Highlight.js"
+
+}, {
+	title: "No highlight"
+
 }, {
 	title: "Link",
 	md: "<http://asdfghjklqwertyu.com>",
@@ -49,7 +55,9 @@ module.exports = [{
 }, {
 	title: "Unordered lists"
 }, {
-	title: "Images"
+	title: "Images",
+	md: "![Image description](/imagelink.png)",
+	html: "<p><img src=\"/imagelink.png\" alt=\"Image description\"></p>"
 }, {
 	title: "Plugin sup",
 	md: "normaltext^suptext^normaltext",

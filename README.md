@@ -2,9 +2,9 @@ Yamp
 ====
 _by @angrykoala_
 
-[![npm version](https://badge.fury.io/js/yamp.svg)](https://badge.fury.io/js/yamp)
-[![Build Status](https://travis-ci.org/angrykoala/yamp.svg?branch=master)](https://travis-ci.org/angrykoala/yamp)
-[![codecov](https://codecov.io/gh/angrykoala/yamp/branch/master/graph/badge.svg)](https://codecov.io/gh/angrykoala/yamp)
+[![npm version](https://badge.fury.io/js/yamp.svg)](https://badge.fury.io/js/yamp) 
+[![Build Status](https://travis-ci.org/angrykoala/yamp.svg?branch=master)](https://travis-ci.org/angrykoala/yamp) 
+[![codecov](https://codecov.io/gh/angrykoala/yamp/branch/master/graph/badge.svg)](https://codecov.io/gh/angrykoala/yamp) 
 
 
 >Yet Another Markdown Parser
@@ -45,10 +45,12 @@ Will generate `readme.pdf`.
 
 
 ### Options
-* `-h`, `--help` to display a basic man
+* `-h`, `--help` to display a basic usage information
 * `-V`, `--version` to display _yamp_ version installed
 * `--pdf` to generate a pdf (default)
 * `--html`to generate html
+* `--minify` to minify html output
+* `--no-highlight` to disable code highlight
 
 To generate pdf and html:
 ```
