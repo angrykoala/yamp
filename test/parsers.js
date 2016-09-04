@@ -12,7 +12,7 @@ function removeNewlines(str) {
 }
 
 describe("Parsers", function() {
-    describe("md2html parser", function() {
+    describe("mM2html", function() {
         it("Basic test", function(done) {
             md2html("example", function(err, res) {
                 assert.notOk(err);

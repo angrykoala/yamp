@@ -4,8 +4,19 @@
         <meta charset="UTF-8">
         <title><%= title %></title>
         <style><%- include("../styles/"+styleFile) %></style>
-        <style><%- include("../node_modules/highlight.js/styles/default.css")%></style>
-        <script><%- include("../node_modules/highlight.js/lib/highlight.js")%></script>    
+        <% if(highlight===true){%>
+            <style><%- include("../node_modules/highlight.js/styles/default.css")%></style>
+            <script><%- include("../node_modules/highlight.js/lib/highlight.js")%></script>
+        <%}%>
+        <% if(output==="pdf"){ %>
+            <style>
+                pre code {
+                    white-space: normal;
+                    word-wrap: break-word;
+                }
+
+            </style>
+        <%}%>
     </head>
     <body>
         <%- content %>
