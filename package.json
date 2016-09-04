@@ -8,8 +8,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "istanbul cover _mocha",
-    "beautify": "js-beautify --indent-with-tabs --brace-style collapse -r *.js test/*.js app/*.js test/**/*.js app/**/*.js "
+    "test": "istanbul cover _mocha"
   },
   "repository": {
     "type": "git",
