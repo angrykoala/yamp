@@ -9,7 +9,7 @@ _by @angrykoala_
 
 >Yet Another Markdown Parser
 
-The aim of this package is to provide an easy-to-use toolbox for markdown-related task including html & pdf conversion.
+The aim of this package is to provide an easy-to-use toolbox for markdown-related task including Html & Pdf conversion.
 
 * **GitHub:** <https://github.com/angrykoala/yamp>
 * **Npm:** <https://www.npmjs.com/package/yamp>
@@ -19,6 +19,9 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 * PDF conversion
 * Code highlight support
 * Github-style output
+* CSS-embedded HTML (Just open it offline in any browser)
+* HTML tags support (For PDF output too)
+* Koalafied
 
 ### Upcoming
 * Custom styles
@@ -51,12 +54,15 @@ Will generate `readme.pdf`.
 * `--html`to generate html
 * `--minify` to minify html output
 * `--no-highlight` to disable code highlight
-* `--no-style` to disable css styling
+* `--no-style` to disable default CSS styling
+* `-k`, `--koala` to koalify your outputs
 
 To generate pdf and html:
 ```
 yamp myFile.md --pdf --html
 ```
+
+>The `--no-highlight` and `--no-style` options will greatly reduce your Html and Pdf outputs
 
 ## Acknowledgments
 * [Markdown-it](https://github.com/markdown-it/markdown-it) as markdown parser

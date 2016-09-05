@@ -24,7 +24,7 @@ commander.version(version)
     .option("--minify", "minifies html output")
     .option("--no-highlight", "disable code highlight")
     .option("--no-style", "disable default css styling")
-    .option("--koala", "your output will be koalafied")
+    .option("-k, --koala", "your output will be koalafied")
     .parse(process.argv);
 if (!inputFile) {
     return console.error("Invalid Input", "usage: yamp [options] <file>");
