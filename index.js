@@ -24,6 +24,7 @@ commander.version(version)
     .option("--minify", "minifies html output")
     .option("--no-highlight", "disable code highlight")
     .option("--no-style", "disable default css styling")
+    .option("--koala", "your output will be koalafied")
     .parse(process.argv);
 if (!inputFile) {
     return console.error("Invalid Input", "usage: yamp [options] <file>");
@@ -32,6 +33,7 @@ if (!inputFile) {
 let fileNameArr = inputFile.split(".");
 if (fileNameArr.length > 1) fileNameArr.pop();
 let fileName = fileNameArr.join(".");
+let resourcesPath=__dirname+"/resources";
 
 if (commander.html) {
     let rendererOptions = {
@@ -39,7 +41,9 @@ if (commander.html) {
         output: "html",
         highlight: commander.highlight,
         style: commander.style,
-        minify: commander.minify || false
+        minify: commander.minify || false,
+        resourcesPath: resourcesPath,
+        koala: commander.koala
     };
     renderer(inputFile, rendererOptions, function(err) {
         if (err) return console.log("Error: " + err);
@@ -52,7 +56,9 @@ if (commander.pdf || (!commander.pdf && !commander.html)) {
         output: "pdf",
         highlight: commander.highlight,
         minify: commander.minify || false,
-        style: commander.style
+        style: commander.style,
+        resourcesPath: resourcesPath,
+        koala: commander.koala
     };
     renderer(inputFile, rendererOptions, function(err) {
         if (err) return console.log("Error: " + err);

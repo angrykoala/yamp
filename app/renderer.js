@@ -22,7 +22,9 @@ module.exports = function(inputFile, options, cb) {
                 content: htmlContent,
                 highlight: options.highlight,
                 styleFile: "github-markdown.css",
-                style: options.style
+                style: options.style,
+                resourcesPath: options.resourcesPath,
+                koala: options.koala
             };
 
             switch (options.output) {

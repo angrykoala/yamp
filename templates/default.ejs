@@ -10,18 +10,47 @@
             <style><%- include("../node_modules/highlight.js/styles/default.css")%></style>
             <script><%- include("../node_modules/highlight.js/lib/highlight.js")%></script>
         <%}%>
+
         <% if(output==="pdf" && style===true){ %>
+                <style>
+                    pre code {
+                        word-wrap: break-word;
+                    }
+                    body {
+                        padding: 0 45px 45px 45px;
+                    }
+
+                </style>
+            <%}%>
+        
+        <% if(koala===true){ %>
+            <% 
+            var backHeight="100%";
+            if(output==="pdf") backHeight="824px";
+            %>
             <style>
-                pre code {
-                    word-wrap: break-word;
-                }
-                body {
-                    padding: 0 45px 45px 45px;
+                #pageHeader {
+                    content: "";
+                    display: block;
+                    position: fixed;
+                    bottom: 0;
+                    right: 0;
+                    top: 0;
+                    left: 0;
+                    height: <%=backHeight%>;
+                    z-index: -1;
+                    width: 100%;
+                    opacity: 1;
+                    background-image: url("file://<%=resourcesPath%>/images/octokoala_watermark.jpg");
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    background-size: 40%;
                 }
             </style>
         <%}%>
-    </head>
-    <body>
-        <%- content %>
-    </body>
-</html>
+        </head>
+        <body>
+            <div id="pageHeader"></div>
+            <%- content %>
+        </body>
+    </html>
