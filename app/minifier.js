@@ -2,6 +2,7 @@
 
 const htmlMinify = require('html-minifier').minify;
 
+
 module.exports = {
     html: function(html) {
         return htmlMinify(html, {

@@ -7,6 +7,7 @@ const html2pdf = require('./parsers/html2pdf');
 const htmlMinifier = require('./minifier').html;
 const ejs = require('ejs');
 
+
 module.exports = function(inputFile, options, cb) {
     fs.readFile(inputFile, 'utf8', function(err, data) {
         if (err) return cb(new Error("Error reading file: " + err));
@@ -61,5 +62,4 @@ function pdfRenderer(options, done) {
         //if(options.minify) html=htmlMinifier(html);
         html2pdf(html, options.fileName, done);
     });
-
 }

@@ -9,6 +9,7 @@ const html2pdf = require('../app/parsers/html2pdf');
 
 const mdTestData = require('./config/mdTests');
 
+
 function removeNewlines(str) {
     return str.replace(/(\r\n|\n|\r)/gm, "");
 }
