@@ -26,7 +26,9 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 ### Upcoming
 * Custom styles
 * Custom templates
-* Include support
+* Include other files in your markdown
+* Node module to use **yamp** programmatically
+* Client-side web support (bower)
 * [HTML presentations](https://remarkjs.com/)
 
 ## Installation

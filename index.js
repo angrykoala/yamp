@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 "use strict";
 
 //If using npm use -- before arguments
@@ -27,7 +25,8 @@ commander.version(version)
     .option("-k, --koala", "your output will be koalafied")
     .parse(process.argv);
 if (!inputFile) {
-    return console.error("Invalid Input", "usage: yamp [options] <file>");
+    console.error("Invalid Input", "usage: yamp [options] <file>");
+    process.exit(1);
 }
 
 let fileNameArr = inputFile.split(".");
