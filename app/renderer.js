@@ -5,39 +5,43 @@ const fs = require('fs');
 const md2html = require('./parsers/md2html');
 const html2pdf = require('./parsers/html2pdf');
 const htmlMinifier = require('./minifier').html;
-const titleParser= require('./parsers/title_parser');
+const titleParser = require('./parsers/title_parser');
 const ejs = require('ejs');
 
 
-module.exports = function(inputFile, options, cb) {
-    fs.readFile(inputFile, 'utf8', function(err, data) {
-        if (err) return cb(new Error("Error reading file: " + err));
+function mdFileLoader(file, options, done) {
+    fs.readFile(file, 'utf8', function(err, data) {
+        if (err) return done(new Error("Error reading file: " + err));
         md2html(data, {
             highlight: options.highlight
-        }, function(err, htmlContent) {
-            if (err) return cb(err);
-            let title=options.title || titleParser.html(htmlContent) || options.fileName;
+        }, done);
+    });
+}
 
-            let rendererConfig = {
-                title: title,
-                fileName: options.fileName,
-                content: htmlContent,
-                highlight: options.highlight,
-                styleFile: "github-markdown.css",
-                style: options.style,
-                resourcesPath: options.resourcesPath,
-                koala: options.koala
-            };
+module.exports = function(inputFile, options, cb) {
+    mdFileLoader(inputFile, options, function(err, htmlContent) {
+        if (err) return cb(err);
+        let title = options.title || titleParser.html(htmlContent) || options.fileName;
 
-            switch (options.output) {
-                case "html":
-                    htmlRenderer(rendererConfig, cb);
-                    break;
-                case "pdf":
-                    pdfRenderer(rendererConfig, cb);
-                    break;
-            }
-        });
+        let rendererConfig = {
+            title: title,
+            fileName: options.fileName,
+            content: htmlContent,
+            highlight: options.highlight,
+            styleFile: "github-markdown.css",
+            style: options.style,
+            resourcesPath: options.resourcesPath,
+            koala: options.koala
+        };
+
+        switch (options.output) {
+            case "html":
+                htmlRenderer(rendererConfig, cb);
+                break;
+            case "pdf":
+                pdfRenderer(rendererConfig, cb);
+                break;
+        }
     });
 };
 
