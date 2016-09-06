@@ -5,6 +5,7 @@ const fs = require('fs');
 const md2html = require('./parsers/md2html');
 const html2pdf = require('./parsers/html2pdf');
 const htmlMinifier = require('./minifier').html;
+const titleParser= require('./parsers/title_parser');
 const ejs = require('ejs');
 
 
@@ -15,9 +16,10 @@ module.exports = function(inputFile, options, cb) {
             highlight: options.highlight
         }, function(err, htmlContent) {
             if (err) return cb(err);
+            let title=options.title || titleParser.html(htmlContent) || options.fileName;
 
             let rendererConfig = {
-                title: options.fileName,
+                title: title,
                 fileName: options.fileName,
                 content: htmlContent,
                 highlight: options.highlight,

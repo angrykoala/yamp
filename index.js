@@ -22,6 +22,7 @@ commander.version(version)
     .option("--minify", "minifies html output")
     .option("--no-highlight", "disable code highlight")
     .option("--no-style", "disable default css styling")
+    .option("-t, --title [value]", "sets the html title")
     .option("-k, --koala", "your output will be koalafied")
     .parse(process.argv);
 if (!inputFile) {
@@ -42,7 +43,8 @@ if (commander.html) {
         style: commander.style,
         minify: commander.minify || false,
         resourcesPath: resourcesPath,
-        koala: commander.koala
+        title: commander.title,
+        koala: commander.koala,
     };
     renderer(inputFile, rendererOptions, function(err) {
         if (err) return console.log("Error: " + err);
@@ -56,6 +58,7 @@ if (commander.pdf || (!commander.pdf && !commander.html)) {
         highlight: commander.highlight,
         minify: commander.minify || false,
         style: commander.style,
+        title: commander.title,
         resourcesPath: resourcesPath,
         koala: commander.koala
     };

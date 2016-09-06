@@ -1,4 +1,8 @@
 "use strict";
+/*
+Markdown to Html parser
+*/
+
 
 const Hljs = require('highlight.js');
 const Markdownit = require('markdown-it');

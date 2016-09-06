@@ -7,7 +7,7 @@ const async = require('async');
 const md2html = require('../app/parsers/md2html');
 const html2pdf = require('../app/parsers/html2pdf');
 
-const mdTestData = require('./config/mdTests');
+const mdTestData = require('./config/md_tests');
 
 
 function removeNewlines(str) {
