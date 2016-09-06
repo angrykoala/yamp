@@ -3,12 +3,14 @@
 const fs = require('fs');
 const assert = require('chai').assert;
 const async = require('async');
+const rimraf = require('rimraf');
 
 const md2html = require('../app/parsers/md2html');
 const html2pdf = require('../app/parsers/html2pdf');
 
 const mdTestData = require('./config/md_tests');
 
+const testDir = 'testSandbox';
 
 function removeNewlines(str) {
     return str.replace(/(\r\n|\n|\r)/gm, "");
@@ -47,25 +49,32 @@ describe("Parsers", function() {
 
     describe("Html2pdf", function() {
         const html = "<h1>Test</h1>";
-        let filename = process.cwd() + "/testFile.pdf";
+        //const checksum;
+        const filename = "testFile.pdf";
 
-        afterEach(function(done) {
-            fs.unlink(filename, function() {
-                filename = process.cwd() + "/testFile.pdf";
-                done();
+        beforeEach(function(done) {
+            rimraf(testDir, {}, function(err) {
+                assert.notOk(err);
+                fs.mkdir(testDir, done);
             });
         });
+        afterEach(function(done) {
+            rimraf(testDir, {}, done);
+            done();
+        });
         it("Basic test", function(done) {
-            html2pdf(html, "testFile", function(err, res) {
-                assert.notOk(err);
-                assert.ok(res);
-                assert.strictEqual(res.filename, process.cwd() + "/testFile.pdf");
-                filename = res.filename;
-                fs.stat(res.filename, function(err, res) {
+            fs.stat(testDir + "/" + filename, function(err) {
+                assert.ok(err);
+                html2pdf(html, testDir + "/" + "testFile", function(err, res) {
                     assert.notOk(err);
                     assert.ok(res);
-                    assert.ok(res.isFile());
-                    done();
+                    assert.strictEqual(res.filename, process.cwd() + "/" + testDir + "/" + filename);
+                    fs.stat(res.filename, function(err, res) {
+                        assert.notOk(err);
+                        assert.ok(res);
+                        assert.ok(res.isFile());
+                        done();
+                    });
                 });
             });
         });
