@@ -30,6 +30,8 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 * Node module to use **yamp** programmatically
 * Client-side web support (bower)
 * [HTML presentations](https://remarkjs.com/)
+ 
+> Check the [project roadmap](https://github.com/angrykoala/yamp/milestones?direction=desc&sort=completeness&state=open)
 
 ## Installation
 To use _yamp_ install it globally using **npm**:
