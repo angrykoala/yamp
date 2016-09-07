@@ -7,8 +7,10 @@ const rimraf = require('rimraf');
 
 const md2html = require('../app/parsers/md2html');
 const html2pdf = require('../app/parsers/html2pdf');
+const titleParser = require('../app/parsers/title_parser');
 
 const mdTestData = require('./config/md_tests');
+const titleTestData = require('./config/title_tests');
 
 const testDir = 'testSandbox';
 
@@ -31,7 +33,7 @@ describe("Parsers", function() {
         });
 
         async.eachSeries(mdTestData, function iteratee(testCase, cb) {
-            if (testCase.md && testCase.html) it(testCase.title, function(done) {
+            if (testCase.md && testCase.html) it(testCase.testTitle, function(done) {
                 md2html(testCase.md, rendererOptions, function(err, res) {
                     assert.notOk(err);
                     assert.ok(res);
@@ -41,7 +43,7 @@ describe("Parsers", function() {
 
             });
             else {
-                it.skip(testCase.title);
+                it.skip(testCase.testTitle);
             }
             cb();
         });
@@ -60,7 +62,6 @@ describe("Parsers", function() {
         });
         afterEach(function(done) {
             rimraf(testDir, {}, done);
-            done();
         });
         it("Basic test", function(done) {
             fs.stat(testDir + "/" + filename, function(err) {
@@ -77,6 +78,25 @@ describe("Parsers", function() {
                     });
                 });
             });
+        });
+    });
+
+    describe("Html Title Parser", function() {
+        it("Basic test", function(done) {
+            assert.ok(titleParser.html);
+            assert.strictEqual(titleParser.html("example"),null);
+            assert.strictEqual(titleParser.html("<h1>Title</h1>"),"Title");
+            done();
+            });
+
+        async.eachSeries(titleTestData, function iteratee(testCase, cb) {
+            if (testCase.html) it(testCase.testTitle, function() {
+                assert.strictEqual(titleParser.html(testCase.html),testCase.title);
+            });
+            else {
+                it.skip(testCase.testTitle);
+            }
+            cb();
         });
     });
 });

@@ -3,7 +3,6 @@
 const assert = require('chai').assert;
 const fs = require('fs');
 const async = require('async');
-const md5File = require('md5-file');
 const rimraf = require('rimraf');
 
 const renderer = require('../app/renderers.js');

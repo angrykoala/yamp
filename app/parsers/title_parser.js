@@ -1,6 +1,6 @@
 "use strict";
 
-
+//Other possible html regex: /<h1(.*?>).+?<\/h1>/
 let titleRegex = {
     html: /<h1>.+?<\/h1>/
 };

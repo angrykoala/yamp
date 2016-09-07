@@ -1,78 +1,78 @@
 "use strict";
 module.exports = [{
-    title: "Plain text",
+    testTitle: "Plain text",
     md: "this is plain text",
     html: "<p>this is plain text</p>"
 }, {
-    title: "Headers",
+    testTitle: "Headers",
     md: "# Header 1\n## Header 2\n### Header 3",
     html: "<h1>Header 1</h1><h2>Header 2</h2><h3>Header 3</h3>"
 }, {
-    title: "Bold and Italic",
+    testTitle: "Bold and Italic",
     md: "**bold** _italic_",
     html: "<p><strong>bold</strong> <em>italic</em></p>"
 }, {
-    title: "New line",
+    testTitle: "New line",
     md: "line1   \nline2",
     html: "<p>line1<br>line2</p>"
 }, {
-    title: "Not automatic new line",
+    testTitle: "Not automatic new line",
     md: "line1\nline2",
     html: "<p>line1line2</p>"
 }, {
-    title: "Multiple paragraphs",
+    testTitle: "Multiple paragraphs",
     md: "paragraph1\n\nnew paragraph",
     html: "<p>paragraph1</p><p>new paragraph</p>"
 }, {
-    title: "Code highlight",
+    testTitle: "Code highlight",
     md: "```\nexample code\n```\n",
     html: "<pre><code>example code</code></pre>"
 }, {
-    title: "Code highlight js",
+    testTitle: "Code highlight js",
     md: "```js\nexample code\n```\n",
     html: "<pre><code class=\"language-js\">example code</code></pre>"
 }, {
-    title: "Highlight.js"
+    testTitle: "Highlight.js"
 
 }, {
-    title: "No highlight"
+    testTitle: "No highlight"
 
 }, {
-    title: "Link",
+    testTitle: "Link",
     md: "<http://asdfghjklqwertyu.com>",
     html: "<p><a href=\"http://asdfghjklqwertyu.com\">http://asdfghjklqwertyu.com</a></p>"
 }, {
-    title: "Automatic link",
+    testTitle: "Automatic link",
     md: "http://asdfghjklqwertyu.com",
     html: "<p><a href=\"http://asdfghjklqwertyu.com\">http://asdfghjklqwertyu.com</a></p>"
 }, {
-    title: "Special characters",
+    testTitle: "Special characters",
     md: "aeiouáéíóú´'*+^ç¨´{}|@#~½¬{[]}",
     html: "<p>aeiouáéíóú´'*+^ç¨´{}|@#~½¬{[]}</p>"
 }, {
-    title: "Tables",
+    testTitle: "Tables",
 }, {
-    title: "Ordered lists"
+    testTitle: "Ordered lists"
 }, {
-    title: "Unordered lists"
+    testTitle: "Unordered lists"
 }, {
-    title: "Images",
+    testTitle: "Images",
     md: "![Image description](/imagelink.png)",
     html: "<p><img src=\"/imagelink.png\" alt=\"Image description\"></p>"
 }, {
-    title: "Plugin sup",
+    testTitle: "Plugin sup",
     md: "normaltext^suptext^normaltext",
     html: "<p>normaltext<sup>suptext</sup>normaltext</p>"
 }, {
-    title: "Plugin mark",
+    testTitle: "Plugin mark",
     md: "normaltext==marktext==normaltext",
     html: "<p>normaltext<mark>marktext</mark>normaltext</p>"
 }, {
-    title: "Plugin inserted",
+    testTitle: "Plugin inserted",
     md: "normaltext++instext++normaltext",
     html: "<p>normaltext<ins>instext</ins>normaltext</p>"
 }, {
-    title: "Escaped characters",
+    testTitle: "Escaped characters",
     md: "\\# \\^normal\\^ \\*\\*normal\\*\\*",
     html: "<p># ^normal^ **normal**</p>"
 }];
