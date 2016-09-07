@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 "use strict";
 
 //If using npm use -- before arguments
