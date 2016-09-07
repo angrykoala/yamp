@@ -46,7 +46,7 @@ module.exports = class Renderer {
             this.contentParse(rawContent, (err, content) => {
                 if (err) return done(err);
                 let title = this.getTitle(file, content);
-                let templateData = this.setOptions();
+                let templateData = this.setTemplateOptions();
                 templateData.content = content;
                 templateData.title = title;
                 if (this.output) templateData.output = this.output;
@@ -71,14 +71,13 @@ module.exports = class Renderer {
         else this.template = __dirname + "/../../templates/" + template;
     }
 
-    setOptions() {
+    setTemplateOptions() {
         return {
             styleFile: "github-markdown.css",
             highlight: this.options.highlight,
             style: this.options.style,
             resourcesPath: this.options.resourcesPath,
-            koala: this.options.koala
-
+            koala: this.options.koala,
         };
 
     }
@@ -89,7 +88,4 @@ module.exports = class Renderer {
     templateRender(data, done) {
         ejs.renderFile(this.template, data, {}, done);
     }
-
-
-
 };

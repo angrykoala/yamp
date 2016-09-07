@@ -5,9 +5,9 @@ const fs = require('fs');
 const async = require('async');
 const rimraf = require('rimraf');
 
-const renderer = require('../app/renderers.js');
+const Renderer = require('../app/renderers.js');
 
-const testDir = './testSandbox';
+const testDir = 'test/test_sandbox';
 
 describe.skip("Renderers", function() {
     beforeEach(function(done) {
@@ -18,7 +18,8 @@ describe.skip("Renderers", function() {
     });
     afterEach(function(done) {
         rimraf(testDir, {}, done);
-    });
+    });    
+    
     describe("Html Renderer", function() {
 		//use md5File for html
 		/*

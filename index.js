@@ -17,12 +17,13 @@ commander.version(version)
     .action(function(file) {
         inputFile = file;
     })
-    .option("--html", "html output")
     .option("--pdf", "pdf output")
+    .option("--html", "html output")
+    .option("-t, --title [value]", "sets the html title")
+    .option("--style <file>", "custom css style")
+    .option("--no-style", "disables css styling")
     .option("--minify", "minifies html output")
     .option("--no-highlight", "disable code highlight")
-    .option("--no-style", "disable default css styling")
-    .option("-t, --title [value]", "sets the html title")
     .option("-k, --koala", "your output will be koalafied")
     .parse(process.argv);
 if (!inputFile) {
@@ -46,7 +47,6 @@ let rendererOptions = {
     title: commander.title,
     koala: commander.koala,
 };
-
 
 if (commander.html) {
     let renderer = new Renderers.html(rendererOptions);

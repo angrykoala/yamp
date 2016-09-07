@@ -43,3 +43,6 @@ ncp
 # Example files
 *.pdf
 *.html
+
+# Data generated in tests
+test/test_sandbox

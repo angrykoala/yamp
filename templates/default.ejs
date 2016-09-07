@@ -5,6 +5,11 @@
         <title><%= title %></title>
         <%if(style===true){%>
             <style><%- include("../styles/"+styleFile) %></style>
+        <%}else if(style){ %>
+            <% let stylePath=process.cwd()+"/"+style; 
+            try{%>
+            <style><%- include(stylePath) %></style>
+            <%} catch(e){ console.log("Warning: Style "+stylePath+" not found") }; %>
         <%}%>
         <% if(highlight===true){%>
             <style><%- include("../node_modules/highlight.js/styles/default.css")%></style>
@@ -12,17 +17,17 @@
         <%}%>
 
         <% if(output==="pdf" && style===true){ %>
-                <style>
-                    pre code {
-                        word-wrap: break-word;
-                    }
-                    body {
-                        padding: 0 45px 45px 45px;
-                    }
+            <style>
+                pre code {
+                    word-wrap: break-word;
+                }
+                body {
+                    padding: 0 45px 45px;
+                }
 
-                </style>
-            <%}%>
-        
+            </style>
+        <%}%>
+
         <% if(koala===true){ %>
             <% 
             var backHeight="100%";
@@ -46,11 +51,12 @@
                     background-position: center center;
                     background-size: 40%;
                 }
+
             </style>
         <%}%>
-        </head>
-        <body>
-            <div id="pageHeader"></div>
-            <%- content %>
-        </body>
-    </html>
+    </head>
+    <body>
+        <div id="pageHeader"></div>
+        <%- content %>
+    </body>
+</html>

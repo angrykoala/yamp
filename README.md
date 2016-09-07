@@ -50,19 +50,32 @@ yamp README.md
 ```
 Will generate `readme.pdf`.
 
+.option("--html", "html output")
+.option("--pdf", "pdf output")
+.option("-t, --title [value]", "sets the html title")
+.option("--style <file>", "custom css style")
+.option("--no-style", "disables css styling")
+.option("--minify", "minifies html output")
+.option("--no-highlight", "disable code highlight")
+.option("-k, --koala", "your output will be koalafied")
 
 ### Options
 * `-h`, `--help` to display a basic usage information
 * `-V`, `--version` to display _yamp_ version installed
 * `--pdf` to generate a pdf (default)
 * `--html`to generate html
-* `--minify` to minify html output
-* `--no-highlight` to disable code highlight
-* `--no-style` to disable default CSS styling
 * `-t`, `--title [value]` to add a custom title
+* `--style <file>` to set a custom CSS stylesheet
+    * Option not suported along with `--no-style`
+* `--no-style` to disable CSS styling
+    * Options not supported along with `--style <file>`
+* `--minify` to minify Html output
+* `--no-highlight` to disable code highlight
+
+
 * `-k`, `--koala` to koalify your outputs
 
-To generate pdf and html:
+To generate pdf and html with default styling and options:
 ```
 yamp myFile.md --pdf --html
 ```

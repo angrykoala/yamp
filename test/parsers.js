@@ -12,7 +12,7 @@ const titleParser = require('../app/parsers/title_parser');
 const mdTestData = require('./config/md_tests');
 const titleTestData = require('./config/title_tests');
 
-const testDir = 'testSandbox';
+const testDir = 'test/test_sandbox';
 
 function removeNewlines(str) {
     return str.replace(/(\r\n|\n|\r)/gm, "");
