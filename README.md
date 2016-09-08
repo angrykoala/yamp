@@ -62,6 +62,7 @@ Will generate `readme.pdf`.
 ### Options
 * `-h`, `--help` to display a basic usage information
 * `-V`, `--version` to display _yamp_ version installed
+* `-o`, `--output <file>` output filename (without extension)
 * `--pdf` to generate a pdf (default)
 * `--html`to generate html
 * `-t`, `--title [value]` to add a custom title

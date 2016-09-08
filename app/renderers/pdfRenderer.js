@@ -20,7 +20,7 @@ module.exports = class PdfRenderer extends Renderer {
 
     //args: content, done
     fileOutput(content, done) {
-        html2pdf(content, this.options.fileName, (err) => {
+        html2pdf(content, this.options.outputFilename, (err) => {
             if (err) return done(new Error("Error writing file" + err));
             else return done(null);
         });

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 "use strict";
 
 //If using npm use -- before arguments
@@ -9,6 +10,12 @@ const Renderers = require('./app/renderers');
 
 const version = module.exports.version;
 
+function removeFilenameExtension(filename) {
+    if (!filename) return "";
+    let filenameArr = filename.split(".");
+    if (filenameArr.length > 1) filenameArr.pop();
+    return filenameArr.join(".");
+}
 let inputFile;
 
 commander.version(version)
@@ -18,6 +25,7 @@ commander.version(version)
     .action(function(file) {
         inputFile = file;
     })
+    .option("-o, --output <file>", "output file name (without extension)")
     .option("--pdf", "pdf output")
     .option("--html", "html output")
     .option("-t, --title [value]", "sets the html title")
@@ -32,15 +40,17 @@ if (!inputFile) {
     process.exit(1);
 }
 
-let fileNameArr = inputFile.split(".");
-if (fileNameArr.length > 1) fileNameArr.pop();
-let fileName = fileNameArr.join(".");
+
+let filename = removeFilenameExtension(inputFile);
+let outputFilename = removeFilenameExtension(commander.output);
+
+
 let resourcesPath = __dirname + "/resources";
 
 
 let rendererOptions = {
-    fileName: fileName,
-    output: "html",
+    filename: filename,
+    outputFilename: outputFilename || filename,
     highlight: commander.highlight,
     style: commander.style,
     minify: commander.minify || false,

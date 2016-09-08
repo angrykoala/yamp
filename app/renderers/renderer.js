@@ -62,8 +62,8 @@ module.exports = class Renderer {
 
     //Private
 
-    getTitle(fileName, parsedContent) {
-        return this.options.title || titleParser.html(parsedContent) || fileName;
+    getTitle(filename, parsedContent) {
+        return this.options.title || titleParser.html(parsedContent) || filename;
     }
 
     setTemplate(template) {
