@@ -87,5 +87,6 @@ yamp myFile.md --pdf --html
 * [Markdown-it](https://github.com/markdown-it/markdown-it) as markdown parser
 * [Github-markdown.css](https://github.com/sindresorhus/github-markdown-css) as default parse style
 * [Highlight.js](https://highlightjs.org) for code highlighting
+* [html-pdf](https://github.com/marcbachmann/node-html-pdf) for pdf generation
 
 >YAMP is developed under GNU GPL-3 license by @angrykoala 
