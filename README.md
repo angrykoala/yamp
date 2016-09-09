@@ -50,15 +50,6 @@ yamp README.md
 ```
 Will generate `readme.pdf`.
 
-.option("--html", "html output")
-.option("--pdf", "pdf output")
-.option("-t, --title [value]", "sets the html title")
-.option("--style <file>", "custom css style")
-.option("--no-style", "disables css styling")
-.option("--minify", "minifies html output")
-.option("--no-highlight", "disable code highlight")
-.option("-k, --koala", "your output will be koalafied")
-
 ### Options
 * `-h`, `--help` to display a basic usage information
 * `-V`, `--version` to display _yamp_ version installed
@@ -82,6 +73,19 @@ yamp myFile.md --pdf --html
 ```
 
 >The `--no-highlight` and `--no-style` options will greatly reduce your Html and Pdf outputs
+
+## Development Instructions
+To contribute to **yamp** you should clone the official repository <https://github.com/angrykoala/yamp> or your own _fork_ with `git`.
+
+You can also download it from [GitHub](https://github.com) clicking [here](https://github.com/angrykoala/yamp/archive/master.zip)
+
+* To install execute `npm install` in the downloaded/cloned folder
+* To test, execute `npm test`
+* To execute the CLI, execute `npm start -- <file> [options]`
+* To install your local version globally, execute `npm install -g .` on the project folder
+
+>It is strongly recommended to install the npm repository version instead of your local copy
+
 
 ## Acknowledgments
 * [Markdown-it](https://github.com/markdown-it/markdown-it) as markdown parser
