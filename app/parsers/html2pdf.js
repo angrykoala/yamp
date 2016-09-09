@@ -16,6 +16,7 @@ module.exports = function(html, outputFile, cb) {
         "header": {
             "height": "1in",
         },
+        "zoomFactor": "0.75",
         "base": "file://" + process.cwd() + "/"
     }).toFile(outputFile + '.pdf', function(err, res) {
         if (err) return cb(new Error("[html-pdf] outputFile error: " + err), res);
