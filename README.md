@@ -19,25 +19,37 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 * PDF conversion
 * Code highlight support
 * Github-style output
-* CSS-embedded HTML (Just open it offline in any browser)
-* HTML tags support (For PDF output too)
+* API to use _yamp_ programmatically
+* Custom styles
+* CSS-embedded HTML (just open it offline in any browser)
+* HTML tags support (for PDF output too)
 * Koalafied
 
-### Upcoming
-* Custom styles
+### Upcoming features
+
 * Custom templates
 * Include other files in your markdown
-* Node module to use **yamp** programmatically
-* Client-side web support (bower)
+* Client-side web support (browserify)
 * [HTML presentations](https://remarkjs.com/)
  
 > Check the [project roadmap](https://github.com/angrykoala/yamp/milestones?direction=desc&sort=completeness&state=open)
 
 ## Installation
-To use _yamp_ install it globally using **npm**:
+To use _yamp_ cli, install it globally using **npm**:
 ```
 npm install -g yamp
 ```
+
+If you want to use the API instead, install it locally:
+```
+npm install --save yamp
+```
+
+then, include yamp in your javascript:
+```js
+var yamp = require('yamp');
+```
+
 
 ## Usage
 To create a `.pdf` file from your _markdown_ file, simply type:
@@ -63,8 +75,6 @@ Will generate `readme.pdf`.
     * Options not supported along with `--style <file>`
 * `--minify` to minify Html output
 * `--no-highlight` to disable code highlight
-
-
 * `-k`, `--koala` to koalify your outputs
 
 To generate pdf and html with default styling and options:
@@ -73,6 +83,68 @@ yamp myFile.md --pdf --html
 ```
 
 >The `--no-highlight` and `--no-style` options will greatly reduce your Html and Pdf outputs
+
+
+## API
+
+Include _yamp_ in your javascript with:
+```js
+var yamp = require('yamp');
+```
+
+You'll have access to different _renderers_ to process your files:
+* `yamp.renderers.html` to process a markdown file into an full Html page
+* `yamp.renderers.pdf` to process a markdown into a pdf
+
+To use a renderer:
+```js
+var myRenderer = new renderers.pdf(options);
+renderer.renderFile(myFile, function(err){
+    if (err) return console.log("Error while rendering: "+err);
+    else console.log("Rendering was successful");
+});
+```
+
+### Options
+The options accepted by the default renderers are:
+
+* **outputFilename**: name of the output filename (without extension), will default to the input filename
+* **highlight**: (_true_) indicates if code blocks should be highlighted
+* **style**: (_true_) indicates if default style should be used or no style at all. If a filename is passed, it will use it as custom css style
+* **minify**: (_false_) whether the Html output should be minified or not
+* **title**: Custom title for the Html page
+* **koala**: (_false_) true to koalify your outputs
+
+### Creating new renderers
+If you need a custom renderer, instead of using one of the defaults you can extend directly from **Renderer** class or any of the default renderers:
+
+```js
+class MyCustomRenderer extends yamp.Renderer {
+    constructor(options) {
+        super(options, "default.ejs", yamp.parsers.md2Html);
+        this.output="html"; //desired output extension
+    }
+
+
+    beforeRender(templateOptions) {
+        // Modify the data passed to the template before rendering, including title, content and options
+    }
+    
+    afterRender(content) {
+        // Modify template result (Html)
+    }
+
+    fileOutput(content,done) {
+        // Write file (preferably to this.options.outputFilename) in the desired format using a parser
+    }
+}
+```
+
+**Custom parser:** It is possible to use a custom parser from markdown to Html instead of the built-in _yamp.parsers.md2html_, the parser must be a function of the type `function(originalString,options,callback)` that will translate from `originalString` (markdown) to html, calling the `callback(err,res)` afterwards.
+
+> Currently only **default.ejs** is supported as template.
+
+If, instead of extending from `yamp.Renderer` you are extending from one of the default renderers, you should only re-implement the methods you need, and usually you should call `super().methodName` to maintain its basic functionality.
 
 ## Development Instructions
 To contribute to **yamp** you should clone the official repository <https://github.com/angrykoala/yamp> or your own _fork_ with `git`.

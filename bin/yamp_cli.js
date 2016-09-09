@@ -5,17 +5,10 @@
 //If using npm use -- before arguments
 const commander = require('commander');
 require('pkginfo')(module, "version", "author", "license", "description");
-const Renderers = require('../app/renderers');
-
+const renderers = require('../index').renderers;
 
 const version = module.exports.version;
 
-function removeFilenameExtension(filename) {
-    if (!filename) return "";
-    let filenameArr = filename.split(".");
-    if (filenameArr.length > 1) filenameArr.pop();
-    return filenameArr.join(".");
-}
 let inputFile;
 
 commander.version(version)
@@ -40,27 +33,17 @@ if (!inputFile) {
     process.exit(1);
 }
 
-
-let filename = removeFilenameExtension(inputFile);
-let outputFilename = removeFilenameExtension(commander.output);
-
-
-let resourcesPath = __dirname + "/resources";
-
-
 let rendererOptions = {
-    filename: filename,
-    outputFilename: outputFilename || filename,
+    outputFilename: commander.output,
     highlight: commander.highlight,
     style: commander.style,
     minify: commander.minify || false,
-    resourcesPath: resourcesPath,
     title: commander.title,
     koala: commander.koala,
 };
 
 if (commander.html) {
-    let renderer = new Renderers.html(rendererOptions);
+    let renderer = new renderers.html(rendererOptions);
     renderer.renderFile(inputFile, (err) => {
         if (err) return console.log("Error: " + err);
         else console.log("HTML succesfully generated");
@@ -68,7 +51,7 @@ if (commander.html) {
     });
 }
 if (commander.pdf || (!commander.pdf && !commander.html)) {
-    let renderer = new Renderers.pdf(rendererOptions);
+    let renderer = new renderers.pdf(rendererOptions);
     renderer.renderFile(inputFile, (err) => {
         if (err) return console.log("Error: " + err);
         else console.log("PDF succesfully generated");
