@@ -1,13 +1,13 @@
 {
   "name": "yamp",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "Yet Another Markdown Parser",
   "main": "index.js",
   "bin": {
-    "yamp": "./index.js"
+    "yamp": "./bin/yamp_cli.js"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node ./bin/yamp_cli.js",
     "test": "istanbul cover _mocha"
   },
   "repository": {

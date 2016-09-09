@@ -64,6 +64,7 @@ describe("Parsers", function() {
             rimraf(testDir, {}, done);
         });
         it("Basic test", function(done) {
+            this.timeout(5000);
             fs.stat(testDir + "/" + filename, function(err) {
                 assert.ok(err);
                 html2pdf(html, testDir + "/" + "testFile", function(err, res) {
