@@ -1,7 +1,7 @@
 "use strict";
 
-const HtmlRenderer=require('./renderers/htmlRenderer');
-const PdfRenderer=require('./renderers/pdfRenderer');
+const HtmlRenderer=require('./renderers/html_renderer');
+const PdfRenderer=require('./renderers/pdf_renderer');
 
 module.exports={
     html: HtmlRenderer,

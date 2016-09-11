@@ -1,9 +1,8 @@
 "use strict";
 
-const fs = require('fs');
+const fs = require('fs-extra');
 const assert = require('chai').assert;
 const async = require('async');
-const rimraf = require('rimraf');
 
 const md2html = require('../app/parsers/md2html');
 const html2pdf = require('../app/parsers/html2pdf');
@@ -51,17 +50,18 @@ describe("Parsers", function() {
 
     describe("Html2pdf", function() {
         const html = "<h1>Test</h1>";
-        //const checksum;
         const filename = "testFile.pdf";
 
         beforeEach(function(done) {
-            rimraf(testDir, {}, function(err) {
+            fs.remove(testDir, function(err) {
                 assert.notOk(err);
                 fs.mkdir(testDir, done);
             });
         });
         afterEach(function(done) {
-            rimraf(testDir, {}, done);
+            fs.remove(testDir, function() {
+                done();
+            });
         });
         it("Basic test", function(done) {
             this.timeout(5000);
