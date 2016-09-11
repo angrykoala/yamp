@@ -7,10 +7,14 @@ const html2pdf = require('../parsers/html2pdf');
 
 module.exports = class PdfRenderer extends Renderer {
     constructor(options) {
-            super(options, "default.ejs", Md2Html);
-            this.output = "pdf";
-        }
-        //args templateOptions
+        super(options, "default.ejs", Md2Html);
+        this.output = "pdf";
+    }
+
+    //args filename
+    beforeLoad() {}
+    
+    //args templateOptions
     beforeRender() {}
 
     //args: content

@@ -26,6 +26,7 @@ commander.version(version)
     .option("--no-style", "disables css styling")
     .option("--minify", "minifies html output")
     .option("--no-highlight", "disable code highlight")
+    .option("--no-tags", "disable markdown yamp tags")
     .option("-k, --koala", "your output will be koalafied")
     .parse(process.argv);
 if (!inputFile) {
@@ -39,7 +40,8 @@ let rendererOptions = {
     style: commander.style,
     minify: commander.minify || false,
     title: commander.title,
-    koala: commander.koala,
+    mdTags: commander.tags,
+    koala: commander.koala
 };
 
 if (commander.html) {

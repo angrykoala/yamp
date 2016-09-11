@@ -43,17 +43,29 @@ function loadFile(file, done) {
     });
 }
 
+function loadFileEJS(file,done){
+    ejs.renderFile(file, {}, {}, done);
+}
+
 //Class to render from one file to another
 module.exports = class Renderer {
     constructor(options, template, inputParser) {
         this.options = setOptions(options);
         if(this.options.output) this.output=this.options.output;
         this.setTemplate(template);
-        this.parser = inputParser;
+        this.parser = inputParser;  
+        
+        if(this.options.mdTags) this.fileLoader=loadFileEJS;
+        else this.fileLoader=loadFile;      
     }
     
 
     //To extend
+    
+    //args filename
+    beforeLoad(){
+        //Modify filename or this.fileLoader
+    }
 
     //args templateOptions
     beforeRender() {
@@ -72,7 +84,8 @@ module.exports = class Renderer {
 
     //Public
     renderFile(file, done) {
-        loadFile(file, (err, rawContent) => {
+        this.beforeLoad(file);
+        this.fileLoader(file, (err, rawContent) => {
             if (err) return done(err);
             this.contentParse(rawContent, (err, content) => {
                 if (err) return done(err);
@@ -112,11 +125,10 @@ module.exports = class Renderer {
             koala: this.options.koala,
             output: this.output
         };
-
     }
 
-    contentParse(rawContent, done) {
-        this.parser(rawContent, this.options, done);
+    contentParse(content, done) {
+        this.parser(content, this.options, done);
     }
     templateRender(data, done) {
         ejs.renderFile(this.template, data, {}, done);

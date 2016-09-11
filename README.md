@@ -23,12 +23,12 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 * Custom styles
 * CSS-embedded HTML (just open it offline in any browser)
 * HTML tags support (for PDF output too)
+* Include other files in your markdown
 * Koalafied
 
 ### Upcoming features
 
 * Custom templates
-* Include other files in your markdown
 * Client-side web support (browserify)
 * [HTML presentations](https://remarkjs.com/)
  
@@ -74,6 +74,7 @@ Will generate `readme.pdf`.
 * `--no-style` to disable CSS styling
     * Options not supported along with `--style <file>`
 * `--minify` to minify Html output
+* `--no-tags` to disable makdown tags
 * `--no-highlight` to disable code highlight
 * `-k`, `--koala` to koalify your outputs
 
@@ -84,6 +85,12 @@ yamp myFile.md --pdf --html
 
 >The `--no-highlight` and `--no-style` options will greatly reduce your Html and Pdf outputs
 
+
+## Yamp tags
+_Yamp_ supports extra tags in your markdown files. Currently based on [EJS](http://ejs.co) templates. All tags are written with `<%` tags based on the rules of ejs.
+
+### Include
+To include a file, you simply include it based on EJS rules: `<%- include("myfile.md") %>`. Nested includes are supported.
 
 ## API
 
@@ -123,6 +130,10 @@ class MyCustomRenderer extends yamp.Renderer {
     constructor(options) {
         super(options, "default.ejs", yamp.parsers.md2Html);
         this.output="html"; //desired output extension
+    }
+
+    beforeLoad(filename){
+        //Modify filename or this.fileLoader before loading it
     }
 
 
