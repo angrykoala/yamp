@@ -7,6 +7,7 @@ const HtmlRenderer = require('../app/renderers').html;
 const Renderer = require('../app/renderers/renderer');
 
 const config = require('./config/config');
+const regex=config.regex;
 
 const testDir = config.testDir;
 const testFile = config.testMdFile;
@@ -23,6 +24,20 @@ describe("Renderers", function() {
             done();
         });
     });
+    
+    describe("Renderer Class",function(){
+        it.skip("Create a default Renderer",function(){
+            
+            
+        });
+        it.skip("Extending Renderer class",function(){
+            
+            
+            
+        });        
+    });
+    
+    
 
     describe("Html Renderer", function() {
         it("Create Renderer with default data", function() {
@@ -38,7 +53,7 @@ describe("Renderers", function() {
             }
 
         });
-        it.skip("Create Html file", function(done) {
+        it("Create Html file", function(done) {
             let renderer = new HtmlRenderer({
                 outputFilename: testDir + "/prueba"
             });
@@ -48,11 +63,24 @@ describe("Renderers", function() {
                     assert.notOk(err);
                     assert.ok(res);
                     assert.ok(res.isFile());
-                    //TODO: check html inside <body> on the file
-                    done();
+
+                    fs.readFile(testDir + "/prueba.html", "utf8", function(err, res) {
+                        assert.notOk(err);
+                        assert.ok(res);
+                        assert.match(res,regex.html);
+                        assert.match(res,regex.htmlBody);
+                        let body=regex.htmlBody.exec(res)[0];
+                        assert.ok(body);
+                        let regKeys=Object.keys(regex.htmlTestFile);
+                        for(let i=0;i<regKeys.length;i++){
+                        assert.match(body,regex.htmlTestFile[regKeys[i]]);
+                    }
+                        done();
+                    });
                 });
             });
         });
+
 
         it.skip("Renderer options", function() {
 
