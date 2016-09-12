@@ -7,7 +7,7 @@ const HtmlRenderer = require('../app/renderers').html;
 const Renderer = require('../app/renderers/renderer');
 
 const config = require('./config/config');
-const regex=config.regex;
+const regex = config.regex;
 
 const testDir = config.testDir;
 const testFile = config.testMdFile;
@@ -24,21 +24,18 @@ describe("Renderers", function() {
             done();
         });
     });
-    
-    describe("Renderer Class",function(){
-        it.skip("Create a default Renderer",function(){
-            
-            
-        });
-        it.skip("Extending Renderer class",function(){
-            
-            
-            
-        });        
-    });
-    
-    
 
+    describe("Renderer Class", function() {
+        it.skip("Create a default Renderer", function() {
+
+
+        });
+        it.skip("Extending Renderer class", function() {
+
+
+
+        });
+    });
     describe("Html Renderer", function() {
         it("Create Renderer with default data", function() {
             let renderer = new HtmlRenderer({});
@@ -67,14 +64,14 @@ describe("Renderers", function() {
                     fs.readFile(testDir + "/prueba.html", "utf8", function(err, res) {
                         assert.notOk(err);
                         assert.ok(res);
-                        assert.match(res,regex.html);
-                        assert.match(res,regex.htmlBody);
-                        let body=regex.htmlBody.exec(res)[0];
+                        assert.match(res, regex.html);
+                        assert.match(res, regex.htmlBody);
+                        let body = regex.htmlBody.exec(res)[0];
                         assert.ok(body);
-                        let regKeys=Object.keys(regex.htmlTestFile);
-                        for(let i=0;i<regKeys.length;i++){
-                        assert.match(body,regex.htmlTestFile[regKeys[i]]);
-                    }
+                        let regKeys = Object.keys(regex.htmlTestFile);
+                        for (let i = 0; i < regKeys.length; i++) {
+                            assert.match(body, regex.htmlTestFile[regKeys[i]]);
+                        }
                         done();
                     });
                 });
@@ -82,15 +79,47 @@ describe("Renderers", function() {
         });
 
 
-        it.skip("Renderer options", function() {
+        describe.skip("Renderer options", function() {
+            it("Highlight", function() {
 
+
+            });
+            it("Style", function() {
+
+            });
+            it("Minify", function() {
+
+            });
+            it("Koala", function() {
+
+
+            });
         });
         it.skip("Extending class", function() {
 
         });
     });
     describe("Pdf Renderer", function() {
+        it.skip("Create Renderer with default data", function() {});
+        it.skip("Create Pdf file", function(done) {
 
 
+        });
+        describe.skip("Renderer options", function() {
+            it("Highlight", function() {
+
+
+            });
+            it("Style", function() {
+
+            });
+            it("Minify", function() {
+
+            });
+            it("Koala", function() {
+
+
+            });
+        });
     });
 });
