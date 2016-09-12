@@ -87,10 +87,10 @@ yamp myFile.md --pdf --html
 
 
 ## Yamp tags
-_Yamp_ supports extra tags in your markdown files. Currently based on [EJS](http://ejs.co) templates. All tags are written with `<%` tags based on the rules of ejs.
+_Yamp_ supports extra tags in your markdown files. Currently based on [EJS](http://ejs.co) templates. All tags are written with tags `<% %>` based on the rules of EJS.
 
 ### Include
-To include a file, you simply include it based on EJS rules: `<%- include("myfile.md") %>`. Nested includes are supported.
+To include a file, you simply include it based on EJS rules: `include("myfile.md")`. Nested includes are supported.
 
 ## API
 
