@@ -1,6 +1,6 @@
 {
   "name": "yamp",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Yet Another Markdown Parser",
   "main": "index.js",
   "bin": {
@@ -19,7 +19,8 @@
     "parser",
     "html",
     "pdf",
-    "yamp"
+    "yamp",
+    "md"
   ],
   "author": "angrykoala <demiurgosoft@hotmail.com>",
   "license": "GPL-3.0",
@@ -38,6 +39,9 @@
     "markdown-it-mark": "^2.0.0",
     "markdown-it-sup": "^1.0.0",
     "pkginfo": "^0.4.0"
+  },
+  "engines": {
+    "node": ">= 4.0.0"
   },
   "devDependencies": {
     "async": "^2.0.1",
