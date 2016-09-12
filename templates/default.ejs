@@ -6,7 +6,7 @@
         <%if(style===true){%>
             <style><%- include("../styles/"+styleFile) %></style>
         <%}else if(style){ %>
-            <% let stylePath=process.cwd()+"/"+style; 
+            <% var stylePath=process.cwd()+"/"+style; 
             try{%>
             <style><%- include(stylePath) %></style>
             <%} catch(e){ console.log("Warning: Style "+stylePath+" not found") }; %>

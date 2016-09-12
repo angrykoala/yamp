@@ -101,7 +101,7 @@ describe("Renderers", function() {
     });
     describe("Pdf Renderer", function() {
         it.skip("Create Renderer with default data", function() {});
-        it.skip("Create Pdf file", function(done) {
+        it.skip("Create Pdf file", function() {
 
 
         });
