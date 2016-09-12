@@ -29,8 +29,7 @@
   "homepage": "https://github.com/angrykoala/yamp#readme",
   "dependencies": {
     "commander": "^2.9.0",
-    "ejs": "^2.5.1",
-    "fs-extra": "^0.30.0",
+    "ejs": "^2.5.2",
     "highlight.js": "^9.6.0",
     "html-minifier": "^3.0.2",
     "html-pdf": "^2.1.0",
@@ -43,10 +42,10 @@
   "devDependencies": {
     "async": "^2.0.1",
     "chai": "^3.5.0",
+    "fs-extra": "^0.30.0",
     "istanbul": "^0.4.5",
     "md5-file": "^3.1.1",
     "md5sum": "^0.9.0",
-    "mocha": "^3.0.2",
-    "rimraf": "^2.5.4"
+    "mocha": "^3.0.2"
   }
 }
