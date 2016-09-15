@@ -12,20 +12,7 @@ module.exports = class HtmlRenderer extends Renderer {
         super(options, "default.ejs", Md2Html);
         this.output = "html";
     }
-
-    //args filename
-    beforeLoad() {}
-
-    //args templateOptions
-    beforeRender() {
-
-    }
-
-    //args: content
-    afterRender() {
-        //Modify rendered data
-    }
-
+    
     //args: content, done
     fileOutput(content, done) {
         if (this.options.minify) content = htmlMinifier(content);

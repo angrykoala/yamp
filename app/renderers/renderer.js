@@ -4,10 +4,11 @@ const fs = require('fs');
 const ejs = require('ejs');
 
 const titleParser = require('../parsers/title_parser');
+const xejsParser = require('../parsers/xejs_parser');
 
 const resourcesPath = __dirname + "/../../resources";
 
-const defaultOptions={
+const defaultOptions = {
     highlight: true,
     style: true,
     minify: false,
@@ -21,17 +22,17 @@ function removeFilenameExtension(filename) {
     return filenameArr.join(".");
 }
 
-function setOptions(options){
-    let res=defaultOptions;
-    for(let key in options){
+function setOptions(options) {
+    let res = defaultOptions;
+    for (let key in options) {
         if (options.hasOwnProperty(key)) {
-            if(options[key]!==null && options[key]!==undefined){
-                res[key]=options[key];
+            if (options[key] !== null && options[key] !== undefined) {
+                res[key] = options[key];
             }
         }
     }
-    res.resourcesPath=resourcesPath;
-    res.outputFilename=removeFilenameExtension(res.outputFilename);
+    res.resourcesPath = resourcesPath;
+    res.outputFilename = removeFilenameExtension(res.outputFilename);
     return res;
 }
 
@@ -43,7 +44,7 @@ function loadFile(file, done) {
     });
 }
 
-function loadFileEJS(file,done){
+function loadFileEJS(file, done) {
     ejs.renderFile(file, {}, {}, done);
 }
 
@@ -51,20 +52,20 @@ function loadFileEJS(file,done){
 module.exports = class Renderer {
     constructor(options, template, inputParser) {
         this.options = setOptions(options);
-        if(this.options.output) this.output=this.options.output;
+        if (this.options.output) this.output = this.options.output;
         this.setTemplate(template);
-        this.parser = inputParser;  
-        
-        if(this.options.mdTags) this.fileLoader=loadFileEJS;
-        else this.fileLoader=loadFile;      
+        this.parser = inputParser;
+
+        if (this.options.mdTags) this.fileLoader = this.loadFileXEJS;
+        else this.fileLoader = loadFile;
     }
-    
+
 
     //To extend
-    
+
     //args filename
-    beforeLoad(){
-        //Modify filename or this.fileLoader
+    beforeLoad() {
+    //Modify filename or this.fileLoader
     }
 
     //args templateOptions
@@ -72,7 +73,7 @@ module.exports = class Renderer {
         //Modify templateData before rendering
     }
 
-    //args: content
+    //args: contentloadFileEJS 
     afterRender() {
         //Modify rendered data
     }
@@ -97,8 +98,8 @@ module.exports = class Renderer {
                 this.templateRender(templateData, (err, res) => {
                     if (err) return done(err);
                     this.afterRender(res);
-                    if(!this.options.outputFilename) this.options.outputFilename=removeFilenameExtension(file);
-                    if(!this.options.outputFilename) this.options.outputFilename="default";
+                    if (!this.options.outputFilename) this.options.outputFilename = removeFilenameExtension(file);
+                    if (!this.options.outputFilename) this.options.outputFilename = "default";
                     this.fileOutput(res, done);
                 });
             });
@@ -132,5 +133,8 @@ module.exports = class Renderer {
     }
     templateRender(data, done) {
         ejs.renderFile(this.template, data, {}, done);
+    }
+    loadFileXEJS(file,done){
+        xejsParser(file,this.options,done);
     }
 };

@@ -11,17 +11,6 @@ module.exports = class PdfRenderer extends Renderer {
         this.output = "pdf";
     }
 
-    //args filename
-    beforeLoad() {}
-    
-    //args templateOptions
-    beforeRender() {}
-
-    //args: content
-    afterRender() {
-        //Modify rendered data
-    }
-
     //args: content, done
     fileOutput(content, done) {
         html2pdf(content, this.options.outputFilename, (err) => {
