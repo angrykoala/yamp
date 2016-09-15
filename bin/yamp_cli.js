@@ -40,7 +40,7 @@ let rendererOptions = {
     style: commander.style,
     minify: commander.minify || false,
     title: commander.title,
-    mdTags: commander.tags,
+    tags: commander.tags,
     koala: commander.koala
 };
 

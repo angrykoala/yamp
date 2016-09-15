@@ -12,6 +12,7 @@ const defaultOptions = {
     highlight: true,
     style: true,
     minify: false,
+    tags: true,
     koala: false
 };
 
@@ -44,6 +45,7 @@ function loadFile(file, done) {
     });
 }
 
+// use for EJS based parsing
 function loadFileEJS(file, done) {
     ejs.renderFile(file, {}, {}, done);
 }
@@ -56,7 +58,7 @@ module.exports = class Renderer {
         this.setTemplate(template);
         this.parser = inputParser;
 
-        if (this.options.mdTags) this.fileLoader = this.loadFileXEJS;
+        if (this.options.tags) this.fileLoader = this.loadFileXEJS;
         else this.fileLoader = loadFile;
     }
 
@@ -65,7 +67,7 @@ module.exports = class Renderer {
 
     //args filename
     beforeLoad() {
-    //Modify filename or this.fileLoader
+        //Modify filename or this.fileLoader
     }
 
     //args templateOptions
@@ -134,7 +136,7 @@ module.exports = class Renderer {
     templateRender(data, done) {
         ejs.renderFile(this.template, data, {}, done);
     }
-    loadFileXEJS(file,done){
-        xejsParser(file,this.options,done);
+    loadFileXEJS(file, done) {
+        xejsParser(file, this.options, done);
     }
 };

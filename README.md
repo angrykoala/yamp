@@ -6,7 +6,6 @@ _by @angrykoala_
 [![Build Status](https://travis-ci.org/angrykoala/yamp.svg?branch=master)](https://travis-ci.org/angrykoala/yamp) 
 [![codecov](https://codecov.io/gh/angrykoala/yamp/branch/master/graph/badge.svg)](https://codecov.io/gh/angrykoala/yamp) 
 
-
 >Yet Another Markdown Parser
 
 The aim of this package is to provide an easy-to-use toolbox for markdown-related task including Html & Pdf conversion.
@@ -26,10 +25,12 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 * Include other files in your markdown
 * Koalafied
 
+
 ### Upcoming features
 
 * Custom templates
 * Client-side web support (browserify)
+* Metadata on markdown file
 * [HTML presentations](https://remarkjs.com/)
  
 > Check the [project roadmap](https://github.com/angrykoala/yamp/milestones?direction=desc&sort=completeness&state=open)
@@ -87,10 +88,12 @@ yamp myFile.md --pdf --html
 
 
 ## Yamp tags
-_Yamp_ supports extra tags in your markdown files. Currently based on [EJS](http://ejs.co) templates. All tags are written with tags `<% %>` based on the rules of EJS.
+_Yamp_ supports extra tags in your markdown files. Currently using [xejs](https://github.com/angrykoala/xejs) templates. All tags are written between tags `{{ ... }}`
 
-### Include
-To include a file, you simply include it based on EJS rules: `include("myfile.md")`. Nested includes are supported.
+* `include [file.md]`: Includes the given text file (markdown or not), the tags on the included file will also be parsed, allowing nested file structure
+* `date`: Will write the current date (at the moment of rendering)
+* `page break`: Will force a page break in pdf output
+
 
 ## API
 
@@ -120,6 +123,7 @@ The options accepted by the default renderers are:
 * **style**: (_true_) indicates if default style should be used or no style at all. If a filename is passed, it will use it as custom css style
 * **minify**: (_false_) whether the Html output should be minified or not
 * **title**: Custom title for the Html page
+* **tags**: (_true_) whether to parse yamp tags or not (`{{ ... }}`) 
 * **koala**: (_false_) true to koalify your outputs
 
 ### Creating new renderers
