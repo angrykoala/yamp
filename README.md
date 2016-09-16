@@ -33,7 +33,7 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 * Metadata on markdown file
 * [HTML presentations](https://remarkjs.com/)
  
-> Check the [project roadmap](https://github.com/angrykoala/yamp/milestones?direction=desc&sort=completeness&state=open)
+> Check the [project roadmap](https://github.com/angrykoala/yamp/milestones?direction=desc&sort=completeness&state=open) and our cute [kanban board](https://github.com/angrykoala/yamp/projects/1)
 
 ## Installation
 To use _yamp_ cli, install it globally using **npm**:
