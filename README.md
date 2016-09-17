@@ -23,6 +23,7 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 * CSS-embedded HTML (just open it offline in any browser)
 * HTML tags support (for PDF output too)
 * Include other files in your markdown
+* [HTML presentations](https://remarkjs.com/)
 * Koalafied
 
 
@@ -31,7 +32,7 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 * Custom templates
 * Client-side web support (browserify)
 * Metadata on markdown file
-* [HTML presentations](https://remarkjs.com/)
+
  
 > Check the [project roadmap](https://github.com/angrykoala/yamp/milestones?direction=desc&sort=completeness&state=open)
 
@@ -69,6 +70,7 @@ Will generate `readme.pdf`.
 * `-o`, `--output <file>` output filename (without extension)
 * `--pdf` to generate a pdf (default)
 * `--html`to generate html
+* `--remark`to generate a html presentation using [remark](https://remarkjs.com)
 * `-t`, `--title [value]` to add a custom title
 * `--style <file>` to set a custom CSS stylesheet
     * Option not suported along with `--no-style`
@@ -179,5 +181,6 @@ You can also download it from [GitHub](https://github.com) clicking [here](https
 * [Github-markdown.css](https://github.com/sindresorhus/github-markdown-css) as default parse style
 * [Highlight.js](https://highlightjs.org) for code highlighting
 * [html-pdf](https://github.com/marcbachmann/node-html-pdf) for pdf generation
+* [remark](https://remarkjs.com) for html slides output
 
 >YAMP is developed under GNU GPL-3 license by @angrykoala 

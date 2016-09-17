@@ -21,6 +21,7 @@ commander.version(version)
     .option("-o, --output <file>", "output file name (without extension)")
     .option("--pdf", "pdf output")
     .option("--html", "html output")
+    .option("--remark", "remark (html slides) output")
     .option("-t, --title [value]", "sets the html title")
     .option("--style <file>", "custom css style")
     .option("--no-style", "disables css styling")
@@ -44,6 +45,8 @@ let rendererOptions = {
     koala: commander.koala
 };
 
+
+//Use a switch here!!
 if (commander.html) {
     let renderer = new renderers.html(rendererOptions);
     renderer.renderFile(inputFile, (err) => {
@@ -52,7 +55,14 @@ if (commander.html) {
 
     });
 }
-if (commander.pdf || (!commander.pdf && !commander.html)) {
+if(commander.remark){
+    let renderer=new renderers.remark(rendererOptions);
+    renderer.renderFile(inputFile, (err)=>{
+        if (err) return console.log("Error: " + err);
+        else console.log("Remark (HTML) succesfully generated");
+    });    
+}
+if (commander.pdf || (!commander.pdf && !commander.html && !commander.remark)) {
     let renderer = new renderers.pdf(rendererOptions);
     renderer.renderFile(inputFile, (err) => {
         if (err) return console.log("Error: " + err);

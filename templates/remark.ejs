@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+    <% if(koala===true){ %>
+    <style>
+    .remark-slide-content{
+        background-image: url("file://<%=resourcesPath%>/images/octokoala_watermark.jpg");
+        background-repeat: no-repeat;
+        background-position: center center;
+    }       
+    </style>
+    <%}%>
+  </head>
+  <body>
+    <textarea id="source">
+<%-content-%>
+    </textarea>
+
+    <script>
+    <%- fs.readFileSync(resourcesPath+"/scripts/remark.min.js",'utf-8') %>
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>

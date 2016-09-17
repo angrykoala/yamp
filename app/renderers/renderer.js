@@ -126,7 +126,8 @@ module.exports = class Renderer {
             style: this.options.style,
             resourcesPath: this.options.resourcesPath,
             koala: this.options.koala,
-            output: this.output
+            output: this.output,
+            fs: fs
         };
     }
 
