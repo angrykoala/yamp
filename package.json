@@ -39,7 +39,7 @@
     "markdown-it-mark": "^2.0.0",
     "markdown-it-sup": "^1.0.0",
     "pkginfo": "^0.4.0",
-    "xejs": "^0.2.0"
+    "xejs": "^0.2.2"
   },
   "engines": {
     "node": ">= 4.0.0"

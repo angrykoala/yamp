@@ -6,8 +6,8 @@ const xejsOptions = {
     openTag: "{{",
     closeTag: "}}",
     tokens: [
-        [/[Dd]ate/, "= getDate()"],
-        [/[Pp]age\s*?[Bb]reak/,"-'<p style=\"page-break-after:always;\"></p>'"]
+        [/date/i, "= getDate()"],
+        [/page\s*?break/i,"-'<p style=\"page-break-after:always;\"></p>'"]
     ]
 };
 

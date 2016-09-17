@@ -100,4 +100,9 @@ describe("Parsers", function() {
             cb();
         });
     });
+    
+    describe.skip("XEJS parser",function(){
+        
+        
+    });
 });
