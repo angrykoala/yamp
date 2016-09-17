@@ -11,8 +11,10 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 * **GitHub:** <https://github.com/angrykoala/yamp>
 * **Npm:** <https://www.npmjs.com/package/yamp>
 
-If you are wondering how the output looks like, this page was automatically rendered with yamp {{ yamp version }} on {{date}}.   
+If you are wondering how the output looks like, this page was automatically rendered with **yamp {{ yamp version }}** on **{{date}}**.   
 You also can check the same page rendered to pdf [here](./index.pdf) and a [Html presentation](./presentation.html);
+
+Yamp readme is also parsed [here](./readme.html) and in [pdf too](./readme.pdf)
 
 ## Features
 * HTML conversion

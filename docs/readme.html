@@ -1555,32 +1555,11 @@ https://highlightjs.org/
         
 
         
-            
-            <style>
-                #pageHeader {
-                    content: "";
-                    display: block;
-                    position: fixed;
-                    bottom: 0;
-                    right: 0;
-                    top: 0;
-                    left: 0;
-                    height: 100%;
-                    z-index: -1;
-                    width: 100%;
-                    opacity: 1;
-                    background-image: url("file:///home/andrew/Dropbox/github/yamp/app/renderers/../../resources/images/octokoala_watermark.jpg");
-                    background-repeat: no-repeat;
-                    background-position: center center;
-                    background-size: 40%;
-                }
-
-            </style>
-        
     </head>
     <body>
         <div id="pageHeader"></div>
         <h1>Yamp</h1>
+<p><em>by @angrykoala</em></p>
 <p><a href="https://badge.fury.io/js/yamp"><img src="https://badge.fury.io/js/yamp.svg" alt="npm version"></a>
 <a href="https://travis-ci.org/angrykoala/yamp"><img src="https://travis-ci.org/angrykoala/yamp.svg?branch=master" alt="Build Status"></a>
 <a href="https://codecov.io/gh/angrykoala/yamp"><img src="https://codecov.io/gh/angrykoala/yamp/branch/master/graph/badge.svg" alt="codecov"></a></p>
@@ -1592,9 +1571,6 @@ https://highlightjs.org/
 <li><strong>GitHub:</strong> <a href="https://github.com/angrykoala/yamp">https://github.com/angrykoala/yamp</a></li>
 <li><strong>Npm:</strong> <a href="https://www.npmjs.com/package/yamp">https://www.npmjs.com/package/yamp</a></li>
 </ul>
-<p>If you are wondering how the output looks like, this page was automatically rendered with <strong>yamp 0.3.5</strong> on <strong>18/9/2016</strong>.<br>
-You also can check the same page rendered to pdf <a href="./index.pdf">here</a> and a <a href="./presentation.html">Html presentation</a>;</p>
-<p>Yamp readme is also parsed <a href="./readme.html">here</a> and in <a href="./readme.pdf">pdf too</a></p>
 <h2>Features</h2>
 <ul>
 <li>HTML conversion</li>
@@ -1617,6 +1593,145 @@ You also can check the same page rendered to pdf <a href="./index.pdf">here</a> 
 </ul>
 <blockquote>
 <p>Check the <a href="https://github.com/angrykoala/yamp/milestones?direction=desc&amp;sort=completeness&amp;state=open">project roadmap</a> and our cute <a href="https://github.com/angrykoala/yamp/projects/1">kanban board</a></p>
+</blockquote>
+<blockquote>
+<p>Live example <a href="https://angrykoala.github.io/yamp/index.html">Here</a></p>
+</blockquote>
+<h2>Installation</h2>
+<p>To use <em>yamp</em> cli, install it globally using <strong>npm</strong>:</p>
+<pre><code>npm install -g yamp
+</code></pre>
+<p>If you want to use the API instead, install it locally:</p>
+<pre><code>npm install --save yamp
+</code></pre>
+<p>then, include yamp in your javascript:</p>
+<pre><code class="language-js"><span class="hljs-keyword">var</span> yamp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yamp'</span>);
+</code></pre>
+<h2>Usage</h2>
+<p>To create a <code>.pdf</code> file from your <em>markdown</em> file, simply type:</p>
+<pre><code>yamp &lt;file.md&gt;
+</code></pre>
+<p>For example:</p>
+<pre><code>yamp README.md
+</code></pre>
+<p>Will generate <code>readme.pdf</code>.</p>
+<h3>Options</h3>
+<ul>
+<li><code>-h</code>, <code>--help</code> to display a basic usage information</li>
+<li><code>-V</code>, <code>--version</code> to display <em>yamp</em> version installed</li>
+<li><code>-o</code>, <code>--output &lt;file&gt;</code> output filename (without extension)</li>
+<li><code>--pdf</code> to generate a pdf (default)</li>
+<li><code>--html</code>to generate html</li>
+<li><code>--remark</code>to generate a html presentation using <a href="https://remarkjs.com">remark</a></li>
+<li><code>-t</code>, <code>--title [value]</code> to add a custom title</li>
+<li><code>--style &lt;file&gt;</code> to set a custom CSS stylesheet
+<ul>
+<li>Option not suported along with <code>--no-style</code></li>
+</ul>
+</li>
+<li><code>--no-style</code> to disable CSS styling
+<ul>
+<li>Options not supported along with <code>--style &lt;file&gt;</code></li>
+</ul>
+</li>
+<li><code>--minify</code> to minify Html output</li>
+<li><code>--no-tags</code> to disable makdown tags</li>
+<li><code>--no-highlight</code> to disable code highlight</li>
+<li><code>-k</code>, <code>--koala</code> to koalify your outputs</li>
+</ul>
+<p>To generate pdf and html with default styling and options:</p>
+<pre><code>yamp myFile.md --pdf --html
+</code></pre>
+<blockquote>
+<p>The <code>--no-highlight</code> and <code>--no-style</code> options will greatly reduce your Html and Pdf outputs</p>
+</blockquote>
+<h2>Yamp tags</h2>
+<p><em>Yamp</em> supports extra tags in your markdown files. Currently using <a href="https://github.com/angrykoala/xejs">xejs</a> templates. All tags are written between tags <code>{{ ... }}</code></p>
+<ul>
+<li><code>include [file.md]</code>: Includes the given text file (markdown or not), the tags on the included file will also be parsed, allowing nested file structure</li>
+<li><code>date</code>: Will write the current date (at the moment of rendering)</li>
+<li><code>page break</code>: Will force a page break in pdf output</li>
+</ul>
+<h2>API</h2>
+<p>Include <em>yamp</em> in your javascript with:</p>
+<pre><code class="language-js"><span class="hljs-keyword">var</span> yamp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yamp'</span>);
+</code></pre>
+<p>You'll have access to different <em>renderers</em> to process your files:</p>
+<ul>
+<li><code>yamp.renderers.html</code> to process a markdown file into an full Html page</li>
+<li><code>yamp.renderers.pdf</code> to process a markdown into a pdf</li>
+</ul>
+<p>To use a renderer:</p>
+<pre><code class="language-js"><span class="hljs-keyword">var</span> myRenderer = <span class="hljs-keyword">new</span> renderers.pdf(options);
+renderer.renderFile(myFile, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>)</span>{
+    <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Error while rendering: "</span>+err);
+    <span class="hljs-keyword">else</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Rendering was successful"</span>);
+});
+</code></pre>
+<h3>Options</h3>
+<p>The options accepted by the default renderers are:</p>
+<ul>
+<li><strong>outputFilename</strong>: name of the output filename (without extension), will default to the input filename</li>
+<li><strong>highlight</strong>: (<em>true</em>) indicates if code blocks should be highlighted</li>
+<li><strong>style</strong>: (<em>true</em>) indicates if default style should be used or no style at all. If a filename is passed, it will use it as custom css style</li>
+<li><strong>minify</strong>: (<em>false</em>) whether the Html output should be minified or not</li>
+<li><strong>title</strong>: Custom title for the Html page</li>
+<li><strong>tags</strong>: (<em>true</em>) whether to parse yamp tags or not (<code>{{ ... }}</code>)</li>
+<li><strong>koala</strong>: (<em>false</em>) true to koalify your outputs</li>
+</ul>
+<h3>Creating new renderers</h3>
+<p>If you need a custom renderer, instead of using one of the defaults you can extend directly from <strong>Renderer</strong> class or any of the default renderers:</p>
+<pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyCustomRenderer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">yamp</span>.<span class="hljs-title">Renderer</span> </span>{
+    <span class="hljs-keyword">constructor</span>(options) {
+        <span class="hljs-keyword">super</span>(options, <span class="hljs-string">"default.ejs"</span>, yamp.parsers.md2Html);
+        <span class="hljs-keyword">this</span>.output=<span class="hljs-string">"html"</span>; <span class="hljs-comment">//desired output extension</span>
+    }
+
+    beforeLoad(filename){
+        <span class="hljs-comment">//Modify filename or this.fileLoader before loading it</span>
+    }
+
+
+    beforeRender(templateOptions) {
+        <span class="hljs-comment">// Modify the data passed to the template before rendering, including title, content and options</span>
+    }
+    
+    afterRender(content) {
+        <span class="hljs-comment">// Modify template result (Html)</span>
+    }
+
+    fileOutput(content,done) {
+        <span class="hljs-comment">// Write file (preferably to this.options.outputFilename) in the desired format using a parser</span>
+    }
+}
+</code></pre>
+<p><strong>Custom parser:</strong> It is possible to use a custom parser from markdown to Html instead of the built-in <em>yamp.parsers.md2html</em>, the parser must be a function of the type <code>function(originalString,options,callback)</code> that will translate from <code>originalString</code> (markdown) to html, calling the <code>callback(err,res)</code> afterwards.</p>
+<blockquote>
+<p>Currently only <strong>default.ejs</strong> is supported as template.</p>
+</blockquote>
+<p>If, instead of extending from <code>yamp.Renderer</code> you are extending from one of the default renderers, you should only re-implement the methods you need, and usually you should call <code>super().methodName</code> to maintain its basic functionality.</p>
+<h2>Development Instructions</h2>
+<p>To contribute to <strong>yamp</strong> you should clone the official repository <a href="https://github.com/angrykoala/yamp">https://github.com/angrykoala/yamp</a> or your own <em>fork</em> with <code>git</code>.</p>
+<p>You can also download it from <a href="https://github.com">GitHub</a> clicking <a href="https://github.com/angrykoala/yamp/archive/master.zip">here</a></p>
+<ul>
+<li>To install execute <code>npm install</code> in the downloaded/cloned folder</li>
+<li>To test, execute <code>npm test</code></li>
+<li>To execute the CLI, execute <code>npm start -- &lt;file&gt; [options]</code></li>
+<li>To install your local version globally, execute <code>npm install -g .</code> on the project folder</li>
+</ul>
+<blockquote>
+<p>It is strongly recommended to install the npm repository version instead of your local copy</p>
+</blockquote>
+<h2>Acknowledgments</h2>
+<ul>
+<li><a href="https://github.com/markdown-it/markdown-it">Markdown-it</a> as markdown parser</li>
+<li><a href="https://github.com/sindresorhus/github-markdown-css">Github-markdown.css</a> as default parse style</li>
+<li><a href="https://highlightjs.org">Highlight.js</a> for code highlighting</li>
+<li><a href="https://github.com/marcbachmann/node-html-pdf">html-pdf</a> for pdf generation</li>
+<li><a href="https://remarkjs.com">remark</a> for html slides output</li>
+</ul>
+<blockquote>
+<p>YAMP is developed under GNU GPL-3 license by @angrykoala</p>
 </blockquote>
 
     </body>
