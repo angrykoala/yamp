@@ -39,10 +39,9 @@ jspm_packages
 # Custom ignores
 ncp
 
-
-# Example files
-*.pdf
-*.html
+# Example data
+README.pdf
+README.html
 
 # Data generated in tests
 test/test_sandbox

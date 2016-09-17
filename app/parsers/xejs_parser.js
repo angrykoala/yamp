@@ -1,13 +1,16 @@
 "use strict";
 const xejs = require('xejs');
+require('pkginfo')(module, "version", "author", "license", "description");
 
+const version=module.exports.version;
 
 const xejsOptions = {
     openTag: "{{",
     closeTag: "}}",
     tokens: [
         [/date/i, "= getDate()"],
-        [/page\s*?break/i,"-'<p style=\"page-break-after:always;\"></p>'"]
+        [/page\s*?break/i,"-'<p style=\"page-break-after:always;\"></p>'"],
+        [/yamp\s*?version/i, "='"+version+"'"]
     ]
 };
 
