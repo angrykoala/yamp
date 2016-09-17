@@ -45,11 +45,6 @@ function loadFile(file, done) {
     });
 }
 
-// use for EJS based parsing
-function loadFileEJS(file, done) {
-    ejs.renderFile(file, {}, {}, done);
-}
-
 //Class to render from one file to another
 module.exports = class Renderer {
     constructor(options, template, inputParser) {

@@ -4,6 +4,8 @@ const assert = require('chai').assert;
 const fs = require('fs-extra');
 
 const HtmlRenderer = require('../app/renderers').html;
+const PdfRenderer=require('../app/renderers').pdf;
+
 const Renderer = require('../app/renderers/renderer');
 
 const config = require('./config/config');
@@ -100,9 +102,32 @@ describe("Renderers", function() {
         });
     });
     describe("Pdf Renderer", function() {
-        it.skip("Create Renderer with default data", function() {});
-        it.skip("Create Pdf file", function() {
-
+        it("Create Renderer with default data", function() {
+            let renderer = new PdfRenderer({});
+            assert.ok(renderer);
+            assert.instanceOf(renderer, PdfRenderer);
+            assert.instanceOf(renderer, Renderer);
+            assert.strictEqual(renderer.output, "pdf");
+            let keys = Object.keys(config.rendererDefaultOptions);
+            for (let i = 0; i < keys.length; i++) {
+                let k = keys[i];
+                assert.strictEqual(renderer.options[k], config.rendererDefaultOptions[k]);
+            }
+        });
+        it("Create Pdf file", function(done) {
+            let renderer = new PdfRenderer({
+                outputFilename: testDir + "/prueba"
+            });
+            renderer.renderFile(testDir + "/" + testFile, function(err) {
+                assert.notOk(err);
+                fs.stat(testDir + "/prueba.pdf", function(err, res) {
+                    assert.notOk(err);
+                    assert.ok(res);
+                    assert.ok(res.isFile());
+                    // CONTENT NOT TESTED
+                    done();
+                });
+            });
 
         });
         describe.skip("Renderer options", function() {
