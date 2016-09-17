@@ -13,5 +13,5 @@ Check also the other examples:
 * [Html](./index.html)
 * [Pdf](./index.pdf)
 
-Check the project in [GitHub](https://github.com/angrykoala/yamp)
+Check the project in [GitHub](https://github.com/angrykoala/yamp)    
 By @angrykoala 
