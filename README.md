@@ -4,7 +4,9 @@ _by @angrykoala_
 
 [![npm version](https://badge.fury.io/js/yamp.svg)](https://badge.fury.io/js/yamp) 
 [![Build Status](https://travis-ci.org/angrykoala/yamp.svg?branch=master)](https://travis-ci.org/angrykoala/yamp) 
-[![codecov](https://codecov.io/gh/angrykoala/yamp/branch/master/graph/badge.svg)](https://codecov.io/gh/angrykoala/yamp) 
+[![codecov](https://codecov.io/gh/angrykoala/yamp/branch/master/graph/badge.svg)](https://codecov.io/gh/angrykoala/yamp)
+[![Dependency Status](https://gemnasium.com/badges/github.com/angrykoala/yamp.svg)](https://gemnasium.com/github.com/angrykoala/yamp)
+[![Code Climate](https://codeclimate.com/github/angrykoala/yamp/badges/gpa.svg)](https://codeclimate.com/github/angrykoala/yamp)    
 
 >Yet Another Markdown Parser
 
