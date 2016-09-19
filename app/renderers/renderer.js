@@ -24,9 +24,9 @@ function removeFilenameExtension(filename) {
 }
 
 function setOptions(options) {
-    let res={};
-    Object.assign(res,defaultOptions);
-    Object.assign(res,options);
+    let res = {};
+    Object.assign(res, defaultOptions);
+    Object.assign(res, options);
 
     res.resourcesPath = resourcesPath;
     res.outputFilename = removeFilenameExtension(res.outputFilename);
@@ -45,6 +45,7 @@ function loadFile(file, done) {
 module.exports = class Renderer {
     constructor(options, template, inputParser) {
         this.options = setOptions(options);
+        this.xejsTokens = []; //modify this to add new xejs tokens
         if (this.options.output) this.output = this.options.output;
         this.setTemplate(template);
         this.parser = inputParser;
@@ -129,6 +130,6 @@ module.exports = class Renderer {
         ejs.renderFile(this.template, data, {}, done);
     }
     loadFileXEJS(file, done) {
-        xejsParser(file, this.options, done);
+        xejsParser(file, this.options, this.xejsTokens, done);
     }
 };

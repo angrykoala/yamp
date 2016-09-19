@@ -9,6 +9,7 @@ module.exports = class PdfRenderer extends Renderer {
     constructor(options) {
         super(options, "default.ejs", Md2Html);
         this.output = "pdf";
+        this.xejsTokens=[];
     }
 
     //args: content, done

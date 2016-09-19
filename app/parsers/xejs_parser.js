@@ -2,15 +2,15 @@
 const xejs = require('xejs');
 require('pkginfo')(module, "version", "author", "license", "description");
 
-const version=module.exports.version;
+const version = module.exports.version;
 
 const xejsOptions = {
     openTag: "{{",
     closeTag: "}}",
     tokens: [
         [/date/i, "= getDate()"],
-        [/page\s*?break/i,"-'<p style=\"page-break-after:always;\"></p>'"],
-        [/yamp\s*?version/i, "='"+version+"'"]
+        [/page\s*?break/i, "-'<p style=\"page-break-after:always;\"></p>'"],
+        [/yamp\s*?version/i, "='" + version + "'"]
     ]
 };
 
@@ -22,9 +22,11 @@ function getDate() {
     return day + "/" + month + "/" + year;
 }
 
-module.exports = function(file, options, done) {
-    let content = xejs(file, xejsOptions, {
-        getDate: getDate
-    });
+module.exports = function(file, options, tokens, done) {
+    let args = Object.assign({}, options);
+    args.getDate = getDate;
+    let rendererOptions = Object.assign({}, xejsOptions);
+    rendererOptions.tokens = rendererOptions.tokens.concat(tokens);
+    let content = xejs(file, rendererOptions, args);
     done(null, content);
 };

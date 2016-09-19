@@ -15,7 +15,6 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 * **GitHub:** <https://github.com/angrykoala/yamp>
 * **Npm:** <https://www.npmjs.com/package/yamp>
 
-
 ## Features
 * HTML conversion
 * PDF conversion
