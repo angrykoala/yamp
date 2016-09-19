@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title><%= title %></title>
+
+        <base href="<%-resourcesPath+"/reveal/css/theme/source"%>">
+        <style><%- include(resourcesPath+"/reveal/css/reveal.css") %></style>
+        <style><%- include(resourcesPath+"/reveal/css/theme/white.css") %></style>
+        <%if(koala===true){%>
+            <style>
+            .slide-background{
+                background-image: url("https://angrykoala.github.io/yamp/octokoala.jpg");
+                background-size: 40% !important;
+            }
+            </style>
+            <%}%>
+        
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <%- content %>
+            </div>
+        </div>
+        
+        <script>
+        <%- fs.readFileSync(resourcesPath+"/reveal/js/reveal.js",'utf-8') %>
+        </script>
+        <script>
+            Reveal.initialize();
+        </script>
+    </body>
+</html>

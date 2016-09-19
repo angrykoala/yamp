@@ -21,7 +21,8 @@ commander.version(version)
     .option("-o, --output <file>", "output file name (without extension)")
     .option("--pdf", "pdf output")
     .option("--html", "html output")
-    .option("--remark", "remark (html slides) output")
+    .option("--remark", "remark html slides")
+    .option("--reveal", "reveal html slides")
     .option("-t, --title [value]", "sets the html title")
     .option("--style <file>", "custom css style")
     .option("--no-style", "disables css styling")
@@ -46,6 +47,10 @@ let rendererOptions = {
 };
 
 
+if(commander.html+commander.remark+commander.reveal>=2){
+    console.log("Using Multiple renderers with html output is not allowed");
+}
+
 //Use a switch here!!
 if (commander.html) {
     let renderer = new renderers.html(rendererOptions);
@@ -55,14 +60,21 @@ if (commander.html) {
 
     });
 }
-if(commander.remark){
+else if(commander.remark){
     let renderer=new renderers.remark(rendererOptions);
     renderer.renderFile(inputFile, (err)=>{
         if (err) return console.log("Error: " + err);
         else console.log("Remark (HTML) succesfully generated");
     });    
 }
-if (commander.pdf || (!commander.pdf && !commander.html && !commander.remark)) {
+else if(commander.reveal){
+    let renderer=new renderers.reveal(rendererOptions);
+    renderer.renderFile(inputFile, (err)=>{
+        if (err) return console.log("Error: " + err);
+        else console.log("Reveal (HTML) succesfully generated");
+    });       
+}
+if (commander.pdf || (!commander.pdf && !commander.html && !commander.remark && !commander.reveal)) {
     let renderer = new renderers.pdf(rendererOptions);
     renderer.renderFile(inputFile, (err) => {
         if (err) return console.log("Error: " + err);
