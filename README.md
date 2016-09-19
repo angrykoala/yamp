@@ -70,18 +70,18 @@ Will generate `readme.pdf`.
 ### Options
 * `-h`, `--help` to display a basic usage information
 * `-V`, `--version` to display _yamp_ version installed
-* `-o`, `--output <file>` output filename (without extension)
+* `-o`, `--output <file>` output filename (without extension) e.g. `yamp my_file.md -o final_name`
 * `--pdf` to generate a pdf (default)
 * `--html`to generate html
 * `--remark`to generate a html presentation using [remark](https://remarkjs.com)
-* `-t`, `--title [value]` to add a custom title
+* `-t`, `--title [value]` to add a custom title to Html pages
 * `--style <file>` to set a custom CSS stylesheet
     * Option not suported along with `--no-style`
 * `--no-style` to disable CSS styling
     * Options not supported along with `--style <file>`
 * `--minify` to minify Html output
-* `--no-tags` to disable makdown tags
-* `--no-highlight` to disable code highlight
+* `--no-tags` to disable custom Yamp tags
+* `--no-highlight` to disable code [highlight](https://highlightjs.org)
 * `-k`, `--koala` to koalify your outputs
 
 To generate pdf and html with default styling and options:
@@ -93,15 +93,15 @@ yamp myFile.md --pdf --html
 
 
 ## Yamp tags
-_Yamp_ supports extra tags in your markdown files. Currently using [xejs](https://github.com/angrykoala/xejs) templates. All tags are written between tags `{{ ... }}`
+_Yamp_ supports extra tags in your markdown files. Currently using [xejs](https://github.com/angrykoala/xejs) templates. All tags are written between double braces `{{ ... }}` and are not case-sensitive
 
-* `include [file.md]`: Includes the given text file (markdown or not), the tags on the included file will also be parsed, allowing nested file structure
-* `date`: Will write the current date (at the moment of rendering)
-* `page break`: Will force a page break in pdf output
+* `include [file.md]`: Includes the given text file (markdown or not), the tags on the included file will also be parsed, allowing nested file structure.
+* `date`: Will write the current date (at the moment of rendering).
+* `page break`: Will force a page break in pdf output.
+* `yamp version`: Will display the yamp version used to render the document.
 
 
 ## API
-
 Include _yamp_ in your javascript with:
 ```js
 var yamp = require('yamp');
@@ -161,8 +161,6 @@ class MyCustomRenderer extends yamp.Renderer {
 ```
 
 **Custom parser:** It is possible to use a custom parser from markdown to Html instead of the built-in _yamp.parsers.md2html_, the parser must be a function of the type `function(originalString,options,callback)` that will translate from `originalString` (markdown) to html, calling the `callback(err,res)` afterwards.
-
-> Currently only **default.ejs** is supported as template.
 
 If, instead of extending from `yamp.Renderer` you are extending from one of the default renderers, you should only re-implement the methods you need, and usually you should call `super().methodName` to maintain its basic functionality.
 

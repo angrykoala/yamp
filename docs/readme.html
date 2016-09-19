@@ -1619,11 +1619,11 @@ https://highlightjs.org/
 <ul>
 <li><code>-h</code>, <code>--help</code> to display a basic usage information</li>
 <li><code>-V</code>, <code>--version</code> to display <em>yamp</em> version installed</li>
-<li><code>-o</code>, <code>--output &lt;file&gt;</code> output filename (without extension)</li>
+<li><code>-o</code>, <code>--output &lt;file&gt;</code> output filename (without extension) e.g. <code>yamp my_file.md -o final_name</code></li>
 <li><code>--pdf</code> to generate a pdf (default)</li>
 <li><code>--html</code>to generate html</li>
 <li><code>--remark</code>to generate a html presentation using <a href="https://remarkjs.com">remark</a></li>
-<li><code>-t</code>, <code>--title [value]</code> to add a custom title</li>
+<li><code>-t</code>, <code>--title [value]</code> to add a custom title to Html pages</li>
 <li><code>--style &lt;file&gt;</code> to set a custom CSS stylesheet
 <ul>
 <li>Option not suported along with <code>--no-style</code></li>
@@ -1635,8 +1635,8 @@ https://highlightjs.org/
 </ul>
 </li>
 <li><code>--minify</code> to minify Html output</li>
-<li><code>--no-tags</code> to disable makdown tags</li>
-<li><code>--no-highlight</code> to disable code highlight</li>
+<li><code>--no-tags</code> to disable custom Yamp tags</li>
+<li><code>--no-highlight</code> to disable code <a href="https://highlightjs.org">highlight</a></li>
 <li><code>-k</code>, <code>--koala</code> to koalify your outputs</li>
 </ul>
 <p>To generate pdf and html with default styling and options:</p>
@@ -1646,11 +1646,12 @@ https://highlightjs.org/
 <p>The <code>--no-highlight</code> and <code>--no-style</code> options will greatly reduce your Html and Pdf outputs</p>
 </blockquote>
 <h2>Yamp tags</h2>
-<p><em>Yamp</em> supports extra tags in your markdown files. Currently using <a href="https://github.com/angrykoala/xejs">xejs</a> templates. All tags are written between tags <code>{{ ... }}</code></p>
+<p><em>Yamp</em> supports extra tags in your markdown files. Currently using <a href="https://github.com/angrykoala/xejs">xejs</a> templates. All tags are written between double braces <code>{{ ... }}</code> and are not case-sensitive</p>
 <ul>
-<li><code>include [file.md]</code>: Includes the given text file (markdown or not), the tags on the included file will also be parsed, allowing nested file structure</li>
-<li><code>date</code>: Will write the current date (at the moment of rendering)</li>
-<li><code>page break</code>: Will force a page break in pdf output</li>
+<li><code>include [file.md]</code>: Includes the given text file (markdown or not), the tags on the included file will also be parsed, allowing nested file structure.</li>
+<li><code>date</code>: Will write the current date (at the moment of rendering).</li>
+<li><code>page break</code>: Will force a page break in pdf output.</li>
+<li><code>yamp version</code>: Will display the yamp version used to render the document.</li>
 </ul>
 <h2>API</h2>
 <p>Include <em>yamp</em> in your javascript with:</p>
@@ -1706,9 +1707,6 @@ renderer.renderFile(myFile, <span class="hljs-function"><span class="hljs-keywor
 }
 </code></pre>
 <p><strong>Custom parser:</strong> It is possible to use a custom parser from markdown to Html instead of the built-in <em>yamp.parsers.md2html</em>, the parser must be a function of the type <code>function(originalString,options,callback)</code> that will translate from <code>originalString</code> (markdown) to html, calling the <code>callback(err,res)</code> afterwards.</p>
-<blockquote>
-<p>Currently only <strong>default.ejs</strong> is supported as template.</p>
-</blockquote>
 <p>If, instead of extending from <code>yamp.Renderer</code> you are extending from one of the default renderers, you should only re-implement the methods you need, and usually you should call <code>super().methodName</code> to maintain its basic functionality.</p>
 <h2>Development Instructions</h2>
 <p>To contribute to <strong>yamp</strong> you should clone the official repository <a href="https://github.com/angrykoala/yamp">https://github.com/angrykoala/yamp</a> or your own <em>fork</em> with <code>git</code>.</p>

@@ -14,3 +14,5 @@ main(){
     return 0;    
 }
 ```
+
+{{include test2.md}}

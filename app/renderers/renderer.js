@@ -24,14 +24,10 @@ function removeFilenameExtension(filename) {
 }
 
 function setOptions(options) {
-    let res = defaultOptions;
-    for (let key in options) {
-        if (options.hasOwnProperty(key)) {
-            if (options[key] !== null && options[key] !== undefined) {
-                res[key] = options[key];
-            }
-        }
-    }
+    let res={};
+    Object.assign(res,defaultOptions);
+    Object.assign(res,options);
+
     res.resourcesPath = resourcesPath;
     res.outputFilename = removeFilenameExtension(res.outputFilename);
     return res;

@@ -4,7 +4,7 @@ const assert = require('chai').assert;
 const fs = require('fs-extra');
 
 const HtmlRenderer = require('../app/renderers').html;
-const PdfRenderer=require('../app/renderers').pdf;
+const PdfRenderer = require('../app/renderers').pdf;
 
 const Renderer = require('../app/renderers/renderer');
 
@@ -12,13 +12,16 @@ const config = require('./config/config');
 const regex = config.regex;
 
 const testDir = config.testDir;
-const testFile = config.testMdFile;
+const testFiles = config.testMdFiles;
 
 describe("Renderers", function() {
     beforeEach(function(done) {
         fs.remove(testDir, function(err) {
             assert.notOk(err);
-            fs.copy(__dirname + "/config/" + testFile, testDir + "/" + testFile, done);
+            for (let i = 0; i < testFiles.length; i++) {
+                fs.copySync(__dirname + "/config/" + testFiles[i], testDir + "/" + testFiles[i]);
+            }
+            done();
         });
     });
     afterEach(function(done) {
@@ -54,16 +57,16 @@ describe("Renderers", function() {
         });
         it("Create Html file", function(done) {
             let renderer = new HtmlRenderer({
-                outputFilename: testDir + "/prueba"
+                outputFilename: testDir + "/test"
             });
-            renderer.renderFile(testDir + "/" + testFile, function(err) {
+            renderer.renderFile(testDir + "/" + testFiles[0], function(err) {
                 assert.notOk(err);
-                fs.stat(testDir + "/prueba.html", function(err, res) {
+                fs.stat(testDir + "/test.html", function(err, res) {
                     assert.notOk(err);
                     assert.ok(res);
                     assert.ok(res.isFile());
 
-                    fs.readFile(testDir + "/prueba.html", "utf8", function(err, res) {
+                    fs.readFile(testDir + "/test.html", "utf8", function(err, res) {
                         assert.notOk(err);
                         assert.ok(res);
                         assert.match(res, regex.html);
@@ -81,10 +84,37 @@ describe("Renderers", function() {
         });
 
 
-        describe.skip("Renderer options", function() {
-            it("Highlight", function() {
-
-
+        describe("Renderer options", function() {
+            it("Highlight", function(done) {
+                let renderer = new HtmlRenderer({
+                    outputFilename: testDir + "/test",
+                    highlight: true
+                });
+                renderer.renderFile(testDir + "/" + testFiles[0], function(err) {
+                    assert.notOk(err);
+                    fs.readFile(testDir + "/test.html", "utf8", function(err, res) {
+                        assert.notOk(err);
+                        assert.ok(res);
+                        assert.match(res, regex.html);
+                        assert.match(res, regex.options.highlightjs);
+                        assert.match(res, regex.options.highlightcss);
+                        let renderer = new HtmlRenderer({
+                            outputFilename: testDir + "/test",
+                            highlight: false
+                        });
+                        renderer.renderFile(testDir + "/" + testFiles[0], function(err) {
+                            assert.notOk(err);
+                            fs.readFile(testDir + "/test.html", "utf8", function(err, res) {
+                                assert.notOk(err);
+                                assert.ok(res);
+                                assert.match(res, regex.html);
+                                assert.notMatch(res, regex.options.highlightjs);
+                                assert.notMatch(res, regex.options.highlightcss);
+                                done();
+                            });
+                        });
+                    });
+                });
             });
             it("Style", function() {
 
@@ -118,7 +148,7 @@ describe("Renderers", function() {
             let renderer = new PdfRenderer({
                 outputFilename: testDir + "/prueba"
             });
-            renderer.renderFile(testDir + "/" + testFile, function(err) {
+            renderer.renderFile(testDir + "/" + testFiles[0], function(err) {
                 assert.notOk(err);
                 fs.stat(testDir + "/prueba.pdf", function(err, res) {
                     assert.notOk(err);
