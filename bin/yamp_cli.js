@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 "use strict";
 
 //YAMP CLI
@@ -45,27 +46,20 @@ let rendererOptions = {
     koala: commander.koala
 };
 
+let selectedRenderers = [];
+for (let key in renderers) {
+    if (commander[key]) selectedRenderers.push(key);
+}
 
-//Use a switch here!!
-if (commander.html) {
-    let renderer = new renderers.html(rendererOptions);
+if (selectedRenderers.length === 0) selectedRenderers.push("pdf");
+
+
+for (let i = 0; i < selectedRenderers.length; i++) {
+    let rendererName = selectedRenderers[i];
+
+    let renderer = new renderers[rendererName](rendererOptions);
     renderer.renderFile(inputFile, (err) => {
         if (err) return console.log("Error: " + err);
-        else console.log("HTML succesfully generated");
-
-    });
-}
-if(commander.remark){
-    let renderer=new renderers.remark(rendererOptions);
-    renderer.renderFile(inputFile, (err)=>{
-        if (err) return console.log("Error: " + err);
-        else console.log("Remark (HTML) succesfully generated");
-    });    
-}
-if (commander.pdf || (!commander.pdf && !commander.html && !commander.remark)) {
-    let renderer = new renderers.pdf(rendererOptions);
-    renderer.renderFile(inputFile, (err) => {
-        if (err) return console.log("Error: " + err);
-        else console.log("PDF succesfully generated");
+        else console.log(rendererName + " conversion successful");
     });
 }
