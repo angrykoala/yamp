@@ -23,10 +23,11 @@ function getDate() {
 }
 
 module.exports = function(file, options, tokens, done) {
+    options=options || {};
     let args = Object.assign({}, options);
     args.getDate = getDate;
     let rendererOptions = Object.assign({}, xejsOptions);
-    rendererOptions.tokens = rendererOptions.tokens.concat(tokens);
+    if(tokens.length>0) rendererOptions.tokens = rendererOptions.tokens.concat(tokens);
     let content = xejs(file, rendererOptions, args);
     done(null, content);
 };
