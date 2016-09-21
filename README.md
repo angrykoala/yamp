@@ -6,7 +6,8 @@ _by @angrykoala_
 [![Build Status](https://travis-ci.org/angrykoala/yamp.svg?branch=master)](https://travis-ci.org/angrykoala/yamp) 
 [![codecov](https://codecov.io/gh/angrykoala/yamp/branch/master/graph/badge.svg)](https://codecov.io/gh/angrykoala/yamp)
 [![Dependency Status](https://gemnasium.com/badges/github.com/angrykoala/yamp.svg)](https://gemnasium.com/github.com/angrykoala/yamp)
-[![Code Climate](https://codeclimate.com/github/angrykoala/yamp/badges/gpa.svg)](https://codeclimate.com/github/angrykoala/yamp)    
+[![Code Climate](https://codeclimate.com/github/angrykoala/yamp/badges/gpa.svg)](https://codeclimate.com/github/angrykoala/yamp)  
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0519ae2c3c6d4a81b1773f750b9934bb)](https://www.codacy.com/app/angrykoala/yamp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=angrykoala/yamp&amp;utm_campaign=Badge_Grade)     
 
 >Yet Another Markdown Parser
 

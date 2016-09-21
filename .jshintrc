@@ -1,11 +1,13 @@
 {
-    "node": true,
-    "mocha": true,
+    "maxerr": 50,
+    "camelcase": true,
+    "curly": true,
     "eqeqeq": true,
     "esversion": 6,
     "forin": true,
-    "futurehostile": true,
     "latedef": false,
+    "noempty": true,
+    "quotmark": false,
     "maxcomplexity": 6,
     "maxdepth": 6,
     "nocomma": true,
@@ -13,5 +15,9 @@
     "strict": "global",
     "undef": true,
     "unused": true,
-    "varstmt": true
+    "varstmt": true,
+    
+    "node": true,
+    "mocha": true
+    
 }

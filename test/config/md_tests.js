@@ -1,4 +1,5 @@
 "use strict";
+
 module.exports = [{
     testTitle: "Plain text",
     md: "this is plain text",
