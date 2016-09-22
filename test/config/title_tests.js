@@ -40,13 +40,12 @@ module.exports = [{
     testTitle: "Markdown title",
     html: "# Title",
     title: null
-}];
-
-
-
-
-/*,{
+},{
     testTitle: "Title with attributes",
     html: "<h1 class=\"myclass\">My Title</h1>",
     title: "My Title"
-}*/
+},{
+    testTitle: "Tag with newline",
+    html: "<h1 \nclass=\"myclass\">My Title</h1>",
+    title: null
+}];
