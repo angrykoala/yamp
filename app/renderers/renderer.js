@@ -79,6 +79,7 @@ module.exports = class Renderer {
 
     //Public
     renderFile(file, done) {
+        this.options.temp={}; //resets temporal options
         this.beforeLoad(file);
         this.fileLoader(file, (err, rawContent) => {
             if (err) return done(err);
@@ -114,7 +115,7 @@ module.exports = class Renderer {
     setTemplateOptions() {
         return {
             styleFile: "github-markdown.css",
-            highlight: this.options.highlight,
+            highlight: this.options.highlight && this.options.temp.requireHighlight,
             style: this.options.style,
             resourcesPath: this.options.resourcesPath,
             koala: this.options.koala,

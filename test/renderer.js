@@ -98,11 +98,7 @@ describe("Renderers", function() {
                         assert.match(res, regex.html);
                         assert.match(res, regex.options.highlightjs);
                         assert.match(res, regex.options.highlightcss);
-                        let renderer = new HtmlRenderer({
-                            outputFilename: testDir + "/test",
-                            highlight: false
-                        });
-                        renderer.renderFile(testDir + "/" + testFiles[0], function(err) {
+                        renderer.renderFile(testDir + "/" + testFiles[1], function(err) {
                             assert.notOk(err);
                             fs.readFile(testDir + "/test.html", "utf8", function(err, res) {
                                 assert.notOk(err);
@@ -110,7 +106,21 @@ describe("Renderers", function() {
                                 assert.match(res, regex.html);
                                 assert.notMatch(res, regex.options.highlightjs);
                                 assert.notMatch(res, regex.options.highlightcss);
-                                done();
+                            let renderer = new HtmlRenderer({
+                                outputFilename: testDir + "/test",
+                                highlight: false
+                            });
+                            renderer.renderFile(testDir + "/" + testFiles[0], function(err) {
+                                assert.notOk(err);
+                                fs.readFile(testDir + "/test.html", "utf8", function(err, res) {
+                                    assert.notOk(err);
+                                    assert.ok(res);
+                                    assert.match(res, regex.html);
+                                    assert.notMatch(res, regex.options.highlightjs);
+                                    assert.notMatch(res, regex.options.highlightcss);
+                                    done();
+                                });
+                            });
                             });
                         });
                     });

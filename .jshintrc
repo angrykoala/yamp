@@ -1,7 +1,6 @@
 {
     "maxerr": 50,
     "camelcase": true,
-    "curly": true,
     "eqeqeq": true,
     "esversion": 6,
     "forin": true,

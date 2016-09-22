@@ -36,9 +36,12 @@ describe("Parsers", function() {
         });
     });
     describe("mM2html", function() {
-        const rendererOptions = {
-            highlight: true
-        };
+        let rendererOptions;
+        beforeEach(function() {
+            rendererOptions = {
+                highlight: true
+            };
+        });
 
         it("Basic test", function(done) {
             md2html("example", rendererOptions, function(err, res) {
@@ -62,6 +65,34 @@ describe("Parsers", function() {
                 it.skip(testCase.testTitle);
             }
             cb();
+        });
+
+        it("Highlight temporal option", function(done) {
+            md2html("example", rendererOptions, function(err, res) {
+                assert.notOk(err);
+                assert.ok(res);
+                assert.ok(rendererOptions.temp);
+                assert.strictEqual(rendererOptions.temp.requireHighlight, false);
+                md2html("```\ntest code\n```", rendererOptions, function(err, res) {
+                    assert.notOk(err);
+                    assert.ok(res);
+                    assert.ok(rendererOptions.temp);
+                    assert.strictEqual(rendererOptions.temp.requireHighlight, true);
+                    md2html("example2", rendererOptions, function(err, res) {
+                        assert.notOk(err);
+                        assert.ok(res);
+                        assert.ok(rendererOptions.temp);
+                        assert.strictEqual(rendererOptions.temp.requireHighlight, false);
+                        md2html("`inline code`", rendererOptions, function(err, res) {
+                            assert.notOk(err);
+                            assert.ok(res);
+                            assert.ok(rendererOptions.temp);
+                            assert.strictEqual(rendererOptions.temp.requireHighlight, false);
+                            done();
+                        });
+                    });
+                });
+            });
         });
     });
 

@@ -12,8 +12,9 @@ const markdownitSup = require('markdown-it-sup');
 const markdownitMark = require('markdown-it-mark');
 const markdownitIns = require('markdown-it-ins');
 
-
+let highlighted;
 function highlightRenderer(str, lang) {
+    highlighted=true;
     if (lang && Hljs.getLanguage(lang)) {
         try {
             return Hljs.highlight(lang, str).value;
@@ -25,6 +26,7 @@ function highlightRenderer(str, lang) {
 }
 
 module.exports = function(content, options, cb) {
+    highlighted=false;
     let config = {
         html: true,
         linkify: true, //automatic links
@@ -36,5 +38,7 @@ module.exports = function(content, options, cb) {
         .use(markdownitMark)
         .use(markdownitIns);
     let res = md.render(content);
+    if(!options.temp) options.temp={};
+    options.temp.requireHighlight=highlighted;
     return cb(null, res);
 };
