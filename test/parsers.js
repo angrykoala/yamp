@@ -49,16 +49,16 @@ describe("Parsers", function() {
         });
 
         async.eachSeries(mdTestData, function iteratee(testCase, cb) {
-            if (testCase.md && testCase.html) it(testCase.testTitle, function(done) {
-                md2html(testCase.md, rendererOptions, function(err, res) {
-                    assert.notOk(err);
-                    assert.ok(res);
-                    assert.strictEqual(removeNewlines(res), testCase.html);
-                    done();
+            if (testCase.md && testCase.html) {
+                it(testCase.testTitle, function(done) {
+                    md2html(testCase.md, rendererOptions, function(err, res) {
+                        assert.notOk(err);
+                        assert.ok(res);
+                        assert.strictEqual(removeNewlines(res), testCase.html);
+                        done();
+                    });
                 });
-
-            });
-            else {
+            } else {
                 it.skip(testCase.testTitle);
             }
             cb();
@@ -97,10 +97,11 @@ describe("Parsers", function() {
         });
 
         async.eachSeries(titleTestData, function iteratee(testCase, cb) {
-            if (testCase.html) it(testCase.testTitle, function() {
-                assert.strictEqual(titleParser.html(testCase.html), testCase.title);
-            });
-            else {
+            if (testCase.html) {
+                it(testCase.testTitle, function() {
+                    assert.strictEqual(titleParser.html(testCase.html), testCase.title);
+                });
+            } else {
                 it.skip(testCase.testTitle);
             }
             cb();
@@ -111,14 +112,14 @@ describe("Parsers", function() {
         it("Parsing file with default options", function(done) {
             assert.ok(xejsParser);
             xejsParser(testDir + "/" + testFiles[0], {}, [], function(err, res) {
-                const reg=config.regex.xejsTestFile;
+                const reg = config.regex.xejsTestFile;
                 assert.notOk(err);
                 assert.ok(res);
-                for(let i=0;i<reg.common.length;i++){
-                    assert.match(res,reg.common[i]);    
+                for (let i = 0; i < reg.common.length; i++) {
+                    assert.match(res, reg.common[i]);
                 }
-                for(let i=0;i<reg.defaultTags.length;i++){
-                    assert.match(res,reg.defaultTags[i]);    
+                for (let i = 0; i < reg.defaultTags.length; i++) {
+                    assert.match(res, reg.defaultTags[i]);
                 }
                 done();
             });
@@ -127,16 +128,16 @@ describe("Parsers", function() {
             assert.ok(xejsParser);
             //{{ extra tag(12)}}
             xejsParser(testDir + "/" + testFiles[0], {}, [
-                [/extra\s+tag\((\d+)\)/,"-'tag is $1'"]                
+                [/extra\s+tag\((\d+)\)/, "-'tag is $1'"]
             ], function(err, res) {
-                const reg=config.regex.xejsTestFile;
+                const reg = config.regex.xejsTestFile;
                 assert.notOk(err);
                 assert.ok(res);
-                for(let i=0;i<reg.common.length;i++){
-                    assert.match(res,reg.common[i]);    
+                for (let i = 0; i < reg.common.length; i++) {
+                    assert.match(res, reg.common[i]);
                 }
-                for(let i=0;i<reg.customTags.length;i++){
-                    assert.match(res,reg.customTags[i]);    
+                for (let i = 0; i < reg.customTags.length; i++) {
+                    assert.match(res, reg.customTags[i]);
                 }
                 done();
             });

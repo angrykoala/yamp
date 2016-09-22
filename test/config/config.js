@@ -1,6 +1,10 @@
 "use strict";
 
 module.exports = {
+    yampExports: {
+        parsers: ['md2html', 'xejs'],
+        renderers: ['html', 'pdf', 'remark']
+    },
     rendererDefaultOptions: {
         highlight: true,
         style: true,
@@ -37,7 +41,7 @@ module.exports = {
             ],
             customTags: [
                 /extra tags\s+tag is 12\s+{{ extra tag\(a\)}}\s+End of second file/
-                
+
             ]
         }
 
