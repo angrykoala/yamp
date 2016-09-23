@@ -40,6 +40,13 @@ describe("Renderers", function() {
 
 
         });
+        it.skip("Output file", function() {
+
+
+        });
+        it.skip("Title", function() {
+
+        });
     });
     describe("Html Renderer", function() {
         it("Create Renderer with default data", function() {
@@ -83,7 +90,6 @@ describe("Renderers", function() {
             });
         });
 
-
         describe("Renderer options", function() {
             it("Highlight", function(done) {
                 let renderer = new HtmlRenderer({
@@ -106,33 +112,66 @@ describe("Renderers", function() {
                                 assert.match(res, regex.html);
                                 assert.notMatch(res, regex.options.highlightjs);
                                 assert.notMatch(res, regex.options.highlightcss);
-                            let renderer = new HtmlRenderer({
-                                outputFilename: testDir + "/test",
-                                highlight: false
-                            });
-                            renderer.renderFile(testDir + "/" + testFiles[0], function(err) {
-                                assert.notOk(err);
-                                fs.readFile(testDir + "/test.html", "utf8", function(err, res) {
-                                    assert.notOk(err);
-                                    assert.ok(res);
-                                    assert.match(res, regex.html);
-                                    assert.notMatch(res, regex.options.highlightjs);
-                                    assert.notMatch(res, regex.options.highlightcss);
-                                    done();
+                                let renderer = new HtmlRenderer({
+                                    outputFilename: testDir + "/test",
+                                    highlight: false
                                 });
-                            });
+                                renderer.renderFile(testDir + "/" + testFiles[0], function(err) {
+                                    assert.notOk(err);
+                                    fs.readFile(testDir + "/test.html", "utf8", function(err, res) {
+                                        assert.notOk(err);
+                                        assert.ok(res);
+                                        assert.match(res, regex.html);
+                                        assert.notMatch(res, regex.options.highlightjs);
+                                        assert.notMatch(res, regex.options.highlightcss);
+                                        done();
+                                    });
+                                });
                             });
                         });
                     });
                 });
             });
-            it("Style", function() {
+
+            it("Title", function(done) {
+                let titleTest = "Testing Title";
+                let titleRegex = new RegExp("<title>" + titleTest + "</title>");
+                let renderer = new HtmlRenderer({
+                    outputFilename: testDir + "/test",
+                    title: titleTest
+                });
+                renderer.renderFile(testDir + "/" + testFiles[0], function(err) {
+                    assert.notOk(err);
+                    fs.readFile(testDir + "/test.html", "utf8", function(err, res) {
+                        assert.notOk(err);
+                        assert.ok(res);
+                        assert.match(res, regex.html);
+                        assert.match(res, titleRegex);
+                        renderer = new HtmlRenderer({
+                            outputFilename: testDir + "/test",
+                        });
+                        renderer.renderFile(testDir + "/" + testFiles[1], function(err) {
+                            assert.notOk(err);
+                            fs.readFile(testDir + "/test.html", "utf8", function(err, res) {
+                                titleRegex=/<title>test<\/title>/;
+                                assert.notOk(err);
+                                assert.ok(res);
+                                assert.match(res, regex.html);
+                                assert.match(res, titleRegex);
+                                done();
+                            });
+                        });
+                    });
+                });
 
             });
-            it("Minify", function() {
+            it.skip("Style", function() {
 
             });
-            it("Koala", function() {
+            it.skip("Minify", function() {
+
+            });
+            it.skip("Koala", function() {
 
 
             });

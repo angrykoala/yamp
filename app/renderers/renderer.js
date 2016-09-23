@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const ejs = require('ejs');
+const path = require('path');
 
 const titleParser = require('../parsers/title_parser');
 const xejsParser = require('../parsers/xejs_parser');
@@ -16,11 +17,17 @@ const defaultOptions = {
     koala: false
 };
 
-function removeFilenameExtension(filename) {
+function removeFileExtension(filename){
     if (!filename) return "";
     let filenameArr = filename.split(".");
     if (filenameArr.length > 1) filenameArr.pop();
     return filenameArr.join(".");
+}
+
+function parseFilename(filepath) {
+    if (!filepath) return "";
+    let filename = path.basename(filepath);
+    return removeFileExtension(filename);
 }
 
 function setOptions(options) {
@@ -29,7 +36,7 @@ function setOptions(options) {
     Object.assign(res, options);
 
     res.resourcesPath = resourcesPath;
-    res.outputFilename = removeFilenameExtension(res.outputFilename);
+    res.outputFilename = removeFileExtension(res.outputFilename);
     return res;
 }
 
@@ -79,13 +86,14 @@ module.exports = class Renderer {
 
     //Public
     renderFile(file, done) {
-        this.options.temp={}; //resets temporal options
+        this.options.temp = {}; //resets temporal options
+        if (!this.options.outputFilename) this.options.outputFilename = parseFilename(file);
         this.beforeLoad(file);
         this.fileLoader(file, (err, rawContent) => {
             if (err) return done(err);
             this.contentParse(rawContent, (err, content) => {
                 if (err) return done(err);
-                let title = this.getTitle(file, content);
+                let title = this.getTitle(content);
                 let templateData = this.setTemplateOptions();
                 templateData.content = content;
                 templateData.title = title;
@@ -93,8 +101,6 @@ module.exports = class Renderer {
                 this.templateRender(templateData, (err, res) => {
                     if (err) return done(err);
                     this.afterRender(res);
-                    if (!this.options.outputFilename) this.options.outputFilename = removeFilenameExtension(file);
-                    if (!this.options.outputFilename) this.options.outputFilename = "default";
                     this.fileOutput(res, done);
                 });
             });
@@ -103,8 +109,8 @@ module.exports = class Renderer {
 
     //Private
 
-    getTitle(filename, parsedContent) {
-        return this.options.title || titleParser.html(parsedContent) || filename;
+    getTitle(parsedContent) {
+        return this.options.title || titleParser.html(parsedContent) || parseFilename(this.options.outputFilename);
     }
 
     setTemplate(template) {
