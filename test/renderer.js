@@ -89,6 +89,29 @@ describe("Renderers", function() {
                 });
             });
         });
+        it("Wrong input file", function(done) {
+            let renderer = new HtmlRenderer();
+            assert.ok(renderer);
+            renderer.renderFile("", function(err) {
+                assert.ok(err);
+                fs.stat("/default.html", function(err) {
+                    assert.ok(err);
+                    renderer.renderFile("not_a_file.md", function(err) {
+                        assert.ok(err);
+                        fs.stat("/not_a_file.html", function(err) {
+                            assert.ok(err);
+                            renderer.renderFile("wrongFolder/not_a_file.md", function(err) {
+                                assert.ok(err);
+                                fs.stat("wrongFolder/not_a_file.html", function(err) {
+                                    assert.ok(err);
+                                    done();
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
 
         describe("Renderer options", function() {
             it("Highlight", function(done) {
@@ -153,7 +176,7 @@ describe("Renderers", function() {
                         renderer.renderFile(testDir + "/" + testFiles[1], function(err) {
                             assert.notOk(err);
                             fs.readFile(testDir + "/test.html", "utf8", function(err, res) {
-                                titleRegex=/<title>test<\/title>/;
+                                titleRegex = /<title>test<\/title>/;
                                 assert.notOk(err);
                                 assert.ok(res);
                                 assert.match(res, regex.html);

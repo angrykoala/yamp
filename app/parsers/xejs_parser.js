@@ -28,6 +28,5 @@ module.exports = function(file, options, tokens, done) {
     args.getDate = getDate;
     let rendererOptions = Object.assign({}, xejsOptions);
     if(tokens.length>0) rendererOptions.tokens = rendererOptions.tokens.concat(tokens);
-    let content = xejs(file, rendererOptions, args);
-    done(null, content);
+    xejs(file, rendererOptions, args, done);
 };
