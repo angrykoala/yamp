@@ -37,8 +37,6 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
  
 > Check the [project roadmap](https://github.com/angrykoala/yamp/milestones?direction=desc&sort=completeness&state=open) and our cute [kanban board](https://github.com/angrykoala/yamp/projects/1)
 
->Live example [Here](https://angrykoala.github.io/yamp/index.html)
-
 ## Installation
 To use _yamp_ cli, install it globally using **npm**:
 ```
@@ -173,6 +171,7 @@ You can also download it from [GitHub](https://github.com) clicking [here](https
 * To test, execute `npm test`
 * To execute the CLI, execute `npm start -- <file> [options]`
 * To install your local version globally, execute `npm install -g .` on the project folder
+* To generate documentation (with installed version of _yamp_) execute `npm run docs`
 
 >It is strongly recommended to install the npm repository version instead of your local copy
 
