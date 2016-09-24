@@ -3,7 +3,7 @@
 const fs = require('fs');
 
 const htmlMinifier = require('../minifier').html;
-const Renderer = require('./renderer');
+const Renderer = require('../renderer');
 const Md2Html = require('../parsers/md2html');
 
 

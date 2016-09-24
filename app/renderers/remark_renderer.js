@@ -3,7 +3,7 @@
 const fs = require('fs');
 
 const htmlMinifier = require('../minifier').html;
-const Renderer = require('./renderer');
+const Renderer = require('../renderer');
 
 function nullRenderer(content,options,done){
     return done(null,content);

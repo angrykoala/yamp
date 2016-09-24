@@ -1,6 +1,6 @@
 "use strict";
 
-const Renderer = require('./renderer');
+const Renderer = require('../renderer');
 const Md2Html = require('../parsers/md2html');
 const html2pdf = require('../parsers/html2pdf');
 

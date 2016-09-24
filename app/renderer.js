@@ -4,10 +4,10 @@ const fs = require('fs');
 const ejs = require('ejs');
 const path = require('path');
 
-const titleParser = require('../parsers/title_parser');
-const xejsParser = require('../parsers/xejs_parser');
+const titleParser = require('./parsers/title_parser');
+const xejsParser = require('./parsers/xejs_parser');
 
-const resourcesPath = __dirname + "/../../resources";
+const resourcesPath = __dirname + "/../resources";
 
 const defaultOptions = {
     highlight: true,
@@ -115,7 +115,7 @@ module.exports = class Renderer {
 
     setTemplate(template) {
         if (!template) this.template = null;
-        else this.template = __dirname + "/../../templates/" + template;
+        else this.template = __dirname + "/../templates/" + template;
     }
 
     setTemplateOptions() {

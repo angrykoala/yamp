@@ -3,10 +3,10 @@
 const assert = require('chai').assert;
 const fs = require('fs-extra');
 
-const HtmlRenderer = require('../app/renderers').html;
-const PdfRenderer = require('../app/renderers').pdf;
+const HtmlRenderer = require('../app/renderers/html_renderer');
+const PdfRenderer = require('../app/renderers/pdf_renderer');
 
-const Renderer = require('../app/renderers/renderer');
+const Renderer = require('../app/renderer');
 
 const config = require('./config/config');
 const regex = config.regex;

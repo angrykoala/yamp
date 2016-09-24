@@ -1,10 +1,14 @@
 "use strict";
 
 module.exports = {
-    renderers: require('./app/renderers'),
-    Renderer: require('./app/renderers/renderer'),
+    Renderer: require('./app/renderer'),
+    renderers: {
+        html: require('./app/renderers/html_renderer'),
+        pdf: require('./app/renderers/pdf_renderer'),
+        remark: require('./app/renderers/remark_renderer')
+    },
     parsers: {
         md2html: require('./app/parsers/md2html'),
-        xejs: require('./app/parsers/xejs_parser')       
+        xejs: require('./app/parsers/xejs_parser')
     }
 };
