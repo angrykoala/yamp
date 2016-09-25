@@ -6,6 +6,8 @@ Second File
 
 {{pageBreak}}
 
+{{toc}}
+
 extra tags
 
 {{ extra tag(12)}}

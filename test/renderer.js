@@ -217,6 +217,7 @@ describe("Renderers", function() {
             }
         });
         it("Create Pdf file", function(done) {
+            this.timeout(5000);
             let renderer = new PdfRenderer({
                 outputFilename: testDir + "/prueba"
             });

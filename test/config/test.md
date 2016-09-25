@@ -3,6 +3,8 @@ Markdown Test
 
 This **file** is for _testing_ purposes of [yamp](https://github.com/angrykoala/yamp)
 
+{{TOC}}
+
 ## C++ test code
 
 ```c++

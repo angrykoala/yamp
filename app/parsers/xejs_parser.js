@@ -10,7 +10,8 @@ const xejsOptions = {
     tokens: [
         [/date/i, "= getDate()"],
         [/page\s*?break/i, "-'<p style=\"page-break-after:always;\"></p>'"],
-        [/yamp\s*?version/i, "='" + version + "'"]
+        [/yamp\s*?version/i, "='" + version + "'"],
+        [/toc/i,"- '<!-- toc -->'"]
     ]
 };
 

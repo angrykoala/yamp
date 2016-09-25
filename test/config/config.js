@@ -20,7 +20,8 @@ module.exports = {
             link: /<a\s+href=\"https:\/\/github.com\/angrykoala\/yamp\">yamp<\/a>/,
             header2: /<h2>C\+\+ test code<\/h2>/,
             code: /<pre>\s*<code\s+class=\"language-c\+\+\">[\s\S]*Test[\s\S]*<\/code>\s*<\/pre>/,
-            included: /<body>[\s\S]*<p>This should be included<\/p>[\s\S]*<\/body>/
+            included: /<body>[\s\S]*<p>This should be included<\/p>[\s\S]*<\/body>/,
+            toc: /<\!-- toc --\>\s*<ul\>\s*<li\>[\s\S]*C\+\+ test code[\s\S]*<\/li\>\s*<\/ul\>\s*<\!-- tocstop --\>/
         },
         options: {
             highlightjs: /<head>[\s\S]*<script>[\s\S]*highlightjs\.org[\s\S]*return hljs;[\s\S]*<\/script>[\s\S]*<\/head>/,
@@ -34,7 +35,8 @@ module.exports = {
                 /false tags\s+{{ not tag }}\s+{{ not DATE }}\s+{{DATE not}}\s+{{\s+Date\s+}}/,
                 /<% should not parse EJS%>/,
                 /Include test\s+Second File[\s\S]*End of second file\s+End of first file/,
-                /Second File\s+((\d+\.){2}\d+\s+){2}\s+<p style="page-break-after:always;"><\/p>/
+                /Second File\s+((\d+\.){2}\d+\s+){2}\s+<p style="page-break-after:always;"><\/p>/,
+                /Second File[\s\S]*<\!-- toc --\>/
             ],
             defaultTags: [
                 /extra tags\s+{{ extra tag\(12\)}}\s+{{ extra tag\(a\)}}\s+End of second file/

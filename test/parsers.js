@@ -9,6 +9,7 @@ const md2html = require('../app/parsers/md2html');
 const html2pdf = require('../app/parsers/html2pdf');
 const titleParser = require('../app/parsers/title_parser');
 const xejsParser = require('../app/parsers/xejs_parser');
+const tocParser = require('../app/parsers/toc_parser');
 
 const mdTestData = require('./config/md_tests');
 const titleTestData = require('./config/title_tests');
@@ -172,6 +173,40 @@ describe("Parsers", function() {
                 }
                 done();
             });
+        });
+    });
+
+    describe("Toc Parser", function() {
+        const testContent = "# Title\nContent\n## Subtitle1\n## Subtitle2";
+
+        it("Parsing content with TOC", function(done) {
+            let content = "<!-- toc -->\n" + testContent;
+
+            tocParser(content, (err, res) => {
+                assert.notOk(err);
+                assert.ok(res);
+                assert.match(res, /<\!-- toc --\>[\s\S]*<\!-- tocstop --\>\s*# Title/);
+                assert.match(res, /-\ \[Title\]\(#\S*\)/);
+                assert.match(res, /\ \ \*\ \[Subtitle1\]\(#\S*\)\s*\*\ \[Subtitle2\]\(#\S*\)/);
+                done();
+            });
+        });
+        it("Parsing content without TOC", function(done) {
+            tocParser(testContent, (err, res) => {
+                assert.notOk(err);
+                assert.ok(res);
+                assert.equal(res, testContent);
+                done();
+            });
+
+        });
+        it("Parsing Empty content", function(done) {
+            tocParser("", (err, res) => {
+                assert.notOk(err);
+                assert.strictEqual(res, "");
+                done();
+            });
+
         });
     });
 });
