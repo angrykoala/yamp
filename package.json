@@ -35,11 +35,8 @@
     "highlight.js": "^9.6.0",
     "html-minifier": "^3.0.3",
     "html-pdf": "^2.1.0",
-    "markdown-it": "^8.0.0",
-    "markdown-it-ins": "^2.0.0",
-    "markdown-it-mark": "^2.0.0",
-    "markdown-it-sup": "^1.0.0",
     "markdown-toc": "^0.12.16",
+    "marked": "^0.3.6",
     "pkginfo": "^0.4.0",
     "xejs": "^0.3.0"
   },

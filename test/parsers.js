@@ -36,7 +36,7 @@ describe("Parsers", function() {
             done();
         });
     });
-    describe("mM2html", function() {
+    describe("md2html", function() {
         let rendererOptions;
         beforeEach(function() {
             rendererOptions = {

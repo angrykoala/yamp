@@ -14,6 +14,7 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 * **GitHub:** <https://github.com/angrykoala/yamp>
 * **Npm:** <https://www.npmjs.com/package/yamp>
 
+
 ## Features
 * HTML conversion
 * PDF conversion
@@ -177,7 +178,7 @@ You can also download it from [GitHub](https://github.com) clicking [here](https
 
 
 ## Acknowledgments
-* [Markdown-it](https://github.com/markdown-it/markdown-it) as markdown parser
+* [Marked](https://github.com/chjj/marked) as markdown parser
 * [Github-markdown.css](https://github.com/sindresorhus/github-markdown-css) as default parse style
 * [Highlight.js](https://highlightjs.org) for code highlighting
 * [html-pdf](https://github.com/marcbachmann/node-html-pdf) for pdf generation

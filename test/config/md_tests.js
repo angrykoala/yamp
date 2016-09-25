@@ -7,7 +7,7 @@ module.exports = [{
 }, {
     testTitle: "Headers",
     md: "# Header 1\n## Header 2\n### Header 3",
-    html: "<h1>Header 1</h1><h2>Header 2</h2><h3>Header 3</h3>"
+    html: "<h1 id=\"header-1\">Header 1</h1><h2 id=\"header-2\">Header 2</h2><h3 id=\"header-3\">Header 3</h3>"
 }, {
     testTitle: "Bold and Italic",
     md: "**bold** _italic_",
@@ -27,11 +27,11 @@ module.exports = [{
 }, {
     testTitle: "Code highlight",
     md: "```\nexample code\n```\n",
-    html: "<pre><code>example code</code></pre>"
+    html: "<pre><code><span class=\"hljs-symbol\">example</span> <span class=\"hljs-meta\">code</span></code></pre>"
 }, {
     testTitle: "Code highlight js",
     md: "```js\nexample code\n```\n",
-    html: "<pre><code class=\"language-js\">example code</code></pre>"
+    html: "<pre><code class=\"lang-js\"><span class=\"hljs-symbol\">example</span> <span class=\"hljs-meta\">code</span></code></pre>"
 }, {
     testTitle: "Highlight.js"
 
@@ -49,7 +49,7 @@ module.exports = [{
 }, {
     testTitle: "Special characters",
     md: "aeiouáéíóú´'*+^ç¨´{}|@#~½¬{[]}",
-    html: "<p>aeiouáéíóú´'*+^ç¨´{}|@#~½¬{[]}</p>"
+    html: "<p>aeiouáéíóú´&#39;*+^ç¨´{}|@#~½¬{[]}</p>"
 }, {
     testTitle: "Tables",
 }, {
@@ -61,19 +61,7 @@ module.exports = [{
     md: "![Image description](/imagelink.png)",
     html: "<p><img src=\"/imagelink.png\" alt=\"Image description\"></p>"
 }, {
-    testTitle: "Plugin sup",
-    md: "normaltext^suptext^normaltext",
-    html: "<p>normaltext<sup>suptext</sup>normaltext</p>"
-}, {
-    testTitle: "Plugin mark",
-    md: "normaltext==marktext==normaltext",
-    html: "<p>normaltext<mark>marktext</mark>normaltext</p>"
-}, {
-    testTitle: "Plugin inserted",
-    md: "normaltext++instext++normaltext",
-    html: "<p>normaltext<ins>instext</ins>normaltext</p>"
-}, {
     testTitle: "Escaped characters",
-    md: "\\# \\^normal\\^ \\*\\*normal\\*\\*",
-    html: "<p># ^normal^ **normal**</p>"
+    md: "\\# \\*\\*normal\\*\\*",
+    html: "<p># **normal**</p>"
 }];
