@@ -198,6 +198,10 @@ describe("Renderers", function() {
 
 
             });
+            it.skip("Fron Matter",function(){
+                
+                
+            });
         });
         it.skip("Extending class", function() {
 

@@ -7,6 +7,7 @@ const path = require('path');
 const titleParser = require('./parsers/title_parser');
 const xejsParser = require('./parsers/xejs_parser');
 const tocParser = require('./parsers/toc_parser');
+const frontMatterParser = require('./parsers/front_matter');
 
 const resourcesPath = __dirname + "/../resources";
 
@@ -15,7 +16,8 @@ const defaultOptions = {
     style: true,
     minify: false,
     tags: true,
-    koala: false
+    koala: false,
+    frontMatter: true
 };
 
 function removeFileExtension(filename) {
@@ -92,20 +94,27 @@ module.exports = class Renderer {
         this.beforeLoad(file);
         this.fileLoader(file, (err, rawContent) => {
             if (err) return done(err);
-            tocParser(rawContent, (err,res) => {
-                if (err) console.log("Warning:" + err);  
-                rawContent=res;
-                this.contentParse(rawContent, (err, content) => {
-                    if (err) return done(err);
-                    let title = this.getTitle(content);
-                    let templateData = this.setTemplateOptions();
-                    templateData.content = content;
-                    templateData.title = title;
-                    this.beforeRender(templateData);
-                    this.templateRender(templateData, (err, res) => {
+            frontMatterParser(rawContent, (err, res, attr) => {
+                if (err) console.log("Warning:" + err);
+                if (this.options.frontMatter) {
+                    rawContent = res;
+                    Object.assign(this.options, attr);
+                }
+                tocParser(rawContent, (err, res) => {
+                    if (err) console.log("Warning:" + err);
+                    rawContent = res;
+                    this.contentParse(rawContent, (err, content) => {
                         if (err) return done(err);
-                        this.afterRender(res);
-                        this.fileOutput(res, done);
+                        let title = this.getTitle(content);
+                        let templateData = this.setTemplateOptions();
+                        templateData.content = content;
+                        templateData.title = title;
+                        this.beforeRender(templateData);
+                        this.templateRender(templateData, (err, res) => {
+                            if (err) return done(err);
+                            this.afterRender(res);
+                            this.fileOutput(res, done);
+                        });
                     });
                 });
             });

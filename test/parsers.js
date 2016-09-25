@@ -209,4 +209,16 @@ describe("Parsers", function() {
 
         });
     });
+    describe("Front Matter parser",function(done){
+        it.skip("Default Parser",function(){
+            
+        });
+        it.skip("Parsing file",function(){
+            
+        });
+        it.skip("Parsing file disabled",function(){
+            
+            
+        });        
+    });
 });
