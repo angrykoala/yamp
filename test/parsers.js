@@ -73,23 +73,19 @@ describe("Parsers", function() {
             md2html("example", rendererOptions, function(err, res) {
                 assert.notOk(err);
                 assert.ok(res);
-                assert.ok(rendererOptions.temp);
-                assert.strictEqual(rendererOptions.temp.requireHighlight, false);
+                assert.strictEqual(rendererOptions.requireHighlight, false);
                 md2html("```\ntest code\n```", rendererOptions, function(err, res) {
                     assert.notOk(err);
                     assert.ok(res);
-                    assert.ok(rendererOptions.temp);
-                    assert.strictEqual(rendererOptions.temp.requireHighlight, true);
+                    assert.strictEqual(rendererOptions.requireHighlight, true);
                     md2html("example2", rendererOptions, function(err, res) {
                         assert.notOk(err);
                         assert.ok(res);
-                        assert.ok(rendererOptions.temp);
-                        assert.strictEqual(rendererOptions.temp.requireHighlight, false);
+                        assert.strictEqual(rendererOptions.requireHighlight, false);
                         md2html("`inline code`", rendererOptions, function(err, res) {
                             assert.notOk(err);
                             assert.ok(res);
-                            assert.ok(rendererOptions.temp);
-                            assert.strictEqual(rendererOptions.temp.requireHighlight, false);
+                            assert.strictEqual(rendererOptions.requireHighlight, false);
                             done();
                         });
                     });

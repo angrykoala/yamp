@@ -16,8 +16,7 @@ module.exports = function(content, options, cb) {
     }
 
     marked(content, function(err, res) {
-        if (!options.temp) options.temp = {};
-        options.temp.requireHighlight = highlighted;
+        options.requireHighlight = highlighted;
         cb(err, res);
     });
 };

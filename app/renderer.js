@@ -16,8 +16,8 @@ const defaultOptions = {
     style: true,
     minify: false,
     tags: true,
-    koala: false,
-    frontMatter: true
+    frontMatter: true,
+    koala: false
 };
 
 function removeFileExtension(filename) {
@@ -33,18 +33,15 @@ function parseFilename(filepath) {
     return removeFileExtension(filename);
 }
 
-function setOptions(options) {
+function setDefaultOptions() {
     let res = {};
     Object.assign(res, defaultOptions);
-    Object.assign(res, options);
-
     res.resourcesPath = resourcesPath;
-    res.outputFilename = removeFileExtension(res.outputFilename);
     return res;
 }
 
 
-function loadFile(file, done) {
+function loadFile(file, options, done) {
     fs.readFile(file, 'utf8', function(err, data) {
         if (err) return done(new Error("Error reading file: " + err));
         else return done(null, data);
@@ -54,14 +51,19 @@ function loadFile(file, done) {
 //Class to render from one file to another
 module.exports = class Renderer {
     constructor(options, template, inputParser) {
-        this.options = setOptions(options);
+        this.options = setDefaultOptions();
+        this.setOptions(options);
         this.xejsTokens = []; //modify this to add new xejs tokens
-        if (this.options.output) this.output = this.options.output;
         this.setTemplate(template);
         this.parser = inputParser;
 
         if (this.options.tags) this.fileLoader = this.loadFileXEJS;
         else this.fileLoader = loadFile;
+    }
+
+    setOptions(options) {
+        Object.assign(this.options, options);
+        //if (options.output) this.options.output = removeFileExtension(options.output);
     }
 
 
@@ -89,24 +91,25 @@ module.exports = class Renderer {
 
     //Public
     renderFile(file, done) {
-        this.options.temp = {}; //resets temporal options
-        if (!this.options.outputFilename) this.options.outputFilename = parseFilename(file);
+        let renderOptions = {};
+        Object.assign(renderOptions, this.options);
+        if (!renderOptions.outputFilename) renderOptions.outputFilename = parseFilename(file);
         this.beforeLoad(file);
-        this.fileLoader(file, (err, rawContent) => {
+        this.fileLoader(file, renderOptions, (err, rawContent) => {
             if (err) return done(err);
             frontMatterParser(rawContent, (err, res, attr) => {
                 if (err) console.log("Warning:" + err);
-                if (this.options.frontMatter) {
+                if (renderOptions.frontMatter) {
                     rawContent = res;
-                    Object.assign(this.options, attr);
+                    Object.assign(renderOptions, attr);
                 }
                 tocParser(rawContent, (err, res) => {
                     if (err) console.log("Warning:" + err);
                     rawContent = res;
-                    this.contentParse(rawContent, (err, content) => {
+                    this.contentParse(rawContent,renderOptions, (err, content) => {
                         if (err) return done(err);
-                        let title = this.getTitle(content);
-                        let templateData = this.setTemplateOptions();
+                        let title = this.getTitle(content,renderOptions);
+                        let templateData = this.setTemplateOptions(renderOptions);
                         templateData.content = content;
                         templateData.title = title;
                         this.beforeRender(templateData);
@@ -123,8 +126,8 @@ module.exports = class Renderer {
 
     //Private
 
-    getTitle(parsedContent) {
-        return this.options.title || titleParser.html(parsedContent) || parseFilename(this.options.outputFilename);
+    getTitle(parsedContent,options) {
+        return options.title || titleParser.html(parsedContent) || parseFilename(options.outputFilename);
     }
 
     setTemplate(template) {
@@ -132,25 +135,25 @@ module.exports = class Renderer {
         else this.template = __dirname + "/../templates/" + template;
     }
 
-    setTemplateOptions() {
+    setTemplateOptions(options) {
         return {
             styleFile: "github-markdown.css",
-            highlight: this.options.highlight && this.options.temp.requireHighlight,
-            style: this.options.style,
-            resourcesPath: this.options.resourcesPath,
-            koala: this.options.koala,
-            output: this.output,
+            highlight: options.highlight && options.requireHighlight,
+            style: options.style,
+            resourcesPath: options.resourcesPath,
+            koala: options.koala,
+            output: options.output,
             fs: fs
         };
     }
 
-    contentParse(content, done) {
-        this.parser(content, this.options, done);
+    contentParse(content, options, done) {
+        this.parser(content, options, done);
     }
     templateRender(data, done) {
         ejs.renderFile(this.template, data, {}, done);
     }
-    loadFileXEJS(file, done) {
-        xejsParser(file, this.options, this.xejsTokens, done);
+    loadFileXEJS(file, options, done) {
+        xejsParser(file, options, this.xejsTokens, done);
     }
 };
