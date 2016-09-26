@@ -10,6 +10,7 @@ const html2pdf = require('../app/parsers/html2pdf');
 const titleParser = require('../app/parsers/title_parser');
 const xejsParser = require('../app/parsers/xejs_parser');
 const tocParser = require('../app/parsers/toc_parser');
+const frontMatterParser = require('../app/parsers/front_matter');
 
 const mdTestData = require('./config/md_tests');
 const titleTestData = require('./config/title_tests');
@@ -103,7 +104,7 @@ describe("Parsers", function() {
 
         it("Basic test", function(done) {
             this.timeout(5000);
-            fs.stat(testDir + "/" + filename, function(err) {
+            fs.readFile(testDir + "/" + filename, function(err) {
                 assert.ok(err);
                 html2pdf(html, testDir + "/" + "testFile", function(err, res) {
                     assert.notOk(err);
@@ -209,16 +210,35 @@ describe("Parsers", function() {
 
         });
     });
-    describe("Front Matter parser",function(done){
-        it.skip("Default Parser",function(){
-            
+    describe("Front Matter parser", function() {
+        it("Parsing content with arguments", function(done) {
+            assert.ok(frontMatterParser);
+            frontMatterParser(config.frontMatter, function(err, content, args) {
+                assert.notOk(err);
+                assert.ok(content);
+                assert.ok(args);
+                assert.strictEqual(content, "This is the content\n---");
+                assert.strictEqual(args.title, "my title");
+                assert.strictEqual(args.description, "my description");
+                done();
+            });
         });
-        it.skip("Parsing file",function(){
-            
+        it("Parsing content without arguments", function(done) {
+            frontMatterParser("my file", function(err, content, args) {
+                assert.notOk(err);
+                assert.ok(content);
+                assert.ok(args);
+                assert.strictEqual(content, "my file");
+                assert.strictEqual(Object.keys(args).length, 0);
+                frontMatterParser("\n" + config.frontMatter, function(err, content, args) {
+                    assert.notOk(err);
+                    assert.ok(content);
+                    assert.ok(args);
+                    assert.strictEqual(content, "\n" + config.frontMatter);
+                    assert.strictEqual(Object.keys(args).length, 0);
+                    done();
+                });
+            });
         });
-        it.skip("Parsing file disabled",function(){
-            
-            
-        });        
     });
 });

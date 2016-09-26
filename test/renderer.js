@@ -13,6 +13,7 @@ const regex = config.regex;
 
 const testDir = config.testDir;
 const testFiles = config.testMdFiles;
+const testFrontMatterFile = config.testFrontMatterFile;
 
 describe("Renderers", function() {
     beforeEach(function(done) {
@@ -21,6 +22,7 @@ describe("Renderers", function() {
             for (let i = 0; i < testFiles.length; i++) {
                 fs.copySync(__dirname + "/config/" + testFiles[i], testDir + "/" + testFiles[i]);
             }
+            fs.copySync(__dirname + "/config/" + testFrontMatterFile, testDir + "/" + testFrontMatterFile);
             done();
         });
     });
@@ -94,15 +96,15 @@ describe("Renderers", function() {
             assert.ok(renderer);
             renderer.renderFile("", function(err) {
                 assert.ok(err);
-                fs.stat("/default.html", function(err) {
+                fs.readFile("/default.html", function(err) {
                     assert.ok(err);
                     renderer.renderFile("not_a_file.md", function(err) {
                         assert.ok(err);
-                        fs.stat("/not_a_file.html", function(err) {
+                        fs.readFile("/not_a_file.html", function(err) {
                             assert.ok(err);
                             renderer.renderFile("wrongFolder/not_a_file.md", function(err) {
                                 assert.ok(err);
-                                fs.stat("wrongFolder/not_a_file.html", function(err) {
+                                fs.readFile("wrongFolder/not_a_file.html", function(err) {
                                     assert.ok(err);
                                     done();
                                 });
@@ -198,9 +200,40 @@ describe("Renderers", function() {
 
 
             });
-            it.skip("Fron Matter",function(){
-                
-                
+            it("Front Matter", function(done) {
+                let renderer = new HtmlRenderer({
+                    outputFilename: testDir + "/test",
+                });
+                renderer.renderFile(testDir + "/" + testFrontMatterFile, function(err) {
+                    assert.notOk(err);
+                    fs.readFile(testDir + "/test.html", "utf8", function(err, res) {
+                        let titleRegex = /<title>Custom title<\/title>/;
+                        assert.notOk(err);
+                        assert.ok(res);
+                        assert.match(res, regex.html);
+                        assert.match(res, titleRegex);
+                        assert.match(res, /This is an example of a front matter file/);
+                        assert.notMatch(res, /title: Custom title/);
+                        assert.notMatch(res, /koala: true/);
+                        let renderer = new HtmlRenderer({
+                            outputFilename: testDir + "/test",
+                            frontMatter: false
+                        });
+                        renderer.renderFile(testDir + "/" + testFrontMatterFile, function(err) {
+                            assert.notOk(err);
+                            fs.readFile(testDir + "/test.html", "utf8", function(err, res) {
+                                assert.notOk(err);
+                                assert.ok(res);
+                                assert.match(res, regex.html);
+                                assert.notMatch(res, titleRegex);
+                                assert.match(res, /This is an example of a front matter file/);
+                                assert.match(res, /title: Custom title/);
+                                assert.match(res, /koala: true/);
+                                done();
+                            });
+                        });
+                    });
+                });
             });
         });
         it.skip("Extending class", function() {

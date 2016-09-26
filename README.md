@@ -14,8 +14,6 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 * **GitHub:** <https://github.com/angrykoala/yamp>
 * **Npm:** <https://www.npmjs.com/package/yamp>
 
-{{toc}}
-
 ## Features
 * HTML conversion
 * PDF conversion
@@ -27,6 +25,8 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 * HTML tags support (for PDF output too)
 * Include other files in your markdown
 * [HTML presentations](https://remarkjs.com/)
+* Front Matter metadata
+* Custom [xejs-based](https://github.com/angrykoala/xejs) tags (`{{}}`)
 * Koalafied
 
 
@@ -34,7 +34,6 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 
 * Custom templates
 * Client-side web support (browserify)
-* Metadata on markdown file
 
  
 > Check the [project roadmap](https://github.com/angrykoala/yamp/milestones?direction=desc&sort=completeness&state=open) and our cute [kanban board](https://github.com/angrykoala/yamp/projects/1)
@@ -82,6 +81,7 @@ Will generate `readme.pdf`.
 * `--minify` to minify Html output
 * `--no-tags` to disable custom Yamp tags
 * `--no-highlight` to disable code [highlight](https://highlightjs.org)
+* `--no-front-matter` to disable front-matter metadata
 * `-k`, `--koala` to koalify your outputs
 
 To generate pdf and html with default styling and options:

@@ -50,5 +50,7 @@ module.exports = {
     },
     testMdFiles: ["test.md", "test2.md"],
     testXejsFiles: ["xejs_test.md", "xejs_test2.md"],
-    testDir: "test/test_sandbox"
+    testFrontMatterFile: "front_matter_test.md",
+    testDir: "test/test_sandbox",
+    frontMatter: "---\ntitle: my title\ndescription: my description\n---\nThis is the content\n---"
 };
