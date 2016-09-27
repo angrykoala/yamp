@@ -8,7 +8,7 @@ const Pdf = require('html-pdf');
 module.exports = function(html, outputFile, cb) {
     Pdf.create(html, {
         "border": {
-            "top": "0", // default is 0, units: mm, cm, in, px 
+            "top": "0",
             "right": "0",
             "bottom": "1in",
             "left": "0"

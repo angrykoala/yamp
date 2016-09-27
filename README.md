@@ -179,7 +179,7 @@ You can also download it from [GitHub](https://github.com) clicking [here](https
 
 ## Contributors
 If you want to contribute to yamp please:    
-1. Branch from [dev](https://github.com/angrykoala/yamp/tree/dev)
+1. Fork from [dev branch](https://github.com/angrykoala/yamp/tree/dev)
 2. Make sure tests passes before pull request
 3. Check the opened and closed issues before creating one
 
@@ -187,9 +187,10 @@ Thanks for your help!
 
 ## Acknowledgments
 * [Marked](https://github.com/chjj/marked) as markdown parser
-* [Github-markdown.css](https://github.com/sindresorhus/github-markdown-css) as default parse style
+* [Github-markdown.css](https://github.com/sindresorhus/github-markdown-css) as default style
 * [Highlight.js](https://highlightjs.org) for code highlighting
 * [html-pdf](https://github.com/marcbachmann/node-html-pdf) for pdf generation
 * [remark](https://remarkjs.com) for html slides output
+* [pubcss](https://github.com/thomaspark/pubcss) for academic output style
 
 >YAMP is developed under GNU GPL-3 license by @angrykoala 
