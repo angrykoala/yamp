@@ -68,6 +68,7 @@ describe("Renderers", function() {
             let renderer = new HtmlRenderer({
                 outputFilename: testDir + "/test"
             });
+            let originalOptions = JSON.stringify(renderer.options);
             renderer.renderFile(testDir + "/" + testFiles[0], function(err) {
                 assert.notOk(err);
                 fs.stat(testDir + "/test.html", function(err, res) {
@@ -86,6 +87,7 @@ describe("Renderers", function() {
                         for (let i = 0; i < regKeys.length; i++) {
                             assert.match(body, regex.htmlTestFile[regKeys[i]]);
                         }
+                        assert.strictEqual(JSON.stringify(renderer.options), originalOptions);
                         done();
                     });
                 });
@@ -121,6 +123,7 @@ describe("Renderers", function() {
                     outputFilename: testDir + "/test",
                     highlight: true
                 });
+                let originalOptions = JSON.stringify(renderer.options);
                 renderer.renderFile(testDir + "/" + testFiles[0], function(err) {
                     assert.notOk(err);
                     fs.readFile(testDir + "/test.html", "utf8", function(err, res) {
@@ -137,11 +140,13 @@ describe("Renderers", function() {
                                 assert.match(res, regex.html);
                                 assert.notMatch(res, regex.options.highlightjs);
                                 assert.notMatch(res, regex.options.highlightcss);
-                                let renderer = new HtmlRenderer({
+                                assert.strictEqual(JSON.stringify(renderer.options), originalOptions);
+                                let renderer2 = new HtmlRenderer({
                                     outputFilename: testDir + "/test",
                                     highlight: false
                                 });
-                                renderer.renderFile(testDir + "/" + testFiles[0], function(err) {
+                                let originalOptions2 = JSON.stringify(renderer2.options);
+                                renderer2.renderFile(testDir + "/" + testFiles[0], function(err) {
                                     assert.notOk(err);
                                     fs.readFile(testDir + "/test.html", "utf8", function(err, res) {
                                         assert.notOk(err);
@@ -149,6 +154,7 @@ describe("Renderers", function() {
                                         assert.match(res, regex.html);
                                         assert.notMatch(res, regex.options.highlightjs);
                                         assert.notMatch(res, regex.options.highlightcss);
+                                        assert.strictEqual(JSON.stringify(renderer2.options), originalOptions2);
                                         done();
                                     });
                                 });
