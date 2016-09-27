@@ -62,8 +62,9 @@ module.exports = class Renderer {
     }
 
     setOptions(options) {
-        Object.assign(this.options, options);
-        //if (options.output) this.options.output = removeFileExtension(options.output);
+        if (options) {
+            Object.assign(this.options, options);
+        }
     }
 
 
@@ -84,7 +85,7 @@ module.exports = class Renderer {
         //Modify rendered data
     }
 
-    //args: content, done
+    //args: content, filename, done
     fileOutput() {
         //Write file
     }
@@ -106,9 +107,9 @@ module.exports = class Renderer {
                 tocParser(rawContent, (err, res) => {
                     if (err) console.log("Warning:" + err);
                     rawContent = res;
-                    this.contentParse(rawContent,renderOptions, (err, content) => {
+                    this.contentParse(rawContent, renderOptions, (err, content) => {
                         if (err) return done(err);
-                        let title = this.getTitle(content,renderOptions);
+                        let title = this.getTitle(content, renderOptions);
                         let templateData = this.setTemplateOptions(renderOptions);
                         templateData.content = content;
                         templateData.title = title;
@@ -116,7 +117,7 @@ module.exports = class Renderer {
                         this.templateRender(templateData, (err, res) => {
                             if (err) return done(err);
                             this.afterRender(res);
-                            this.fileOutput(res, done);
+                            this.fileOutput(res,renderOptions.outputFilename, done);
                         });
                     });
                 });
@@ -126,7 +127,7 @@ module.exports = class Renderer {
 
     //Private
 
-    getTitle(parsedContent,options) {
+    getTitle(parsedContent, options) {
         return options.title || titleParser.html(parsedContent) || parseFilename(options.outputFilename);
     }
 
@@ -135,6 +136,7 @@ module.exports = class Renderer {
         else this.template = __dirname + "/../templates/" + template;
     }
 
+    //TODO: change this for the temporal options directly
     setTemplateOptions(options) {
         return {
             styleFile: "github-markdown.css",
@@ -142,7 +144,7 @@ module.exports = class Renderer {
             style: options.style,
             resourcesPath: options.resourcesPath,
             koala: options.koala,
-            output: options.output,
+            output: this.output,
             fs: fs
         };
     }
