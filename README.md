@@ -177,6 +177,13 @@ You can also download it from [GitHub](https://github.com) clicking [here](https
 
 >It is strongly recommended to install the npm repository version instead of your local copy
 
+## Contributors
+If you want to contribute to yamp please:    
+1. Branch from [dev](https://github.com/angrykoala/yamp/tree/dev)
+2. Make sure tests passes before pull request
+3. Check the opened and closed issues before creating one
+
+Thanks for your help!
 
 ## Acknowledgments
 * [Marked](https://github.com/chjj/marked) as markdown parser
