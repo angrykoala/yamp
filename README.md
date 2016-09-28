@@ -18,7 +18,7 @@ The aim of this package is to provide an easy-to-use toolbox for markdown-relate
 * HTML conversion
 * PDF conversion
 * Code highlight support
-* Github-style output
+* Github-style and academic output
 * API to use _yamp_ programmatically
 * Custom styles
 * CSS-embedded HTML (just open it offline in any browser)
@@ -74,10 +74,12 @@ Will generate `readme.pdf`.
 * `--html`to generate html
 * `--remark`to generate a html presentation using [remark](https://remarkjs.com)
 * `-t`, `--title [value]` to add a custom title to Html pages
-* `--style <file>` to set a custom CSS stylesheet
+* `--style <file>` to set change the css style (supports the provided styles and custom styles)
     * Option not suported along with `--no-style`
 * `--no-style` to disable CSS styling
-    * Options not supported along with `--style <file>`
+    * Option not supported along with `--style <file>`
+* `--list-styles` will list all the styles provided by yamp
+	* These styles will be supported by `--style` option
 * `--minify` to minify Html output
 * `--no-tags` to disable custom Yamp tags
 * `--no-highlight` to disable code [highlight](https://highlightjs.org)
@@ -100,6 +102,14 @@ _Yamp_ supports extra tags in your markdown files. Currently using [xejs](https:
 * `page break`: Will force a page break in pdf output.
 * `yamp version`: Will display the yamp version used to render the document.
 
+## Yamp styles
+_Yamp_ provides several styles for your document (supported for html and pdf outputs).
+* `github.css` Default style, will look similar to **Github** style
+* `acm-sig.css` Academic style based on ACM SIG templates
+
+You can select any of these styles with the option `--style [style.css]`, the same option will enable you to use your own files instead `--style [myfolder/mystyle.css]`
+
+> You can always check the styles with the option `--list-styles`
 
 ## API
 Include _yamp_ in your javascript with:
@@ -171,6 +181,7 @@ You can also download it from [GitHub](https://github.com) clicking [here](https
 
 * To install execute `npm install` in the downloaded/cloned folder
 * To test, execute `npm test`
+    * The tests will also run _jshint_
 * To execute the CLI, execute `npm start -- <file> [options]`
 * To install your local version globally, execute `npm install -g .` on the project folder
 * To generate documentation (with installed version of _yamp_) execute `npm run docs`
