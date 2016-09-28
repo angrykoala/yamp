@@ -8,8 +8,12 @@ node_js:
     - "6.4.0"
     - "4.5.0"
     - "4.0.0"
-sudo: false    
+sudo: false
+before_script:
+    - npm install -g jshint
 script:
     - npm test
+after_script:
+    - jshint --config=.jshintrc .
 after_success:
     - bash <(curl -s https://codecov.io/bash)
