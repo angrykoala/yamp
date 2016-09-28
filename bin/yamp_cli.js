@@ -15,7 +15,7 @@ let inputFile;
 commander.version(version)
     .usage("[options] <file>")
     .description(module.exports.description)
-    .arguments('<file>')
+    .arguments('file')
     .action(function(file) {
         inputFile = file;
     })
@@ -32,12 +32,9 @@ commander.version(version)
     .option("--no-tags", "disable markdown yamp tags")
     .option("--no-front-matter", "disable initial yaml options parsing")
     .option("-k, --koala", "your output will be koalafied")
-    .parse(process.argv);
-if (!inputFile) {
-    console.error("Invalid Input", "usage: yamp [options] <file>");
-    process.exit(1);
-}
-
+    .parse(process.argv); 
+    
+    
 if(commander.listStyles) {
     const fs = require("fs");
     console.log("\n  listing available styles\n");
@@ -48,9 +45,14 @@ if(commander.listStyles) {
         console.log("      *", files[i]);
     }
 
-    console.log("\n  you can select one of thes styles above as with --style option");
+    console.log("\n  you can select one of these styles above as with --style option");
     console.log("  default: --style 'github-markdown.css'\n");
     process.exit(0);
+}
+
+if (!inputFile) {
+    console.error("Invalid Input", "usage: yamp [options] <file>");
+    process.exit(1);
 }
 
 let rendererOptions = {
