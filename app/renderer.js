@@ -138,9 +138,9 @@ module.exports = class Renderer {
 
     //TODO: change this for the temporal options directly
     setTemplateOptions(options) {
-        var files = fs.readdirSync(__dirname + "/../styles");
-        var index = files.indexOf(options.style);
-        var styleFile = "github-markdown.css";
+        let files = fs.readdirSync(__dirname + "/../styles");
+        let index = files.indexOf(options.style);
+        let styleFile = "github.css";
 
         if(index > -1) {
             styleFile = files[index];

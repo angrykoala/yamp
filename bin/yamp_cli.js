@@ -25,7 +25,7 @@ commander.version(version)
     .option("--remark", "remark (html slides) output")
     .option("-t, --title [value]", "sets the html title")
     .option("--list-styles", "lists all styles provided by yamp")
-    .option("--style <file>", "custom css style")
+    .option("--style <file>", "select one of the yamp styles or use a custom file")
     .option("--no-style", "disables css styling")
     .option("--minify", "minifies html output")
     .option("--no-highlight", "disable code highlight")
@@ -42,13 +42,13 @@ if(commander.listStyles) {
     const fs = require("fs");
     console.log("\n  listing available styles\n");
 
-    var files = fs.readdirSync(__dirname + "/../styles");
+    let files = fs.readdirSync(__dirname + "/../styles");
 
-    for(var i = 0; i < files.length; i++) {
+    for(let i = 0; i < files.length; i++) {
         console.log("      *", files[i]);
     }
 
-    console.log("\n  just provide one of these above as a file in --style option");
+    console.log("\n  you can select one of thes styles above as with --style option");
     console.log("  default: --style 'github-markdown.css'\n");
     process.exit(0);
 }
@@ -70,7 +70,6 @@ for (let key in renderers) {
 }
 
 if (selectedRenderers.length === 0) selectedRenderers.push("pdf");
-
 
 for (let i = 0; i < selectedRenderers.length; i++) {
     let rendererName = selectedRenderers[i];
