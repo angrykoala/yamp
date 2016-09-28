@@ -145,13 +145,6 @@ module.exports = class Renderer {
         if(index > -1) {
             styleFile = files[index];
             options.style = true;
-            console.log("using yamp style '" + styleFile + "'");
-        }
-        else if(options.style === true) {
-            console.log("using default style (" + styleFile + ")");
-        }
-        else {
-            console.log("using custom style");
         }
 
         return {
