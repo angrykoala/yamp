@@ -80,7 +80,7 @@ module.exports = class Renderer {
         //Modify templateData before rendering
     }
 
-    //args: contentloadFileEJS 
+    //args: contentloadFileEJS
     afterRender() {
         //Modify rendered data
     }
@@ -138,8 +138,17 @@ module.exports = class Renderer {
 
     //TODO: change this for the temporal options directly
     setTemplateOptions(options) {
+        var files = fs.readdirSync(__dirname + "/../styles");
+        var index = files.indexOf(options.style);
+        var styleFile = "github-markdown.css";
+
+        if(index > -1) {
+            styleFile = files[index];
+            options.style = true;
+        }
+
         return {
-            styleFile: "github-markdown.css",
+            styleFile: styleFile,
             highlight: options.highlight && options.requireHighlight,
             style: options.style,
             resourcesPath: options.resourcesPath,

@@ -24,6 +24,7 @@ commander.version(version)
     .option("--html", "html output")
     .option("--remark", "remark (html slides) output")
     .option("-t, --title [value]", "sets the html title")
+    .option("--list-styles", "lists all styles provided by yamp")
     .option("--style <file>", "custom css style")
     .option("--no-style", "disables css styling")
     .option("--minify", "minifies html output")
@@ -35,6 +36,21 @@ commander.version(version)
 if (!inputFile) {
     console.error("Invalid Input", "usage: yamp [options] <file>");
     process.exit(1);
+}
+
+if(commander.listStyles) {
+    const fs = require("fs");
+    console.log("\n  listing available styles\n");
+
+    var files = fs.readdirSync(__dirname + "/../styles");
+
+    for(var i = 0; i < files.length; i++) {
+        console.log("      *", files[i]);
+    }
+
+    console.log("\n  just provide one of these above as a file in --style option");
+    console.log("  default: --style 'github-markdown.css'\n");
+    process.exit(0);
 }
 
 let rendererOptions = {

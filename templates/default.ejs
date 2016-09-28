@@ -6,7 +6,7 @@
         <%if(style===true){%>
             <style><%- include("../styles/"+styleFile) %></style>
         <%}else if(style){ %>
-            <% var stylePath=process.cwd()+"/"+style; 
+            <% var stylePath=process.cwd()+"/"+style;
             try{%>
             <style><%- include(stylePath) %></style>
             <%} catch(e){ console.log("Warning: Style "+stylePath+" not found") }; %>
@@ -29,7 +29,7 @@
                 }
                 body {
                     padding: 0 45px 45px;
-        <% if(styleFile==="github-markdown.css"){%>         
+        <% if(styleFile==="github-markdown.css"){%>
                     font-size: 13px;
         <%}%>
                 }
@@ -37,7 +37,7 @@
         <%}%>
 
         <% if(koala===true){ %>
-            <% 
+            <%
             var backHeight="100%";
             if(output==="pdf") backHeight="824px";
             %>
