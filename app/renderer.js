@@ -56,6 +56,7 @@ module.exports = class Renderer {
         this.xejsTokens = []; //modify this to add new xejs tokens
         this.setTemplate(template);
         this.parser = inputParser;
+        this.name="default";
 
         if (this.options.tags) this.fileLoader = this.loadFileXEJS;
         else this.fileLoader = loadFile;
@@ -80,7 +81,7 @@ module.exports = class Renderer {
         //Modify templateData before rendering
     }
 
-    //args: contentloadFileEJS 
+    //args: contentloadFileEJS
     afterRender() {
         //Modify rendered data
     }
@@ -138,8 +139,17 @@ module.exports = class Renderer {
 
     //TODO: change this for the temporal options directly
     setTemplateOptions(options) {
+        let files = fs.readdirSync(__dirname + "/../styles");
+        let index = files.indexOf(options.style);
+        let styleFile = "github.css";
+
+        if(index > -1) {
+            styleFile = files[index];
+            options.style = true;
+        }
+
         return {
-            styleFile: "github-markdown.css",
+            styleFile: styleFile,
             highlight: options.highlight && options.requireHighlight,
             style: options.style,
             resourcesPath: options.resourcesPath,

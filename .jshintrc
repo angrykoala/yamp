@@ -17,6 +17,5 @@
     "varstmt": true,
     
     "node": true,
-    "mocha": true
-    
+    "mocha": true   
 }
