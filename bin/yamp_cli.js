@@ -71,12 +71,15 @@ for (let key in renderers) {
 
 if (selectedRenderers.length === 0) selectedRenderers.push("pdf");
 
+function onRendererFinish(err, filename) {
+    if (err) return console.log("Error: " + err);
+    else console.log(filename+" conversion successful");
+
+}
+
 for (let i = 0; i < selectedRenderers.length; i++) {
     let rendererName = selectedRenderers[i];
 
     let renderer = new renderers[rendererName](rendererOptions);
-    renderer.renderFile(inputFile, (err) => {
-        if (err) return console.log("Error: " + err);
-        else console.log(rendererName + " conversion successful");
-    });
+    renderer.renderFile(inputFile, onRendererFinish);
 }

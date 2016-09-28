@@ -56,6 +56,7 @@ module.exports = class Renderer {
         this.xejsTokens = []; //modify this to add new xejs tokens
         this.setTemplate(template);
         this.parser = inputParser;
+        this.name="default";
 
         if (this.options.tags) this.fileLoader = this.loadFileXEJS;
         else this.fileLoader = loadFile;

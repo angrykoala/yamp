@@ -15,8 +15,8 @@ module.exports = class PdfRenderer extends Renderer {
     //args: content, done
     fileOutput(content,filename, done) {
         html2pdf(content, filename, (err) => {
-            if (err) return done(new Error("Error writing file" + err));
-            else return done(null);
+            if (err) return done(new Error("Error writing file" + err),filename+".pdf");
+            else return done(null,filename+".pdf");
         });
     }
 };
