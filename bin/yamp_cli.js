@@ -3,7 +3,7 @@
 "use strict";
 
 //YAMP CLI
-//If using npm use -- before arguments
+//If using npm start use -- before arguments. e.g. `npm start -- myFile.md --pdf`
 const commander = require('commander');
 require('pkginfo')(module, "version", "author", "license", "description");
 const renderers = require('../index').renderers;
@@ -44,7 +44,7 @@ if (commander.listStyles) {
 }
 
 
-if (commander.args.length===0) {
+if (commander.args.length === 0) {
     console.error("Invalid Input", "usage: yamp <file> [options]");
     process.exit(1);
 }
@@ -67,23 +67,29 @@ for (let key in renderers) {
 
 if (selectedRenderers.length === 0) selectedRenderers.push("pdf");
 
-for(let i=0;i<commander.args.length;i++){
-    let inputFile=commander.args[i];
-    renderFile(inputFile,selectedRenderers,rendererOptions);
+let rendererList = loadRenderers(selectedRenderers, rendererOptions);
+
+//TODO: if -o or --join, merge all commander args into one array for renderfile
+
+for (let i = 0; i < commander.args.length; i++) {
+    let inputFile = commander.args[i];
+    for (let j = 0; j < rendererList.length; j++) {
+        rendererList[j].renderFile(inputFile, onRendererFinish);
+    }
 }
 
+//Creates the selected renderes, return an array of rendereres
+function loadRenderers(selectedRenderers, options) {
+    let rendererList = [];
+    for (let i = 0; i < selectedRenderers.length; i++) {
+        let rendererName = selectedRenderers[i];
+        rendererList.push(new renderers[rendererName](options));
+    }
+    return rendererList;
+}
 
+//Renderer callback
 function onRendererFinish(err, filename) {
     if (err) return console.log("Error: " + err);
     else console.log(filename + " created");
-}
-
-
-function renderFile(inputFile,selectedRenderers,options){
-    for (let i = 0; i < selectedRenderers.length; i++) {
-        let rendererName = selectedRenderers[i];
-
-        let renderer = new renderers[rendererName](options);
-        renderer.renderFile(inputFile, onRendererFinish);
-    }
 }

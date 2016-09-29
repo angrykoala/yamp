@@ -6,7 +6,6 @@
     "forin": true,
     "latedef": false,
     "noempty": true,
-    "quotmark": false,
     "maxcomplexity": 6,
     "maxdepth": 6,
     "nocomma": true,
@@ -17,5 +16,6 @@
     "varstmt": true,
     
     "node": true,
-    "mocha": true   
+    "mocha": true,
+    "esversion": 6
 }

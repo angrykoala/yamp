@@ -49,6 +49,9 @@ describe("Renderers", function() {
         it.skip("Title", function() {
 
         });
+        it.skip("Rendering multiple files",function(){
+            
+        });
     });
     describe("Html Renderer", function() {
         it("Create Renderer with default data", function() {
