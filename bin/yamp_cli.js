@@ -10,15 +10,9 @@ const renderers = require('../index').renderers;
 
 const version = module.exports.version;
 
-let inputFile;
-
 commander.version(version)
-    .usage("[options] <file>")
+    .usage("<files> [options]")
     .description(module.exports.description)
-    .arguments('file')
-    .action(function(file) {
-        inputFile = file;
-    })
     .option("-o, --output <file>", "output file name (without extension)")
     .option("--pdf", "pdf output")
     .option("--html", "html output")
@@ -32,16 +26,15 @@ commander.version(version)
     .option("--no-tags", "disable markdown yamp tags")
     .option("--no-front-matter", "disable initial yaml options parsing")
     .option("-k, --koala", "your output will be koalafied")
-    .parse(process.argv); 
-    
-    
-if(commander.listStyles) {
+    .parse(process.argv);
+
+if (commander.listStyles) {
     const fs = require("fs");
     console.log("\n  listing available styles\n");
 
     let files = fs.readdirSync(__dirname + "/../styles");
 
-    for(let i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i++) {
         console.log("      *", files[i]);
     }
 
@@ -50,8 +43,9 @@ if(commander.listStyles) {
     process.exit(0);
 }
 
-if (!inputFile) {
-    console.error("Invalid Input", "usage: yamp [options] <file>");
+
+if (commander.args.length===0) {
+    console.error("Invalid Input", "usage: yamp <file> [options]");
     process.exit(1);
 }
 
@@ -73,15 +67,23 @@ for (let key in renderers) {
 
 if (selectedRenderers.length === 0) selectedRenderers.push("pdf");
 
-function onRendererFinish(err, filename) {
-    if (err) return console.log("Error: " + err);
-    else console.log(filename+" conversion successful");
-
+for(let i=0;i<commander.args.length;i++){
+    let inputFile=commander.args[i];
+    renderFile(inputFile,selectedRenderers,rendererOptions);
 }
 
-for (let i = 0; i < selectedRenderers.length; i++) {
-    let rendererName = selectedRenderers[i];
 
-    let renderer = new renderers[rendererName](rendererOptions);
-    renderer.renderFile(inputFile, onRendererFinish);
+function onRendererFinish(err, filename) {
+    if (err) return console.log("Error: " + err);
+    else console.log(filename + " created");
+}
+
+
+function renderFile(inputFile,selectedRenderers,options){
+    for (let i = 0; i < selectedRenderers.length; i++) {
+        let rendererName = selectedRenderers[i];
+
+        let renderer = new renderers[rendererName](options);
+        renderer.renderFile(inputFile, onRendererFinish);
+    }
 }
