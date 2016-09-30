@@ -93,11 +93,12 @@ module.exports = class Renderer {
     }
 
     //Public
-    renderFile(file, done) {
+    renderFile(files, done) {
         let renderOptions = {};
+        if (!Array.isArray(files)) files = [files];
         Object.assign(renderOptions, this.options);
-        if (!renderOptions.outputFilename) renderOptions.outputFilename = parseFilename(file);
-        this.loadFiles(file, renderOptions, (err, rawContent) => {
+        if (!renderOptions.outputFilename) renderOptions.outputFilename = parseFilename(files[0]);
+        this.loadFiles(files, renderOptions, (err, rawContent) => {
             if (err) return done(err);
             frontMatterParser(rawContent, (err, res, attr) => {
                 if (err) console.log("Warning:" + err);
@@ -130,7 +131,6 @@ module.exports = class Renderer {
 
     loadFiles(files, renderOptions, done) {
         this.beforeLoad(files);
-        if (!Array.isArray(files)) files = [files];
         let rawContent = "";
 
         async.each(files, (file, cb) => {

@@ -13,7 +13,7 @@ const version = module.exports.version;
 commander.version(version)
     .usage("<files> [options]")
     .description(module.exports.description)
-    .option("-o, --output <file>", "output file name (without extension)")
+    .option("-o, --output <file>", "output file name (without extension), this option will join all input files")
     .option("--pdf", "pdf output")
     .option("--html", "html output")
     .option("--remark", "remark (html slides) output")
@@ -25,6 +25,7 @@ commander.version(version)
     .option("--no-highlight", "disable code highlight")
     .option("--no-tags", "disable markdown yamp tags")
     .option("--no-front-matter", "disable initial yaml options parsing")
+    .option("--join", "Joins all input files into one unique output file")
     .option("-k, --koala", "your output will be koalafied")
     .parse(process.argv);
 
@@ -69,12 +70,17 @@ if (selectedRenderers.length === 0) selectedRenderers.push("pdf");
 
 let rendererList = loadRenderers(selectedRenderers, rendererOptions);
 
-//TODO: if -o or --join, merge all commander args into one array for renderfile
-
-for (let i = 0; i < commander.args.length; i++) {
-    let inputFile = commander.args[i];
+if (commander.output || commander.join) { //Join files
+    let inputFiles = commander.args;
     for (let j = 0; j < rendererList.length; j++) {
-        rendererList[j].renderFile(inputFile, onRendererFinish);
+        rendererList[j].renderFile(inputFiles, onRendererFinish);
+    }
+} else {
+    for (let i = 0; i < commander.args.length; i++) { //Compile separately
+        let inputFile = commander.args[i];
+        for (let j = 0; j < rendererList.length; j++) {
+            rendererList[j].renderFile(inputFile, onRendererFinish);
+        }
     }
 }
 
