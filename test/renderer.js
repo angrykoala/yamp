@@ -49,8 +49,8 @@ describe("Renderers", function() {
         it.skip("Title", function() {
 
         });
-        it.skip("Rendering multiple files",function(){
-            
+        it.skip("Rendering multiple files", function() {
+
         });
     });
     describe("Html Renderer", function() {
@@ -116,6 +116,24 @@ describe("Renderers", function() {
                             });
                         });
                     });
+                });
+            });
+        });
+        it("Rendering multiple files", function(done) {
+            let renderer = new HtmlRenderer({
+                outputFilename: testDir + "/test"
+            });
+            renderer.renderFile([testDir + "/" + testFiles[1], testDir + "/" + testFiles[0]], function(err) {
+                assert.notOk(err);
+                fs.readFile(testDir + "/test.html", "utf8", function(err, res) {
+                    assert.notOk(err);
+                    assert.ok(res);
+                    assert.match(res, regex.html);
+                    assert.match(res, regex.htmlBody);
+                    let body = regex.htmlBody.exec(res)[0];
+                    assert.ok(body);
+                    assert.match(body,/<p>This should be included<\/p>[\s]*<h1[\s\S]*Markdown Test<\/h1>/);
+                    done();
                 });
             });
         });
