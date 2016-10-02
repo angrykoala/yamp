@@ -93,8 +93,12 @@ module.exports = class Renderer {
     }
 
     //Public
-    renderFile(files, done) {
-        let renderOptions = {};
+    renderFile(files, options, done) {
+        if(!done && typeof options==="function") {
+            done=options;
+            options={};
+        }
+        let renderOptions = options || {};
         if (!Array.isArray(files)) files = [files];
         Object.assign(renderOptions, this.options);
         if (!renderOptions.outputFilename) renderOptions.outputFilename = parseFilename(files[0]);
