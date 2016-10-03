@@ -104,34 +104,50 @@ module.exports = class Renderer {
         if (!renderOptions.outputFilename) renderOptions.outputFilename = parseFilename(files[0]);
         this.loadFiles(files, renderOptions, (err, rawContent) => {
             if (err) return done(err);
-            frontMatterParser(rawContent, (err, res, attr) => {
-                if (err) console.log("Warning:" + err);
-                if (renderOptions.frontMatter) {
-                    rawContent = res;
-                    Object.assign(renderOptions, attr);
-                }
-                tocParser(rawContent, (err, res) => {
-                    if (err) console.log("Warning:" + err);
-                    rawContent = res;
-                    this.contentParse(rawContent, renderOptions, (err, content) => {
-                        if (err) return done(err);
-                        let title = this.getTitle(content, renderOptions);
-                        let templateData = this.setTemplateOptions(renderOptions);
-                        templateData.content = content;
-                        templateData.title = title;
-                        this.beforeRender(templateData);
-                        this.templateRender(templateData, (err, res) => {
-                            if (err) return done(err);
-                            this.afterRender(res);
-                            this.fileOutput(res, renderOptions.outputFilename, done);
-                        });
-                    });
-                });
-            });
+            this.parseFrontMatter(rawContent, renderOptions, done);
         });
     }
 
     //Private
+
+    parseFrontMatter(rawContent, renderOptions, done) {
+        frontMatterParser(rawContent, (err, res, attr) => {
+            if (err) console.log("Warning:" + err);
+            if (renderOptions.frontMatter) {
+                rawContent = res;
+                Object.assign(renderOptions, attr);
+            }
+            this.parseToc(rawContent, renderOptions, done);
+        });
+    }
+
+    parseToc(rawContent, renderOptions, done) {
+        tocParser(rawContent, (err, res) => {
+            if (err) console.log("Warning:" + err);
+            rawContent = res;
+            this.parseRawContent(rawContent, renderOptions, done);
+        });
+    }
+
+    parseRawContent(rawContent, renderOptions, done) {
+        this.contentParse(rawContent, renderOptions, (err, content) => {
+            if (err) return done(err);
+            let title = this.getTitle(content, renderOptions);
+            let templateData = this.setTemplateOptions(renderOptions);
+            templateData.content = content;
+            templateData.title = title;
+            this.performRenderSteps(templateData, renderOptions, done);
+        });
+    }
+
+    performRenderSteps(templateData, renderOptions, done) {
+        this.beforeRender(templateData);
+        this.templateRender(templateData, (err, res) => {
+            if (err) return done(err);
+            this.afterRender(res);
+            this.fileOutput(res, renderOptions.outputFilename, done);
+        });
+    }
 
     loadFiles(files, renderOptions, done) {
         this.beforeLoad(files);
