@@ -7,7 +7,6 @@ You can also download it from [GitHub](https://github.com) clicking [here](https
 
 If you want to report an error or improvement, you can open an [issue](https://github.com/angrykoala/yamp/issues), please make sure the issue is not already reported. 
 
-
 If you want to contribute to yamp please:
 
 1. Check the opened and closed issues before creating one

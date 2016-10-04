@@ -82,11 +82,6 @@ module.exports = class Renderer {
         //Modify templateData before rendering
     }
 
-    //args: contentloadFileEJS
-    afterRender() {
-        //Modify rendered data
-    }
-
     //args: content, filename, done
     fileOutput() {
         //Write file
@@ -94,59 +89,56 @@ module.exports = class Renderer {
 
     //Public
     renderFile(files, options, done) {
-        if(!done && typeof options==="function") {
-            done=options;
-            options={};
+        if (!done && typeof options === "function") {
+            done = options;
+            options = {};
         }
-        let renderOptions = options || {};
         if (!Array.isArray(files)) files = [files];
-        Object.assign(renderOptions, this.options);
-        if (!renderOptions.outputFilename) renderOptions.outputFilename = parseFilename(files[0]);
+        let renderOptions=this.generateRenderOptions(files,options);
+        
         this.loadFiles(files, renderOptions, (err, rawContent) => {
             if (err) return done(err);
-            this.parseFrontMatter(rawContent, renderOptions, done);
+            this.beforeParseRender(rawContent, renderOptions, (err, res) => {
+                if (err) console.log("Warning:" + err);
+                rawContent = res;
+                this.contentParse(rawContent, renderOptions, (err, content) => {
+                    if (err) return done(err);
+                    this.renderTemplate(content, renderOptions, (err, res) => {
+                        if (err) return done(err);
+                        this.fileOutput(res, renderOptions.outputFilename, done);
+                    });
+                });
+            });
         });
     }
 
     //Private
-
-    parseFrontMatter(rawContent, renderOptions, done) {
+    generateRenderOptions(files,options){
+        let renderOptions = options || {};
+        Object.assign(renderOptions, this.options);
+        if (!renderOptions.outputFilename) renderOptions.outputFilename = parseFilename(files[0]);
+        return renderOptions;
+    }
+    
+    
+    beforeParseRender(rawContent, renderOptions, done) {
         frontMatterParser(rawContent, (err, res, attr) => {
             if (err) console.log("Warning:" + err);
             if (renderOptions.frontMatter) {
                 rawContent = res;
                 Object.assign(renderOptions, attr);
             }
-            this.parseToc(rawContent, renderOptions, done);
+            tocParser(rawContent, done);
         });
     }
 
-    parseToc(rawContent, renderOptions, done) {
-        tocParser(rawContent, (err, res) => {
-            if (err) console.log("Warning:" + err);
-            rawContent = res;
-            this.parseRawContent(rawContent, renderOptions, done);
-        });
-    }
-
-    parseRawContent(rawContent, renderOptions, done) {
-        this.contentParse(rawContent, renderOptions, (err, content) => {
-            if (err) return done(err);
-            let title = this.getTitle(content, renderOptions);
-            let templateData = this.setTemplateOptions(renderOptions);
-            templateData.content = content;
-            templateData.title = title;
-            this.performRenderSteps(templateData, renderOptions, done);
-        });
-    }
-
-    performRenderSteps(templateData, renderOptions, done) {
+    renderTemplate(content, renderOptions, done) {
+        let title = this.getTitle(content, renderOptions);
+        let templateData = this.setTemplateOptions(renderOptions);
+        templateData.content = content;
+        templateData.title = title;
         this.beforeRender(templateData);
-        this.templateRender(templateData, (err, res) => {
-            if (err) return done(err);
-            this.afterRender(res);
-            this.fileOutput(res, renderOptions.outputFilename, done);
-        });
+        this.templateRender(templateData, done);
     }
 
     loadFiles(files, renderOptions, done) {
@@ -159,7 +151,7 @@ module.exports = class Renderer {
                 cb(err);
             });
         }, (err) => {
-            done(err,rawContent);
+            done(err, rawContent);
         });
     }
 
@@ -172,7 +164,6 @@ module.exports = class Renderer {
         else this.template = __dirname + "/../templates/" + template;
     }
 
-    //TODO: change this for the temporal options directly
     setTemplateOptions(options) {
         let files = fs.readdirSync(__dirname + "/../styles");
         let index = files.indexOf(options.style);
