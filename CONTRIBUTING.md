@@ -3,7 +3,9 @@ _We love pull requests from everyone._
 
 To contribute to **yamp** you can clone the official repository <https://github.com/angrykoala/yamp> or your own _fork_ with `git`.
 
-You can also download it from [GitHub](https://github.com) clicking [here](https://github.com/angrykoala/yamp/archive/master.zip)
+You can also download it from [GitHub](https://github.com) clicking [here](https://github.com/angrykoala/yamp/archive/master.zip).
+
+If you want to report an error or improvement, you can open an [issue](https://github.com/angrykoala/yamp/issues), please make sure the issue is not already reported. 
 
 
 If you want to contribute to yamp please:
@@ -25,6 +27,7 @@ Some things that will increase the chance that your pull request is accepted:
 * Write readable code.
 * Write tests.
 * Write good commit messages.
+* Add the issue number in your commit.
 
 Thanks for your help!
 
