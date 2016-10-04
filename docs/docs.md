@@ -1,3 +1,8 @@
+---
+koala: true
+highlight: false
+---
+
 Yamp
 ====
 [![npm version](https://badge.fury.io/js/yamp.svg)](https://badge.fury.io/js/yamp) 

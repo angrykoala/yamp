@@ -21,7 +21,7 @@
   * Renderer options improved
   * Front matter support
   * Default md2html parser changed to marked, markdown-it plugins no longer supported
-  * Toc option added
+  * Toc support
   * Bugfixes
   * Removed html and pdf docs to reduce package space
   * Readme updated

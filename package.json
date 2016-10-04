@@ -1,6 +1,6 @@
 {
   "name": "yamp",
-  "version": "0.3.11",
+  "version": "0.4.0",
   "description": "Yet Another Markdown Parser",
   "main": "index.js",
   "bin": {
@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node ./bin/yamp_cli.js",
     "test": "istanbul cover _mocha",
-    "docs": "npm start -- docs/docs.md --html --pdf -o docs/index --koala; npm start -- docs/presentation.md --remark -o docs/presentation --koala; npm start -- README.md -o docs/readme --html --pdf",
+    "docs": "npm start -- docs/docs.md --html --pdf -o docs/index; npm start -- docs/presentation.md --remark -o docs/presentation; npm start -- README.md -o docs/readme --html --pdf",
     "jshint": "jshint *.js app bin test",
     "posttest": "npm run jshint"
   },
