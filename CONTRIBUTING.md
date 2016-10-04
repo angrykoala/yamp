@@ -6,13 +6,19 @@ To contribute to **yamp** you should clone the official repository <https://gith
 You can also download it from [GitHub](https://github.com) clicking [here](https://github.com/angrykoala/yamp/archive/master.zip)
 
 
-If you want to contribute to yamp please:    
+If you want to contribute to yamp please:
+
 1. Check the opened and closed issues before creating one
-2. Fork from https://github.com/angrykoala/yamp/, then clone your repo:
+
+2. Fork from https://github.com/angrykoala/yamp/, then clone your repo
+
 3. Make your changes. Add tests for your changes.
+
 4. Make sure all tests pass before making a pull request
+
 5. Use `dev` branch as base branch for your PR
-6. Push to your fork and [submit a pull request][pr].
+
+6. Push to your fork and [submit a pull request][pr]
 
 [pr]: https://github.com/angrykoala/yamp/compare/
 
@@ -27,4 +33,4 @@ Some things that will increase the chance that your pull request is accepted:
 
 Thanks for your help!
 
->YAMP is developed under GNU GPL-3 license by @angrykoala 
+>YAMP is developed under GNU GPL-3 license by @angrykoala
