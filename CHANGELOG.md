@@ -1,3 +1,13 @@
+0.3.11 / 2016-10-04
+===================
+
+  * Added CONTRIBUTING.md
+  * Renderer.renderfile separated in different files
+  * CHANGELOG.md added
+  * Options argument to renderFile
+  * Yamp-cli updated to support multiple files and --join option added
+  * Multiple input files for rendering accepted
+
 0.3.10 / 2016-09-28
 ===================
 
