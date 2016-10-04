@@ -3,23 +3,17 @@
 "use strict";
 
 //YAMP CLI
-//If using npm use -- before arguments
+//If using npm start use -- before arguments. e.g. `npm start -- myFile.md --pdf`
 const commander = require('commander');
 require('pkginfo')(module, "version", "author", "license", "description");
 const renderers = require('../index').renderers;
 
 const version = module.exports.version;
 
-let inputFile;
-
 commander.version(version)
-    .usage("[options] <file>")
+    .usage("<files> [options]")
     .description(module.exports.description)
-    .arguments('file')
-    .action(function(file) {
-        inputFile = file;
-    })
-    .option("-o, --output <file>", "output file name (without extension)")
+    .option("-o, --output <file>", "output file name (without extension), this option will join all input files")
     .option("--pdf", "pdf output")
     .option("--html", "html output")
     .option("--remark", "remark (html slides) output")
@@ -31,17 +25,17 @@ commander.version(version)
     .option("--no-highlight", "disable code highlight")
     .option("--no-tags", "disable markdown yamp tags")
     .option("--no-front-matter", "disable initial yaml options parsing")
+    .option("--join", "Joins all input files into one unique output file")
     .option("-k, --koala", "your output will be koalafied")
-    .parse(process.argv); 
-    
-    
-if(commander.listStyles) {
+    .parse(process.argv);
+
+if (commander.listStyles) {
     const fs = require("fs");
     console.log("\n  listing available styles\n");
 
     let files = fs.readdirSync(__dirname + "/../styles");
 
-    for(let i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i++) {
         console.log("      *", files[i]);
     }
 
@@ -50,8 +44,9 @@ if(commander.listStyles) {
     process.exit(0);
 }
 
-if (!inputFile) {
-    console.error("Invalid Input", "usage: yamp [options] <file>");
+
+if (commander.args.length === 0) {
+    console.error("Invalid Input", "usage: yamp <file> [options]");
     process.exit(1);
 }
 
@@ -73,15 +68,34 @@ for (let key in renderers) {
 
 if (selectedRenderers.length === 0) selectedRenderers.push("pdf");
 
-function onRendererFinish(err, filename) {
-    if (err) return console.log("Error: " + err);
-    else console.log(filename+" conversion successful");
+let rendererList = loadRenderers(selectedRenderers, rendererOptions);
 
+if (commander.output || commander.join) { //Join files
+    let inputFiles = commander.args;
+    for (let j = 0; j < rendererList.length; j++) {
+        rendererList[j].renderFile(inputFiles, onRendererFinish);
+    }
+} else {
+    for (let i = 0; i < commander.args.length; i++) { //Compile separately
+        let inputFile = commander.args[i];
+        for (let j = 0; j < rendererList.length; j++) {
+            rendererList[j].renderFile(inputFile, onRendererFinish);
+        }
+    }
 }
 
-for (let i = 0; i < selectedRenderers.length; i++) {
-    let rendererName = selectedRenderers[i];
+//Creates the selected renderes, return an array of rendereres
+function loadRenderers(selectedRenderers, options) {
+    let rendererList = [];
+    for (let i = 0; i < selectedRenderers.length; i++) {
+        let rendererName = selectedRenderers[i];
+        rendererList.push(new renderers[rendererName](options));
+    }
+    return rendererList;
+}
 
-    let renderer = new renderers[rendererName](rendererOptions);
-    renderer.renderFile(inputFile, onRendererFinish);
+//Renderer callback
+function onRendererFinish(err, filename) {
+    if (err) return console.log("Error: " + err);
+    else console.log(filename + " created");
 }

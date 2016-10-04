@@ -1,6 +1,6 @@
 {
   "name": "yamp",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "description": "Yet Another Markdown Parser",
   "main": "index.js",
   "bin": {
@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/angrykoala/yamp#readme",
   "dependencies": {
+    "async": "^2.0.1",
     "commander": "^2.9.0",
     "ejs": "^2.5.2",
     "front-matter": "^2.1.0",
@@ -41,13 +42,12 @@
     "markdown-toc": "^0.13.0",
     "marked": "^0.3.6",
     "pkginfo": "^0.4.0",
-    "xejs": "^0.3.0"
+    "xejs": "~0.3.0"
   },
   "engines": {
     "node": ">= 4.0.0"
   },
   "devDependencies": {
-    "async": "^2.0.1",
     "chai": "^3.5.0",
     "fs-extra": "^0.30.0",
     "istanbul": "^0.4.5",

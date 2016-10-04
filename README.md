@@ -190,9 +190,10 @@ You can also download it from [GitHub](https://github.com) clicking [here](https
 
 ## Contributors
 If you want to contribute to yamp please:    
-1. Fork from [dev branch](https://github.com/angrykoala/yamp/tree/dev)
-2. Make sure tests passes before pull request
-3. Check the opened and closed issues before creating one
+1. Read CONTRIBUTING.md
+2. Fork from [dev branch](https://github.com/angrykoala/yamp/tree/dev)
+3. Make sure tests passes before pull request
+4. Check the opened and closed issues before creating one
 
 Thanks for your help!
 
