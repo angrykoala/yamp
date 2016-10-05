@@ -1,4 +1,10 @@
 "use strict";
+/*
+Renderers Test
+==============
+Unit tests for renderers classes
+*/
+
 
 const assert = require('chai').assert;
 const fs = require('fs-extra');

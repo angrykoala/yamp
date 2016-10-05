@@ -1,4 +1,9 @@
 "use strict";
+/*
+Parsers Test
+==============
+Unit tests for parsers
+*/
 
 const fs = require('fs-extra');
 const assert = require('chai').assert;

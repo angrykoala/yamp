@@ -1,9 +1,14 @@
 #!/usr/bin/env node
 
 "use strict";
+/*
+Yamp CLI
+========
+Provides a Command Line Interface to use yamp. Will be called with `yamp` when globally installed
 
-//YAMP CLI
-//If using npm start use -- before arguments. e.g. `npm start -- myFile.md --pdf`
+>If using npm start use -- before arguments. e.g. `npm start -- myFile.md --pdf`
+*/
+
 const commander = require('commander');
 require('pkginfo')(module, "version", "author", "license", "description");
 const renderers = require('../index').renderers;

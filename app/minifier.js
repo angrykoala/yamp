@@ -1,4 +1,10 @@
 "use strict";
+/*
+Minifiers
+=========
+Provides code minifiers for output files
+*/
+
 
 const htmlMinify = require('html-minifier').minify;
 

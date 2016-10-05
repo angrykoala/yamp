@@ -1,10 +1,14 @@
 "use strict";
+/*
+Markdown to Html Parser
+=======================
+Translate markdown string to html using _marked_ and generates highlighted code. Updates requireHighlight option
+*/
 
 const marked = require('marked');
 const hljs = require('highlight.js');
 
-
-module.exports = function(content, options, cb) {
+module.exports = function(content, options, done) {
     let highlighted = false;
     if (options.highlight) {
         marked.setOptions({
@@ -17,6 +21,6 @@ module.exports = function(content, options, cb) {
 
     marked(content, function(err, res) {
         options.requireHighlight = highlighted;
-        cb(err, res);
+        done(err, res);
     });
 };

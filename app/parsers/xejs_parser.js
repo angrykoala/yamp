@@ -1,9 +1,16 @@
 "use strict";
+/*
+XEJS Parser
+===========
+Renders custom xejs tags {{ ... }} 
+*/
+
 const xejs = require('xejs');
-require('pkginfo')(module, "version", "author", "license", "description");
+require('pkginfo')(module, "version");
 
 const version = module.exports.version;
 
+// Default xejs options
 const xejsOptions = {
     openTag: "{{",
     closeTag: "}}",

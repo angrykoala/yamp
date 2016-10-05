@@ -1,3 +1,9 @@
+Dev Version
+============
+
+  * Code comments improved
+  * Presentation under docs improved
+
 0.3.11 / 2016-10-04
 ===================
 

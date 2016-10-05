@@ -1,4 +1,8 @@
 "use strict";
+/*
+## Tests Configuration
+Configuration for unit tests
+*/
 
 module.exports = {
     yampExports: {

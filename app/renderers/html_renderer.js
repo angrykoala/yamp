@@ -1,4 +1,9 @@
 "use strict";
+/*
+Html Renderer
+=============
+Renderer for Html page files
+*/
 
 const fs = require('fs');
 

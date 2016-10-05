@@ -1,5 +1,9 @@
 "use strict";
-
+/*
+PDF Renderer
+============
+Renderer for pdf file output
+*/
 const Renderer = require('../renderer');
 const Md2Html = require('../parsers/md2html');
 const html2pdf = require('../parsers/html2pdf');
