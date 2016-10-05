@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node ./bin/yamp_cli.js",
     "test": "istanbul cover _mocha -- --recursive",
-    "docs": "npm start -- docs/docs.md --html --pdf -o docs/index; npm start -- docs/presentation.md --remark -o docs/presentation; npm start -- README.md -o docs/readme --html --pdf",
+    "docs": "npm start -- docs/index.md --html --pdf -o docs/index; npm start -- docs/presentation.md --remark -o docs/presentation; npm start -- README.md -o docs/readme --html --pdf; npm start -- CHANGELOG.md -o docs/CHANGELOG --html --pdf",
     "jshint": "jshint *.js app bin test",
     "posttest": "npm run jshint"
   },

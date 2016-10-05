@@ -25,13 +25,15 @@ Yamp readme is also parsed [here](./readme.html) and in [pdf too](./readme.pdf)
 * HTML conversion
 * PDF conversion
 * Code highlight support
-* Github-style output
+* Github-style and academic output
 * API to use _yamp_ programmatically
 * Custom styles
 * CSS-embedded HTML (just open it offline in any browser)
 * HTML tags support (for PDF output too)
 * Include other files in your markdown
 * [HTML presentations](https://remarkjs.com/)
+* Front Matter metadata
+* Custom [xejs-based](https://github.com/angrykoala/xejs) tags (`{{}}`)
 * Koalafied
 
 

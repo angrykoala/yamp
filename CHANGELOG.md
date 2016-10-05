@@ -1,8 +1,10 @@
-Dev Version
-============
+Dev version {{yamp version}} on {{date}}
+===========================
 
   * Code comments improved
   * Presentation under docs improved
+  * Tests separated in different files
+  * Changelog added to docs
 
 0.3.11 / 2016-10-04
 ===================
