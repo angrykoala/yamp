@@ -48,3 +48,7 @@ README.html
 
 # Data generated in tests
 test/test_sandbox
+
+# Docs
+docs/*.pdf
+docs/*.html

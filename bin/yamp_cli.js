@@ -30,7 +30,7 @@ commander.version(version)
     .option("--no-highlight", "disable code highlight")
     .option("--no-tags", "disable markdown yamp tags")
     .option("--no-front-matter", "disable initial yaml options parsing")
-    .option("--join", "Joins all input files into one unique output file")
+    .option("--join", "joins all input files into one unique output file")
     .option("-k, --koala", "your output will be koalafied")
     .parse(process.argv);
 
