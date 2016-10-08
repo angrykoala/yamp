@@ -5,7 +5,7 @@ const assert = require('chai').assert;
 const config = require('../config/config');
 const xejsParser = require('../../app/parsers/xejs_parser');
 
-const testFiles = config.testXejsFiles;
+const testFiles = config.testFiles.xejs;
 const testDir = config.testDir;
 
 describe("XEJS parser", function () {

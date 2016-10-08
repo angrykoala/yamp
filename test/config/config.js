@@ -49,12 +49,21 @@ module.exports = {
                 /extra tags\s+tag is 12\s+{{ extra tag\(a\)}}\s+End of second file/
 
             ]
-        }
-
+        },
+        remarkTestFile:[
+            /<title>remark_test<\/title>/,
+            /.remark-code/,
+            /<body>\s*<textarea id="source">\s+# Main Title[\S\s]+<\/textarea>\s*<script>[\s\S]+<\/script>\s*<\/body>/,
+            /# Main Title\s+---\s+# Slide 2\s+Sample text/,
+            /---\sclass: center,middle\s+# Slide 3\s+centered and in the middle\s+\?\?\?\s+Testing notes\s/    
+        ]
     },
-    testMdFiles: ["test.md", "test2.md"],
-    testXejsFiles: ["xejs_test.md", "xejs_test2.md"],
-    testFrontMatterFile: "front_matter_test.md",
+    testFiles: {
+        md: ["test.md", "test2.md"],
+        xejs: ["xejs_test.md", "xejs_test2.md"],
+        frontMatter: ["front_matter_test.md"],
+        remark: ["remark_test.md"]
+    },
     testDir: "test/test_sandbox",
     frontMatter: "---\ntitle: my title\ndescription: my description\n---\nThis is the content\n---"
 };

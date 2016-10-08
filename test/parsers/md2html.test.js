@@ -10,7 +10,7 @@ function removeNewlines(str) {
     return str.replace(/(\r\n|\n|\r)/gm, "");
 }
 
-describe("md2html", function () {
+describe("Md2html", function () {
     let rendererOptions;
     beforeEach(() => {
         rendererOptions = {

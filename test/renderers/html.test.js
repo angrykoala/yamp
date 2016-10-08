@@ -9,10 +9,10 @@ const config = require('../config/config');
 
 const regex = config.regex;
 const testDir = config.testDir;
-const testFrontMatterFile = config.testFrontMatterFile;
-const testFiles = config.testMdFiles;
+const testFrontMatterFile = config.testFiles.frontMatter;
+const testMdFiles = config.testFiles.md;
 
-describe("Html Renderer", function () {
+describe("Html Renderer", () => {
     it("Create Renderer with default data", () => {
         const renderer = new HtmlRenderer({});
         assert.ok(renderer);
@@ -30,7 +30,7 @@ describe("Html Renderer", function () {
             outputFilename: testDir + "/test"
         });
         const originalOptions = JSON.stringify(renderer.options);
-        renderer.renderFile(testDir + "/" + testFiles[0], (renderFileError) => {
+        renderer.renderFile(testDir + "/" + testMdFiles[0], (renderFileError) => {
             assert.notOk(renderFileError);
             fs.stat(testDir + "/test.html", (err, res) => {
                 assert.notOk(err);
@@ -45,7 +45,7 @@ describe("Html Renderer", function () {
                     const body = regex.htmlBody.exec(res)[0];
                     assert.ok(body);
                     const regKeys = Object.keys(regex.htmlTestFile);
-                    for (let i = 0; i < regKeys.length; i += 1) {
+                    for (let i = 0; i < regKeys.length; i++) {
                         assert.match(body, regex.htmlTestFile[regKeys[i]]);
                     }
                     assert.strictEqual(JSON.stringify(renderer.options), originalOptions);
@@ -81,7 +81,7 @@ describe("Html Renderer", function () {
         const renderer = new HtmlRenderer({
             outputFilename: testDir + "/test"
         });
-        renderer.renderFile([testDir + "/" + testFiles[1], testDir + "/" + testFiles[0]], (err) => {
+        renderer.renderFile([testDir + "/" + testMdFiles[1], testDir + "/" + testMdFiles[0]], (err) => {
             assert.notOk(err);
             fs.readFile(testDir + "/test.html", "utf8", (err, res) => {
                 assert.notOk(err);
@@ -103,7 +103,7 @@ describe("Html Renderer", function () {
                 highlight: true
             });
             const originalOptions = JSON.stringify(renderer.options);
-            renderer.renderFile(testDir + "/" + testFiles[0], (err) => {
+            renderer.renderFile(testDir + "/" + testMdFiles[0], (err) => {
                 assert.notOk(err);
                 fs.readFile(testDir + "/test.html", "utf8", (err, res) => {
                     assert.notOk(err);
@@ -111,7 +111,7 @@ describe("Html Renderer", function () {
                     assert.match(res, regex.html);
                     assert.match(res, regex.options.highlightjs);
                     assert.match(res, regex.options.highlightcss);
-                    renderer.renderFile(testDir + "/" + testFiles[1], (err) => {
+                    renderer.renderFile(testDir + "/" + testMdFiles[1], (err) => {
                         assert.notOk(err);
                         fs.readFile(testDir + "/test.html", "utf8", (err, res) => {
                             assert.notOk(err);
@@ -125,7 +125,7 @@ describe("Html Renderer", function () {
                                 highlight: false
                             });
                             const originalOptions2 = JSON.stringify(renderer2.options);
-                            renderer2.renderFile(testDir + "/" + testFiles[0], (err) => {
+                            renderer2.renderFile(testDir + "/" + testMdFiles[0], (err) => {
                                 assert.notOk(err);
                                 fs.readFile(testDir + "/test.html", "utf8", (err, res) => {
                                     assert.notOk(err);
@@ -150,7 +150,7 @@ describe("Html Renderer", function () {
                 outputFilename: testDir + "/test",
                 title: titleTest
             });
-            renderer.renderFile(testDir + "/" + testFiles[0], (err) => {
+            renderer.renderFile(testDir + "/" + testMdFiles[0], (err) => {
                 assert.notOk(err);
                 fs.readFile(testDir + "/test.html", "utf8", (err, res) => {
                     assert.notOk(err);
@@ -160,7 +160,7 @@ describe("Html Renderer", function () {
                     renderer = new HtmlRenderer({
                         outputFilename: testDir + "/test",
                     });
-                    renderer.renderFile(testDir + "/" + testFiles[1], (err) => {
+                    renderer.renderFile(testDir + "/" + testMdFiles[1], (err) => {
                         assert.notOk(err);
                         fs.readFile(testDir + "/test.html", "utf8", (err, res) => {
                             titleRegex = /<title>test<\/title>/;

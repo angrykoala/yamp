@@ -8,7 +8,7 @@ const Renderer = require('../../app/renderer');
 const PdfRenderer = require('../../app/renderers/pdf_renderer');
 
 const testDir = config.testDir;
-const testFiles = config.testMdFiles;
+const testFiles = config.testFiles.md;
 
 describe("Pdf Renderer", function() {
     it("Create Renderer with default data", () => {

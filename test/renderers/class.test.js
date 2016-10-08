@@ -1,6 +1,6 @@
 "use strict";
 
-describe("Renderer Class", function () {
+describe("Renderer Class", () => {
     it.skip("Create a default Renderer", () => {
 
     });
