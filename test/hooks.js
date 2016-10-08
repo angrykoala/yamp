@@ -17,8 +17,10 @@ const testFilesList = config.testFiles;
 
 let testFiles = [];
 
-for (let key in testFilesList) {
-        testFiles = testFiles.concat(testFilesList[key]);
+let testFilesKeys=Object.keys(testFilesList);
+
+for (let i=0;i<testFilesKeys.length;i++) {
+        testFiles = testFiles.concat(testFilesList[testFilesKeys[i]]);
 }
 
 beforeEach(function(done) {

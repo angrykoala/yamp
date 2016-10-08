@@ -1,5 +1,7 @@
 Dev version {{yamp version}} on {{date}}
 ===========================
+
+  * Tests coverage improved
   * Compiled docs added to github repo
   * Npmignore file created
   * Code comments improved
