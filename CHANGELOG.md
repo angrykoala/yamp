@@ -1,6 +1,7 @@
 Dev version {{yamp version}} on {{date}}
 ===========================
 
+  * Xejs updated to 0.4.0
   * Tests coverage improved
   * Compiled docs added to github repo
   * Npmignore file created

@@ -28,7 +28,7 @@ describe("XEJS parser", function () {
         assert.ok(xejsParser);
         // {{ extra tag(12)}}
         xejsParser(testDir + "/" + testFiles[0], {}, [
-            [/extra\s+tag\((\d+)\)/, "-'tag is $1'"]
+            [/extra\s+tag\((\d+)\)/, "'tag is $1'"]
         ], (err, res) => {
             const reg = config.regex.xejsTestFile;
             assert.notOk(err);
