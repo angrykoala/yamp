@@ -36,7 +36,7 @@ commander.version(version)
 
 if (commander.listStyles) {
     const fs = require("fs");
-    console.log("\n  listing available styles\n");
+    console.log("\n  Available styles\n");
 
     let files = fs.readdirSync(__dirname + "/../styles");
 

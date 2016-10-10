@@ -1,5 +1,5 @@
-Dev version {{yamp version}} on {{date}}
-===========================
+0.4.0 / xxxx-xx-xx
+==================
 
   * Xejs updated to 0.4.0
   * Tests coverage improved
