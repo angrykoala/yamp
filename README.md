@@ -189,7 +189,8 @@ You can also download it from [GitHub](https://github.com) clicking [here](https
 >It is strongly recommended to install the npm repository version instead of your local copy
 
 ## Contributors
-If you want to contribute to yamp please:    
+If you want to contribute to yamp please:   
+
 1. Read CONTRIBUTING.md
 2. Fork from [dev branch](https://github.com/angrykoala/yamp/tree/dev)
 3. Make sure tests passes before pull request
