@@ -18,7 +18,8 @@ const defaultOptions = {
     minify: false,
     tags: true,
     frontMatter: true,
-    koala: false
+    koala: false,
+    outputDirectory: '.'
 };
 
 function removeFileExtension(filename) {
@@ -95,7 +96,7 @@ module.exports = class Renderer {
         }
         if (!Array.isArray(files)) files = [files];
         let renderOptions=this.generateRenderOptions(files,options);
-        
+
         this.loadFiles(files, renderOptions, (err, rawContent) => {
             if (err) return done(err);
             this.beforeParseRender(rawContent, renderOptions, (err, res) => {
@@ -105,7 +106,7 @@ module.exports = class Renderer {
                     if (err) return done(err);
                     this.renderTemplate(content, renderOptions, (err, res) => {
                         if (err) return done(err);
-                        this.fileOutput(res, renderOptions.outputFilename, done);
+                        this.fileOutput(res, renderOptions.outputDirectory + '/' + renderOptions.outputFilename, done);
                     });
                 });
             });
@@ -116,11 +117,26 @@ module.exports = class Renderer {
     generateRenderOptions(files,options){
         let renderOptions = options || {};
         Object.assign(renderOptions, this.options);
-        if (!renderOptions.outputFilename) renderOptions.outputFilename = parseFilename(files[0]);
+        if (!renderOptions.outputFilename) {
+            renderOptions.outputFilename = parseFilename(files[0]);
+        }
+        else {
+            try {
+                let stats = fs.lstatSync(renderOptions.outputFilename);
+                if (stats.isDirectory()) {
+                    renderOptions.outputDirectory = renderOptions.outputFilename;
+                    renderOptions.outputFilename = parseFilename(files[0]);
+                }
+            }
+            catch (e) {
+                // file does not exist, so it cannot be a directory
+                // continue as normally
+            }
+        }
         return renderOptions;
     }
-    
-    
+
+
     beforeParseRender(rawContent, renderOptions, done) {
         frontMatterParser(rawContent, (err, res, attr) => {
             if (err) console.log("Warning:" + err);
