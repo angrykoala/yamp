@@ -7,6 +7,7 @@
 const commander = require('commander');
 require('pkginfo')(module, "version", "author", "license", "description");
 const renderers = require('../index').renderers;
+const fs = require('fs');
 
 const version = module.exports.version;
 
@@ -69,8 +70,15 @@ for (let key in renderers) {
 if (selectedRenderers.length === 0) selectedRenderers.push("pdf");
 
 let rendererList = loadRenderers(selectedRenderers, rendererOptions);
+let stats = false;
 
-if (commander.output || commander.join) { //Join files
+if (commander.output) {
+    try {
+        stats = fs.lstatSync(commander.output);
+    }
+    catch(e) {}
+}
+if ((commander.output && (!stats || !stats.isDirectory())) || commander.join) { //Join files
     let inputFiles = commander.args;
     for (let j = 0; j < rendererList.length; j++) {
         rendererList[j].renderFile(inputFiles, onRendererFinish);
