@@ -66,17 +66,17 @@ function loadFile(file, options, done) {
 module.exports = class Renderer {
     // Contructor to be called by child constructor
     constructor(options, template, inputParser) {
-        this.options = setDefaultOptions();
-        this.setOptions(options);
-        this.xejsTokens = []; //modify this to add new xejs tokens
-        this.setTemplate(template);
-        this.parser = inputParser;
-        this.name = "default";
+            this.options = setDefaultOptions();
+            this.setOptions(options);
+            this.xejsTokens = []; //modify this to add new xejs tokens
+            this.setTemplate(template);
+            this.parser = inputParser;
+            this.name = "default";
 
-        if (this.options.tags) this.fileLoader = this.loadFileXEJS;
-        else this.fileLoader = loadFile;
-    }
-    // Set one or more renderer options
+            if (this.options.tags) this.fileLoader = this.loadFileXEJS;
+            else this.fileLoader = loadFile;
+        }
+        // Set one or more renderer options
     setOptions(options) {
         if (options) {
             Object.assign(this.options, options);
@@ -85,7 +85,7 @@ module.exports = class Renderer {
 
 
     // ## Methods to extend
-    
+
     // Called before loading files
     // _args:_ filenames
     beforeLoad() {
@@ -112,7 +112,7 @@ module.exports = class Renderer {
             options = {};
         }
         if (!Array.isArray(files)) files = [files];
-        let renderOptions=this.generateRenderOptions(files,options);
+        let renderOptions = this.generateRenderOptions(files, options);
 
         this.loadFiles(files, renderOptions, (err, rawContent) => {
             if (err) return done(err);
@@ -123,7 +123,7 @@ module.exports = class Renderer {
                     if (err) return done(err);
                     this.renderTemplate(content, renderOptions, (err, res) => {
                         if (err) return done(err);
-                        this.fileOutput(res, renderOptions.outputDirectory + '/' + renderOptions.outputFilename, done);
+                        this.fileOutput(res, path.join(renderOptions.outputDirectory, renderOptions.outputFilename), done);
                     });
                 });
             });
@@ -133,21 +133,19 @@ module.exports = class Renderer {
     // ## Private Methods
 
     // Creates rendering options object
-    generateRenderOptions(files,options){
+    generateRenderOptions(files, options) {
         let renderOptions = options || {};
         Object.assign(renderOptions, this.options);
         if (!renderOptions.outputFilename) {
             renderOptions.outputFilename = parseFilename(files[0]);
-        }
-        else {
+        } else {
             try {
                 let stats = fs.lstatSync(renderOptions.outputFilename);
                 if (stats.isDirectory()) {
                     renderOptions.outputDirectory = renderOptions.outputFilename;
                     renderOptions.outputFilename = parseFilename(files[0]);
                 }
-            }
-            catch (e) {
+            } catch (e) {
                 // file does not exist, so it cannot be a directory
                 // continue as normally
             }
@@ -228,7 +226,7 @@ module.exports = class Renderer {
     templateRender(data, done) {
         ejs.renderFile(this.template, data, {}, done);
     }
-    
+
     // Loader with XEJS parser
     loadFileXEJS(file, options, done) {
         xejsParser(file, options, this.xejsTokens, done);

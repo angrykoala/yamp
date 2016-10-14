@@ -80,8 +80,7 @@ let stats = false;
 if (commander.output) {
     try {
         stats = fs.lstatSync(commander.output);
-    }
-    catch(e) {}
+    } catch (e) {}
 }
 if ((commander.output && (!stats || !stats.isDirectory())) || commander.join) { //Join files
     let inputFiles = commander.args;
