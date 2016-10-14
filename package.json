@@ -1,6 +1,6 @@
 {
   "name": "yamp",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Yet Another Markdown Parser",
   "main": "index.js",
   "bin": {
