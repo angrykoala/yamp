@@ -44,7 +44,7 @@ ncp
 # Example data
 README.pdf
 README.html
-*.pdf
+./*.pdf
 
 # Data generated in tests
 test/test_sandbox
