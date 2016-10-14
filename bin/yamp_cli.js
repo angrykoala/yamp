@@ -19,7 +19,7 @@ const version = module.exports.version;
 commander.version(version)
     .usage("<files> [options]")
     .description(module.exports.description)
-    .option("-o, --output <file>", "output file name (without extension), this option will join all input files")
+    .option("-o, --output <file | directory>", "output file name (without extension) or directory, if output is a filename, joins all the resulting files")
     .option("--pdf", "pdf output")
     .option("--html", "html output")
     .option("--remark", "remark (html slides) output")

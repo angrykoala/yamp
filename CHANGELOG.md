@@ -1,6 +1,7 @@
-0.4.0 / xxxx-xx-xx
+0.4.0 / 2016-10-14
 ==================
 
+  * Directory as output supported
   * Xejs updated to 0.4.0
   * Tests coverage improved
   * Compiled docs added to github repo

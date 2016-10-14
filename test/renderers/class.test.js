@@ -16,4 +16,7 @@ describe("Renderer Class", () => {
     it.skip("Rendering multiple files", () => {
 
     });
+    it.skip("Rendering in a directory",()=>{
+        
+    });
 });
