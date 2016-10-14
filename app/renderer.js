@@ -1,5 +1,11 @@
 "use strict";
 
+/*
+Renderer Class
+==============
+Base class to implement renderers. Will provide basic workflow with file loading and common parsers
+*/
+
 const fs = require('fs');
 const ejs = require('ejs');
 const path = require('path');
@@ -12,15 +18,20 @@ const frontMatterParser = require('./parsers/front_matter');
 
 const resourcesPath = __dirname + "/../resources";
 
+// Default rendering options
 const defaultOptions = {
     highlight: true,
     style: true,
     minify: false,
     tags: true,
     frontMatter: true,
-    koala: false
+    koala: false,
+    outputDirectory: '.'
 };
 
+// ## Private Functions
+
+// Removes extension from filename
 function removeFileExtension(filename) {
     if (!filename) return "";
     let filenameArr = filename.split(".");
@@ -28,12 +39,14 @@ function removeFileExtension(filename) {
     return filenameArr.join(".");
 }
 
+// Gets filename from path
 function parseFilename(filepath) {
     if (!filepath) return "";
     let filename = path.basename(filepath);
     return removeFileExtension(filename);
 }
 
+// Returns the default options as a new object
 function setDefaultOptions() {
     let res = {};
     Object.assign(res, defaultOptions);
@@ -41,6 +54,7 @@ function setDefaultOptions() {
     return res;
 }
 
+// Basic file loader
 function loadFile(file, options, done) {
     fs.readFile(file, 'utf8', function(err, data) {
         if (err) return done(new Error("Error reading file: " + err));
@@ -49,20 +63,20 @@ function loadFile(file, options, done) {
 }
 
 
-//Class to render from one file to another
 module.exports = class Renderer {
+    // Contructor to be called by child constructor
     constructor(options, template, inputParser) {
-        this.options = setDefaultOptions();
-        this.setOptions(options);
-        this.xejsTokens = []; //modify this to add new xejs tokens
-        this.setTemplate(template);
-        this.parser = inputParser;
-        this.name = "default";
+            this.options = setDefaultOptions();
+            this.setOptions(options);
+            this.xejsTokens = []; //modify this to add new xejs tokens
+            this.setTemplate(template);
+            this.parser = inputParser;
+            this.name = "default";
 
-        if (this.options.tags) this.fileLoader = this.loadFileXEJS;
-        else this.fileLoader = loadFile;
-    }
-
+            if (this.options.tags) this.fileLoader = this.loadFileXEJS;
+            else this.fileLoader = loadFile;
+        }
+        // Set one or more renderer options
     setOptions(options) {
         if (options) {
             Object.assign(this.options, options);
@@ -70,32 +84,36 @@ module.exports = class Renderer {
     }
 
 
-    //To extend
+    // ## Methods to extend
 
-    //args filename
+    // Called before loading files
+    // _args:_ filenames
     beforeLoad() {
-        //Modify filename or this.fileLoader
+        //Modify filename or this.fileLoader before loading files
     }
 
-    //args templateOptions
+    // Called before rendering markdown
+    // _args:_ templateData
     beforeRender() {
         //Modify templateData before rendering
     }
 
-    //args: content, filename, done
+    // Called after rendering, to implement output
+    // _args:: _ontent, filename, done
     fileOutput() {
         //Write file
     }
 
-    //Public
+    // ## Public methods
+    // Renders given file with given options
     renderFile(files, options, done) {
         if (!done && typeof options === "function") {
             done = options;
             options = {};
         }
         if (!Array.isArray(files)) files = [files];
-        let renderOptions=this.generateRenderOptions(files,options);
-        
+        let renderOptions = this.generateRenderOptions(files, options);
+
         this.loadFiles(files, renderOptions, (err, rawContent) => {
             if (err) return done(err);
             this.beforeParseRender(rawContent, renderOptions, (err, res) => {
@@ -105,22 +123,37 @@ module.exports = class Renderer {
                     if (err) return done(err);
                     this.renderTemplate(content, renderOptions, (err, res) => {
                         if (err) return done(err);
-                        this.fileOutput(res, renderOptions.outputFilename, done);
+                        this.fileOutput(res, path.join(renderOptions.outputDirectory, renderOptions.outputFilename), done);
                     });
                 });
             });
         });
     }
 
-    //Private
-    generateRenderOptions(files,options){
+    // ## Private Methods
+
+    // Creates rendering options object
+    generateRenderOptions(files, options) {
         let renderOptions = options || {};
         Object.assign(renderOptions, this.options);
-        if (!renderOptions.outputFilename) renderOptions.outputFilename = parseFilename(files[0]);
+        if (!renderOptions.outputFilename) {
+            renderOptions.outputFilename = parseFilename(files[0]);
+        } else {
+            try {
+                let stats = fs.lstatSync(renderOptions.outputFilename);
+                if (stats.isDirectory()) {
+                    renderOptions.outputDirectory = renderOptions.outputFilename;
+                    renderOptions.outputFilename = parseFilename(files[0]);
+                }
+            } catch (e) {
+                // file does not exist, so it cannot be a directory
+                // continue as normally
+            }
+        }
         return renderOptions;
     }
-    
-    
+
+
     beforeParseRender(rawContent, renderOptions, done) {
         frontMatterParser(rawContent, (err, res, attr) => {
             if (err) console.log("Warning:" + err);
@@ -132,6 +165,7 @@ module.exports = class Renderer {
         });
     }
 
+    // Render parsed markdown into the template
     renderTemplate(content, renderOptions, done) {
         let title = this.getTitle(content, renderOptions);
         let templateData = this.setTemplateOptions(renderOptions);
@@ -155,6 +189,7 @@ module.exports = class Renderer {
         });
     }
 
+    // Gets title from given options and files
     getTitle(parsedContent, options) {
         return options.title || titleParser.html(parsedContent) || parseFilename(options.outputFilename);
     }
@@ -191,6 +226,8 @@ module.exports = class Renderer {
     templateRender(data, done) {
         ejs.renderFile(this.template, data, {}, done);
     }
+
+    // Loader with XEJS parser
     loadFileXEJS(file, options, done) {
         xejsParser(file, options, this.xejsTokens, done);
     }

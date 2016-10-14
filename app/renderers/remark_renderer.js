@@ -1,4 +1,9 @@
 "use strict";
+/*
+Remark Renderer
+===============
+Renderer for Html presentation using remark
+*/
 
 const fs = require('fs');
 

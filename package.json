@@ -1,6 +1,6 @@
 {
   "name": "yamp",
-  "version": "0.3.11",
+  "version": "0.4.0",
   "description": "Yet Another Markdown Parser",
   "main": "index.js",
   "bin": {
@@ -8,8 +8,8 @@
   },
   "scripts": {
     "start": "node ./bin/yamp_cli.js",
-    "test": "istanbul cover _mocha",
-    "docs": "npm start -- docs/docs.md --html --pdf -o docs/index --koala; npm start -- docs/presentation.md --remark -o docs/presentation --koala; npm start -- README.md -o docs/readme --html --pdf",
+    "test": "istanbul cover _mocha -- --recursive",
+    "docs": "npm start -- docs/index.md --html --pdf -o docs/index; npm start -- docs/presentation.md --remark -o docs/presentation; npm start -- README.md -o docs/readme --html --pdf; npm start -- CHANGELOG.md -o docs/CHANGELOG --html --pdf",
     "jshint": "jshint *.js app bin test",
     "posttest": "npm run jshint"
   },
@@ -42,7 +42,7 @@
     "markdown-toc": "^0.13.0",
     "marked": "^0.3.6",
     "pkginfo": "^0.4.0",
-    "xejs": "~0.3.0"
+    "xejs": "~0.4.0"
   },
   "engines": {
     "node": ">= 4.0.0"

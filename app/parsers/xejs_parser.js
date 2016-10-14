@@ -1,17 +1,24 @@
 "use strict";
+/*
+XEJS Parser
+===========
+Renders custom xejs tags {{ ... }} 
+*/
+
 const xejs = require('xejs');
-require('pkginfo')(module, "version", "author", "license", "description");
+require('pkginfo')(module, "version");
 
 const version = module.exports.version;
 
+// Default xejs options
 const xejsOptions = {
     openTag: "{{",
     closeTag: "}}",
     tokens: [
-        [/date/i, "= getDate()"],
-        [/page\s*?break/i, "-'<p style=\"page-break-after:always;\"></p>'"],
-        [/yamp\s*?version/i, "='" + version + "'"],
-        [/toc/i,"- '<!-- toc -->'"]
+        [/date/i, "getDate()"],
+        [/page\s*?break/i, "'<p style=\"page-break-after:always;\"></p>'"],
+        [/yamp\s*?version/i, "'" + version + "'"],
+        [/toc/i,"'<!-- toc -->'"]
     ]
 };
 

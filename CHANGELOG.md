@@ -1,3 +1,16 @@
+0.4.0 / 2016-10-14
+==================
+
+  * Directory as output supported
+  * Xejs updated to 0.4.0
+  * Tests coverage improved
+  * Compiled docs added to github repo
+  * Npmignore file created
+  * Code comments improved
+  * Presentation under docs improved
+  * Tests separated in different files
+  * Changelog added to docs
+
 0.3.11 / 2016-10-04
 ===================
 
@@ -21,7 +34,7 @@
   * Renderer options improved
   * Front matter support
   * Default md2html parser changed to marked, markdown-it plugins no longer supported
-  * Toc option added
+  * Toc support
   * Bugfixes
   * Removed html and pdf docs to reduce package space
   * Readme updated

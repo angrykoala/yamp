@@ -1,4 +1,9 @@
 "use strict";
+/*
+Front Matter Parser
+===================
+Parse front-matter options from given string
+*/
 
 const frontMatter = require('front-matter');
 

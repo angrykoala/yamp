@@ -1,19 +1,25 @@
 #!/usr/bin/env node
 
 "use strict";
+/*
+Yamp CLI
+========
+Provides a Command Line Interface to use yamp. Will be called with `yamp` when globally installed
 
-//YAMP CLI
-//If using npm start use -- before arguments. e.g. `npm start -- myFile.md --pdf`
+>If using npm start use -- before arguments. e.g. `npm start -- myFile.md --pdf`
+*/
+
 const commander = require('commander');
 require('pkginfo')(module, "version", "author", "license", "description");
 const renderers = require('../index').renderers;
+const fs = require('fs');
 
 const version = module.exports.version;
 
 commander.version(version)
     .usage("<files> [options]")
     .description(module.exports.description)
-    .option("-o, --output <file>", "output file name (without extension), this option will join all input files")
+    .option("-o, --output <file | directory>", "output file name (without extension) or directory, if output is a filename, joins all the resulting files")
     .option("--pdf", "pdf output")
     .option("--html", "html output")
     .option("--remark", "remark (html slides) output")
@@ -25,13 +31,13 @@ commander.version(version)
     .option("--no-highlight", "disable code highlight")
     .option("--no-tags", "disable markdown yamp tags")
     .option("--no-front-matter", "disable initial yaml options parsing")
-    .option("--join", "Joins all input files into one unique output file")
+    .option("--join", "joins all input files into one unique output file")
     .option("-k, --koala", "your output will be koalafied")
     .parse(process.argv);
 
 if (commander.listStyles) {
     const fs = require("fs");
-    console.log("\n  listing available styles\n");
+    console.log("\n  Available styles\n");
 
     let files = fs.readdirSync(__dirname + "/../styles");
 
@@ -69,8 +75,14 @@ for (let key in renderers) {
 if (selectedRenderers.length === 0) selectedRenderers.push("pdf");
 
 let rendererList = loadRenderers(selectedRenderers, rendererOptions);
+let stats = false;
 
-if (commander.output || commander.join) { //Join files
+if (commander.output) {
+    try {
+        stats = fs.lstatSync(commander.output);
+    } catch (e) {}
+}
+if ((commander.output && (!stats || !stats.isDirectory())) || commander.join) { //Join files
     let inputFiles = commander.args;
     for (let j = 0; j < rendererList.length; j++) {
         rendererList[j].renderFile(inputFiles, onRendererFinish);
