@@ -40,6 +40,22 @@ describe("Pdf Renderer", function() {
         });
 
     });
+    it("Create PDF file with supplied extension", function(done) {
+        this.timeout(5000);
+        const renderer = new PdfRenderer({
+            outputFilename: testDir + "/prueba.pdf"
+        });
+        renderer.renderFile(testDir + "/" + testFiles[0], function(err) {
+            assert.notOk(err);
+            fs.stat(testDir + "/prueba.pdf", function(err, res) {
+                assert.notOk(err);
+                assert.ok(res);
+                assert.ok(res.isFile());
+                done();
+            });
+        });
+
+    });
     describe.skip("Renderer options", () => {
         it("Highlight", () => {
 

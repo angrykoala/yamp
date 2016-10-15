@@ -20,6 +20,7 @@ module.exports = class HtmlRenderer extends Renderer {
     
     //args: content, done
     fileOutput(content,filename, done) {
+        filename = filename.replace(/\.html$/, '');
         if (this.options.minify) content = htmlMinifier(content);
         fs.writeFile(filename + ".html", content, (err) => {
             if (err) return done(new Error("Error writing html file" + err),filename+".html");

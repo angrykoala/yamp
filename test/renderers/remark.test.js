@@ -52,5 +52,21 @@ describe("Remark Renderer", function() {
         });
 
     });
+    it("Create Remark file with supplied extension", (done) => {
+        const renderer = new remarkRenderer({
+            outputFilename: testDir + "/remark_test.html"
+        });
+
+        renderer.renderFile(testDir + "/" + testFile, (renderFileError) => {
+            assert.notOk(renderFileError);
+            fs.stat(testDir + "/remark_test.html", (err, res) => {
+                assert.notOk(err);
+                assert.ok(res);
+                assert.ok(res.isFile());
+                done();
+            });
+        });
+
+    });
 
 });
