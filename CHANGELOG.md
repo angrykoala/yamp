@@ -1,6 +1,8 @@
 0.4.1 / 0000-00-00
 ==================
 
+  * Xejs updated to 0.5.0, comment tags supported
+  * Output option will no longer repeat the extension file
 
 0.4.0 / 2016-10-15
 ==================

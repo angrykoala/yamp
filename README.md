@@ -102,6 +102,8 @@ _Yamp_ supports extra tags in your markdown files. Currently using [xejs](https:
 * `page break`: Will force a page break in pdf output.
 * `yamp version`: Will display the yamp version used to render the document.
 
+>  Starting a tag with `{{#` will create a comment tag that will not be rendered into the final file
+
 ## Yamp styles
 _Yamp_ provides several styles for your document (supported for html and pdf outputs).
 * `github.css` Default style, will look similar to **Github** style
