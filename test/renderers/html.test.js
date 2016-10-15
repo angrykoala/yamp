@@ -54,6 +54,21 @@ describe("Html Renderer", () => {
             });
         });
     });
+    it("Create Html file with supplied extension", (done) => {
+        const renderer = new HtmlRenderer({
+            outputFilename: testDir + "/test.html"
+        });
+        
+        renderer.renderFile(testDir + "/" + testMdFiles[0], (renderFileError) => {
+            assert.notOk(renderFileError);
+            fs.stat(testDir + "/test.html", (err, res) => {
+                assert.notOk(err);
+                assert.ok(res);
+                assert.ok(res.isFile());
+                done();
+            });
+        });
+    });
     it("Wrong input file", (done) => {
         const renderer = new HtmlRenderer();
         assert.ok(renderer);
