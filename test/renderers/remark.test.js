@@ -54,7 +54,7 @@ describe("Remark Renderer", function() {
     });
     it("Create Remark file with supplied extension", (done) => {
         const renderer = new remarkRenderer({
-            outputFilename: testDir + "/remark_test"
+            outputFilename: testDir + "/remark_test.html"
         });
 
         renderer.renderFile(testDir + "/" + testFile, (renderFileError) => {
