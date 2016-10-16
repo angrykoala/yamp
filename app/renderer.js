@@ -107,10 +107,27 @@ module.exports = class Renderer {
     // ## Public methods
     // Renders given file with given options
     renderFile(files, options, done) {
+        let promise;
+
         if (!done && typeof options === "function") {
             done = options;
             options = {};
         }
+
+        if (!done && typeof Promise === 'function') {
+            promise = new Promise((resolve, reject) => {
+                done = (err) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve();
+                    }
+                };
+            });
+        }
+
+        done = done || function () {};
+
         if (!Array.isArray(files)) files = [files];
         let renderOptions = this.generateRenderOptions(files, options);
 
@@ -128,6 +145,8 @@ module.exports = class Renderer {
                 });
             });
         });
+
+        return promise;
     }
 
     // ## Private Methods

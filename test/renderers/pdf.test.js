@@ -40,6 +40,23 @@ describe("Pdf Renderer", function() {
         });
 
     });
+    it("Create Pdf file using a Promise", function(done) {
+        this.timeout(5000);
+        const renderer = new PdfRenderer({
+            outputFilename: testDir + "/prueba"
+        });
+        renderer.renderFile(testDir + "/" + testFiles[0])
+        .then(function() {
+            fs.stat(testDir + "/prueba.pdf", function(err, res) {
+                assert.notOk(err);
+                assert.ok(res);
+                assert.ok(res.isFile());
+                // CONTENT NOT TESTED
+                done();
+            });
+        });
+
+    });
     it("Create PDF file with supplied extension", function(done) {
         this.timeout(5000);
         const renderer = new PdfRenderer({
