@@ -126,8 +126,6 @@ module.exports = class Renderer {
             });
         }
 
-        done = done || function () {};
-
         if (!Array.isArray(files)) files = [files];
         let renderOptions = this.generateRenderOptions(files, options);
 
@@ -140,7 +138,9 @@ module.exports = class Renderer {
                     if (err) return done(err);
                     this.renderTemplate(content, renderOptions, (err, res) => {
                         if (err) return done(err);
-                        this.fileOutput(res, path.join(renderOptions.outputDirectory, renderOptions.outputFilename), done);
+                        this.fileOutput(res, path.join(renderOptions.outputDirectory, renderOptions.outputFilename), (err) => {
+                            done(err);
+                        });
                     });
                 });
             });

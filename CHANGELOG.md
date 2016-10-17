@@ -1,6 +1,7 @@
 0.4.1 / 0000-00-00
 ==================
 
+  * Promises interface for yamp API
   * Xejs updated to 0.5.0, comment tags supported
   * Output option will no longer repeat the extension file
 
