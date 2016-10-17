@@ -22,6 +22,7 @@ module.exports = class RemarkRenderer extends Renderer {
     
     //args: content, done
     fileOutput(content,filename, done) {
+        filename = filename.replace(/\.html$/i, '');
         if (this.options.minify) content = htmlMinifier(content);
         fs.writeFile(filename + '.html', content, (err) => {
             if (err) return done(new Error("Error writing remark (html) file" + err),filename+".html");

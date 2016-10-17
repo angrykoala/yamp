@@ -40,7 +40,8 @@ module.exports = {
                 /<% should not parse EJS%>/,
                 /Include test\s+Second File[\s\S]*End of second file\s+End of first file/,
                 /Second File\s+((\d+\.){2}\d+\s+){2}\s+<p style="page-break-after:always;"><\/p>/,
-                /Second File[\s\S]*<\!-- toc --\>/
+                /Second File[\s\S]*<\!-- toc --\>/,
+                /comment tagend comment tag/
             ],
             defaultTags: [
                 /extra tags\s+{{ extra tag\(12\)}}\s+{{ extra tag\(a\)}}\s+End of second file/
