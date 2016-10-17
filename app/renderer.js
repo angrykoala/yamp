@@ -114,7 +114,7 @@ module.exports = class Renderer {
             options = {};
         }
 
-        if (!done && typeof Promise === 'function') {
+        if (!done) {
             promise = new Promise((resolve, reject) => {
                 done = (err) => {
                     if (err) {
