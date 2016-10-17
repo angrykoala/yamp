@@ -58,6 +58,7 @@ if (commander.args.length === 0) {
 
 let rendererOptions = {
     outputFilename: commander.output,
+    outputFileExtension: getFileExtension(commander.output),
     highlight: commander.highlight,
     style: commander.style,
     minify: commander.minify || false,
@@ -72,7 +73,15 @@ for (let key in renderers) {
     if (commander[key]) selectedRenderers.push(key);
 }
 
-if (selectedRenderers.length === 0) selectedRenderers.push("pdf");
+// if there is no renderers, 
+if (selectedRenderers.length === 0) {
+    if ( rendererOptions['outputFileExtension'] &&
+         Object.keys(renderers).indexOf(rendererOptions['outputFileExtension'])!==-1 ) { // we try to fallback on filename extension
+        selectedRenderers.push(rendererOptions['outputFileExtension']);
+    } else { // no suitable filename extension, last resort fallback to pdf
+        selectedRenderers.push("pdf");
+    }
+}
 
 let rendererList = loadRenderers(selectedRenderers, rendererOptions);
 let stats = false;
@@ -94,6 +103,14 @@ if ((commander.output && (!stats || !stats.isDirectory())) || commander.join) { 
             rendererList[j].renderFile(inputFile, onRendererFinish);
         }
     }
+}
+
+//Gets the str after the last dot, and use that as potential file extension
+function getFileExtension(fileName) {
+    if( fileName.split('.').length == 1 ){
+        return false; //no dots
+    }
+    return fileName.split('.').pop();
 }
 
 //Creates the selected renderes, return an array of rendereres
