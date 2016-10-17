@@ -54,11 +54,40 @@ describe("Html Renderer", () => {
             });
         });
     });
+    it("Create Html file using a Promise", (done) => {
+        const renderer = new HtmlRenderer({
+            outputFilename: testDir + "/test"
+        });
+        const originalOptions = JSON.stringify(renderer.options);
+        renderer.renderFile(testDir + "/" + testMdFiles[0])
+        .then(() => {
+            fs.stat(testDir + "/test.html", (err, res) => {
+                assert.notOk(err);
+                assert.ok(res);
+                assert.ok(res.isFile());
+
+                fs.readFile(testDir + "/test.html", "utf8", (err, res) => {
+                    assert.notOk(err);
+                    assert.ok(res);
+                    assert.match(res, regex.html);
+                    assert.match(res, regex.htmlBody);
+                    const body = regex.htmlBody.exec(res)[0];
+                    assert.ok(body);
+                    const regKeys = Object.keys(regex.htmlTestFile);
+                    for (let i = 0; i < regKeys.length; i++) {
+                        assert.match(body, regex.htmlTestFile[regKeys[i]]);
+                    }
+                    assert.strictEqual(JSON.stringify(renderer.options), originalOptions);
+                    done();
+                });
+            });
+        });
+    });
     it("Create Html file with supplied extension", (done) => {
         const renderer = new HtmlRenderer({
             outputFilename: testDir + "/test.html"
         });
-        
+
         renderer.renderFile(testDir + "/" + testMdFiles[0], (renderFileError) => {
             assert.notOk(renderFileError);
             fs.stat(testDir + "/test.html", (err, res) => {
@@ -81,6 +110,32 @@ describe("Html Renderer", () => {
                     fs.readFile("/not_a_file.html", (err) => {
                         assert.ok(err);
                         renderer.renderFile("wrongFolder/not_a_file.md", (err) => {
+                            assert.ok(err);
+                            fs.readFile("wrongFolder/not_a_file.html", (err) => {
+                                assert.ok(err);
+                                done();
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+    it("Wrong input file using a Promise", (done) => {
+        const renderer = new HtmlRenderer();
+        assert.ok(renderer);
+        renderer.renderFile("")
+        .catch((err) => {
+            assert.ok(err);
+            fs.readFile("/default.html", (err) => {
+                assert.ok(err);
+                renderer.renderFile("not_a_file.md")
+                .catch((err) => {
+                    assert.ok(err);
+                    fs.readFile("/not_a_file.html", (err) => {
+                        assert.ok(err);
+                        renderer.renderFile("wrongFolder/not_a_file.md")
+                        .catch((err) => {
                             assert.ok(err);
                             fs.readFile("wrongFolder/not_a_file.html", (err) => {
                                 assert.ok(err);
