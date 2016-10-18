@@ -1,3 +1,11 @@
+0.4.1 / 2016-10-18
+==================
+
+  * Output filename option will modify the default renderer if given extension applies to a renderer (e.g. `yamp file.md -o file.html` will now generate an html file)
+  * Promises interface for yamp API
+  * Xejs updated to 0.5.0, comment tags supported
+  * Output option will no longer repeat the extension file
+
 0.4.0 / 2016-10-15
 ==================
 

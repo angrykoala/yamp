@@ -72,7 +72,14 @@ for (let key in renderers) {
     if (commander[key]) selectedRenderers.push(key);
 }
 
-if (selectedRenderers.length === 0) selectedRenderers.push("pdf");
+if (selectedRenderers.length === 0) {
+    let fileExtension = getFileExtension(commander.output);
+    if (fileExtension && renderers[fileExtension]) {
+        selectedRenderers.push(fileExtension);
+    } else {
+        selectedRenderers.push("pdf");
+    }
+}
 
 let rendererList = loadRenderers(selectedRenderers, rendererOptions);
 let stats = false;
@@ -96,12 +103,22 @@ if ((commander.output && (!stats || !stats.isDirectory())) || commander.join) { 
     }
 }
 
+
+function getFileExtension(filename) {
+    if (!filename) return null;
+    let filenameArr = filename.split(".");
+    if (filenameArr.length > 1) return filenameArr.pop().toLowerCase();
+    else return null;
+}
+
 //Creates the selected renderes, return an array of rendereres
 function loadRenderers(selectedRenderers, options) {
     let rendererList = [];
     for (let i = 0; i < selectedRenderers.length; i++) {
         let rendererName = selectedRenderers[i];
-        rendererList.push(new renderers[rendererName](options));
+        if (renderers[rendererName]) {
+            rendererList.push(new renderers[rendererName](options));
+        }
     }
     return rendererList;
 }

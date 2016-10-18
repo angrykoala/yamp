@@ -23,6 +23,8 @@ false tags
 
 <% should not parse EJS%>
 
+comment tag{{# this is a comment}}end comment tag
+
 Include test
 
 {{Include xejs_test2.md}}
