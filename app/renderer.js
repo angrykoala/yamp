@@ -116,11 +116,11 @@ module.exports = class Renderer {
 
         if (!done) {
             promise = new Promise((resolve, reject) => {
-                done = (err) => {
+                done = (err, filename) => {
                     if (err) {
                         reject(err);
                     } else {
-                        resolve();
+                        resolve(filename);
                     }
                 };
             });
@@ -138,8 +138,8 @@ module.exports = class Renderer {
                     if (err) return done(err);
                     this.renderTemplate(content, renderOptions, (err, res) => {
                         if (err) return done(err);
-                        this.fileOutput(res, path.join(renderOptions.outputDirectory, renderOptions.outputFilename), (err) => {
-                            done(err);
+                        this.fileOutput(res, path.join(renderOptions.outputDirectory, renderOptions.outputFilename), (err, filename) => {
+                            done(err, filename);
                         });
                     });
                 });

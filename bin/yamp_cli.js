@@ -58,7 +58,6 @@ if (commander.args.length === 0) {
 
 let rendererOptions = {
     outputFilename: commander.output,
-    outputFileExtension: getFileExtension(commander.output),
     highlight: commander.highlight,
     style: commander.style,
     minify: commander.minify || false,
@@ -73,12 +72,11 @@ for (let key in renderers) {
     if (commander[key]) selectedRenderers.push(key);
 }
 
-// if there is no renderers,
 if (selectedRenderers.length === 0) {
-    if ( rendererOptions.outputFileExtension &&
-         Object.keys(renderers).indexOf(rendererOptions.outputFileExtension)!==-1 ) { // we try to fallback on filename extension
-        selectedRenderers.push(rendererOptions.outputFileExtension);
-    } else { // no suitable filename extension, last resort fallback to pdf
+    let fileExtension = getFileExtension(commander.output);
+    if (fileExtension && renderers[fileExtension]) {
+        selectedRenderers.push(fileExtension);
+    } else {
         selectedRenderers.push("pdf");
     }
 }
@@ -105,12 +103,12 @@ if ((commander.output && (!stats || !stats.isDirectory())) || commander.join) { 
     }
 }
 
-//Gets the str after the last dot, and use that as potential file extension
-function getFileExtension(fileName) {
-    if( fileName.split('.').length === 1 ){
-        return false; //no dots
-    }
-    return fileName.split('.').pop();
+
+function getFileExtension(filename) {
+    if (!filename) return null;
+    let filenameArr = filename.split(".");
+    if (filenameArr.length > 1) return filenameArr.pop().toLowerCase();
+    else return null;
 }
 
 //Creates the selected renderes, return an array of rendereres
@@ -118,7 +116,9 @@ function loadRenderers(selectedRenderers, options) {
     let rendererList = [];
     for (let i = 0; i < selectedRenderers.length; i++) {
         let rendererName = selectedRenderers[i];
-        rendererList.push(new renderers[rendererName](options));
+        if (renderers[rendererName]) {
+            rendererList.push(new renderers[rendererName](options));
+        }
     }
     return rendererList;
 }
