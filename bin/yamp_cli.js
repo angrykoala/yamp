@@ -73,11 +73,11 @@ for (let key in renderers) {
     if (commander[key]) selectedRenderers.push(key);
 }
 
-// if there is no renderers, 
+// if there is no renderers,
 if (selectedRenderers.length === 0) {
-    if ( rendererOptions['outputFileExtension'] &&
-         Object.keys(renderers).indexOf(rendererOptions['outputFileExtension'])!==-1 ) { // we try to fallback on filename extension
-        selectedRenderers.push(rendererOptions['outputFileExtension']);
+    if ( rendererOptions.outputFileExtension &&
+         Object.keys(renderers).indexOf(rendererOptions.outputFileExtension)!==-1 ) { // we try to fallback on filename extension
+        selectedRenderers.push(rendererOptions.outputFileExtension);
     } else { // no suitable filename extension, last resort fallback to pdf
         selectedRenderers.push("pdf");
     }
@@ -107,7 +107,7 @@ if ((commander.output && (!stats || !stats.isDirectory())) || commander.join) { 
 
 //Gets the str after the last dot, and use that as potential file extension
 function getFileExtension(fileName) {
-    if( fileName.split('.').length == 1 ){
+    if( fileName.split('.').length === 1 ){
         return false; //no dots
     }
     return fileName.split('.').pop();
