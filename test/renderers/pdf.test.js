@@ -73,6 +73,23 @@ describe("Pdf Renderer", function() {
         });
 
     });
+    it("Create Pdf file in specified non-existing folder", function(done) {
+        this.timeout(5000);
+        const renderer = new PdfRenderer({
+            outputFilename: testDir + "/prueba/"
+        });
+        renderer.renderFile(testDir + "/" + testFiles[0], function(err) {
+            assert.notOk(err);
+            fs.stat(testDir + "/prueba/test.pdf", function(err, res) {
+                assert.notOk(err);
+                assert.ok(res);
+                assert.ok(res.isFile());
+                // CONTENT NOT TESTED
+                done();
+            });
+        });
+
+    });
     describe.skip("Renderer options", () => {
         it("Highlight", () => {
 
