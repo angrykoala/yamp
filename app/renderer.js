@@ -165,13 +165,16 @@ module.exports = class Renderer {
                     renderOptions.outputFilename = parseFilename(files[0]);
                 }
             } catch (e) {
-                // file does not exist, so it cannot be a directory
-                // continue as normally
+                // file does not exist, is it meant to be a directory? then we create it
+                // otherwise continue as normally
+                if (renderOptions.outputFilename.slice(-1) === '/') {
+                    renderOptions.outputDirectory = renderOptions.outputFilename;
+                    renderOptions.outputFilename = parseFilename(files[0]);
+                }
             }
         }
         return renderOptions;
     }
-
 
     beforeParseRender(rawContent, renderOptions, done) {
         frontMatterParser(rawContent, (err, res, attr) => {
