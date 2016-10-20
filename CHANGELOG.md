@@ -92,7 +92,8 @@
 
 0.3.5 / 2016-09-17
 ==================
-
+   
+  * Node.js version for tests updated
   * Remark slides support
   * Readme updated
 
