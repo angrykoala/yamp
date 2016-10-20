@@ -88,7 +88,6 @@ describe("Pdf Renderer", function() {
                 done();
             });
         });
-
     });
     describe.skip("Renderer options", () => {
         it("Highlight", () => {
