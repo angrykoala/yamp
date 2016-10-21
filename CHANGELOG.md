@@ -1,6 +1,7 @@
 0.4.2 / 0000-00-00
 ==================
 
+  * Xejs updated to 0.6.0
   * Output to an inexistent folder (appending `/` to output) will create the folder
 
 0.4.1 / 2016-10-18
