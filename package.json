@@ -52,6 +52,7 @@
     "fs-extra": "^0.30.0",
     "istanbul": "^0.4.5",
     "jshint": "^2.9.3",
-    "mocha": "^3.0.2"
+    "mocha": "^3.0.2",
+    "yerbamate": "~0.0.1"
   }
 }
