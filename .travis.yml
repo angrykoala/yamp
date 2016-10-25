@@ -6,7 +6,6 @@ os:
 node_js:
     - "stable"
     - "6.9.1"
-    - "4.6.1"
     - "4.0.0"
 sudo: false
 script:

@@ -8,9 +8,12 @@ Command-line interface test
 
 const fs = require('fs');
 const assert = require('chai').assert;
+require('pkginfo')(module, "version", "author", "license", "description");
+
 const yerbamate = require('yerbamate');
 
 const config = require('./config/config');
+const version = module.exports.version;
 
 const testDir = config.testDir;
 const testFiles = config.testFiles.md;
@@ -67,16 +70,68 @@ describe("Yamp CLI", function() {
             });
         });
     });
-    it.skip("-o/--output <file>", () => {
+    it("-o to inexistent folder", (done) => {
+        yerbamate.run(pkg.scripts.start, pkg.dir, {
+            args: testDir + "/" + testFiles[0] + outputArg + "/test_folder/"
+        }, function(code, out, err) {
+            assert.isTrue(yerbamate.successCode(code));
+            assert.lengthOf(err, 0);
+            assert.lengthOf(out, 1);
 
+            fs.stat(testDir + "/test_folder/test.pdf", function(err, res) {
+                assert.notOk(err);
+                assert.ok(res);
+                assert.ok(res.isFile());
+                done();
+            });
+        });
 
     });
-    it.skip("-v/--version", () => {
+    it("-o/--output <file>", (done) => {
+        yerbamate.run(pkg.scripts.start, pkg.dir, {
+            args: testDir + "/" + testFiles[0] + outputArg + "/my_test.pdf"
+        }, function(code, out, err) {
+            assert.isTrue(yerbamate.successCode(code));
+            assert.lengthOf(err, 0);
+            assert.lengthOf(out, 1);
 
-
-
+            fs.stat(testDir + "/my_test.pdf", function(err, res) {
+                assert.notOk(err);
+                assert.ok(res);
+                assert.ok(res.isFile());
+                done();
+            });
+        });
     });
-    it.skip("-h/--help", () => {
+    it("-v/--version", (done) => {
+        yerbamate.run(pkg.scripts.start, pkg.dir, {
+            args: "-V"
+        }, function(code, out, err) {
+            assert.isTrue(yerbamate.successCode(code));
+            assert.lengthOf(err, 0);
+            assert.lengthOf(out, 1);
+            assert.strictEqual(out[0], version);
+            yerbamate.run(pkg.scripts.start, pkg.dir, {
+                args: "--version"
+            }, function(code, out, err) {
+                assert.isTrue(yerbamate.successCode(code));
+                assert.lengthOf(err, 0);
+                assert.lengthOf(out, 1);
+                assert.strictEqual(out[0], version);
+                done();
+            });
+        });
+    });
+    it("-h/--help", (done) => {
+        yerbamate.run(pkg.scripts.start, pkg.dir, {
+            args: "-h"
+        }, function(code, out, err) {
+            assert.isTrue(yerbamate.successCode(code));
+            assert.lengthOf(err, 0);
+            assert.isAtLeast(out.length, 2);
+            assert.match(out[1],/Yet Another Markdown Parser/);
+            done();
+        });
 
     });
     it.skip("--pdf", () => {
@@ -88,6 +143,14 @@ describe("Yamp CLI", function() {
 
     });
     it.skip("--remark", () => {
+
+
+    });
+    it.skip("Different extensions in output files", () => {
+
+
+    });
+    it.skip("Multiple outputs", () => {
 
 
     });
