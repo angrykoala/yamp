@@ -53,6 +53,6 @@
     "istanbul": "^0.4.5",
     "jshint": "^2.9.3",
     "mocha": "^3.0.2",
-    "yerbamate": "~0.0.1"
+    "yerbamate": "^1.0.0"
   }
 }
