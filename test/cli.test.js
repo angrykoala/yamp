@@ -15,8 +15,8 @@ const config = require('./config/config');
 const testDir = config.testDir;
 const testFiles = config.testFiles.md;
 
-describe.skip("Yamp CLI", function() {
-    this.timeout(5000);
+describe("Yamp CLI", function() {
+    this.timeout(8000);
     const pkg = yerbamate.loadPackage(module);
     const outputArg = " -o " + testDir;
 
@@ -24,7 +24,7 @@ describe.skip("Yamp CLI", function() {
         yerbamate.run(pkg.scripts.start, pkg.dir, {
             args: testDir + "/" + testFiles[0]
         }, function(code, out, err) {
-            assert.isFalse(yerbamate.isErrorCode(code));
+            assert.isTrue(yerbamate.successCode(code));
             assert.lengthOf(err, 0);
             assert.lengthOf(out, 1);
             fs.stat("./test.pdf", function(err, res) {
@@ -41,7 +41,7 @@ describe.skip("Yamp CLI", function() {
         yerbamate.run(pkg.scripts.start, pkg.dir, {
             args: testDir + "/" + testFiles[0] + outputArg
         }, function(code, out, err) {
-            assert.isFalse(yerbamate.isErrorCode(code));
+            assert.isTrue(yerbamate.successCode(code));
             assert.lengthOf(err, 0);
             assert.lengthOf(out, 1);
 
@@ -53,7 +53,7 @@ describe.skip("Yamp CLI", function() {
                 yerbamate.run(pkg.scripts.start, pkg.dir, {
                     args: testDir + "/" + testFiles[0] + " --output " + testDir
                 }, function(code, out, err) {
-                    assert.isFalse(yerbamate.isErrorCode(code));
+                    assert.isTrue(yerbamate.successCode(code));
                     assert.lengthOf(err, 0);
                     assert.lengthOf(out, 1);
 
