@@ -18,10 +18,14 @@ const version = module.exports.version;
 const testDir = config.testDir;
 const testFiles = config.testFiles.md;
 
+
+
 describe("Yamp CLI", function() {
     this.timeout(8000);
     const pkg = yerbamate.loadPackage(module);
     const outputArg = " -o " + testDir;
+    const defaultArgs = testDir + "/" + testFiles[0] + outputArg;
+
 
     it("Default options", (done) => {
         yerbamate.run(pkg.scripts.start, pkg.dir, {
@@ -42,7 +46,7 @@ describe("Yamp CLI", function() {
     });
     it("-o/--output <folder>", (done) => {
         yerbamate.run(pkg.scripts.start, pkg.dir, {
-            args: testDir + "/" + testFiles[0] + outputArg
+            args: defaultArgs
         }, function(code, out, err) {
             assert.isTrue(yerbamate.successCode(code));
             assert.lengthOf(err, 0);
@@ -52,6 +56,7 @@ describe("Yamp CLI", function() {
                 assert.notOk(err);
                 assert.ok(res);
                 assert.ok(res.isFile());
+                fs.unlinkSync(testDir + "/test.pdf");
                 // CONTENT NOT TESTED
                 yerbamate.run(pkg.scripts.start, pkg.dir, {
                     args: testDir + "/" + testFiles[0] + " --output " + testDir
@@ -72,7 +77,7 @@ describe("Yamp CLI", function() {
     });
     it("-o to inexistent folder", (done) => {
         yerbamate.run(pkg.scripts.start, pkg.dir, {
-            args: testDir + "/" + testFiles[0] + outputArg + "/test_folder/"
+            args: defaultArgs + "/test_folder/"
         }, function(code, out, err) {
             assert.isTrue(yerbamate.successCode(code));
             assert.lengthOf(err, 0);
@@ -89,7 +94,7 @@ describe("Yamp CLI", function() {
     });
     it("-o/--output <file>", (done) => {
         yerbamate.run(pkg.scripts.start, pkg.dir, {
-            args: testDir + "/" + testFiles[0] + outputArg + "/my_test.pdf"
+            args: defaultArgs + "/my_test.pdf"
         }, function(code, out, err) {
             assert.isTrue(yerbamate.successCode(code));
             assert.lengthOf(err, 0);
@@ -129,13 +134,39 @@ describe("Yamp CLI", function() {
             assert.isTrue(yerbamate.successCode(code));
             assert.lengthOf(err, 0);
             assert.isAtLeast(out.length, 2);
-            assert.match(out[1],/Yet Another Markdown Parser/);
+            assert.match(out[1], /Yet Another Markdown Parser/);
             done();
         });
 
     });
-    it.skip("--pdf", () => {
+    it("--pdf", (done) => {
+        yerbamate.run(pkg.scripts.start, pkg.dir, {
+            args: defaultArgs + " --pdf"
+        }, function(code, out, err) {
+            assert.isTrue(yerbamate.successCode(code));
+            assert.lengthOf(err, 0);
+            assert.lengthOf(out, 1);
 
+            fs.stat(testDir + "/test.pdf", function(err, res) {
+                assert.notOk(err);
+                assert.ok(res);
+                assert.ok(res.isFile());
+                yerbamate.run(pkg.scripts.start, pkg.dir, {
+                    args: defaultArgs + "/test2.html --pdf"
+                }, function(code, out, err) {
+                    assert.isTrue(yerbamate.successCode(code));
+                    assert.lengthOf(err, 0);
+                    assert.lengthOf(out, 1);
+
+                    fs.stat(testDir + "/test2.html.pdf", function(err, res) {
+                        assert.notOk(err);
+                        assert.ok(res);
+                        assert.ok(res.isFile());
+                        done();
+                    });
+                });
+            });
+        });
 
     });
     it.skip("--html", () => {
