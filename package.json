@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node ./bin/yamp_cli.js",
-    "test": "istanbul cover _mocha -- --recursive",
+    "test": "nyc --reporter=lcov --reporter=text-summary mocha --recursive",
     "docs": "npm start -- docs/index.md --html --pdf -o docs/index; npm start -- docs/presentation.md --remark -o docs/presentation; npm start -- README.md -o docs/readme --html --pdf; npm start -- CHANGELOG.md -o docs/CHANGELOG --html --pdf",
     "jshint": "jshint *.js app bin test",
     "posttest": "npm run jshint"
@@ -50,9 +50,9 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "fs-extra": "^0.30.0",
-    "istanbul": "^0.4.5",
-    "jshint": "^2.9.3",
+    "jshint": "^2.9.4",
     "mocha": "^3.0.2",
+    "nyc": "^8.3.2",
     "yerbamate": "^1.0.0"
   }
 }

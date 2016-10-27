@@ -1,6 +1,8 @@
 0.4.2 / 0000-00-00
 ==================
 
+  * Added unit tests for cli.js
+  * Added coverage to cli.js
   * Removed Nodejs 4.6.1 from CI tests
   * Added yerbamate cli test library 1.0
   * Xejs updated to 0.6.0

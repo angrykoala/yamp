@@ -18,6 +18,7 @@ const version = module.exports.version;
 const testDir = config.testDir;
 const testFiles = config.testFiles.md;
 
+const regex = config.regex;
 
 
 describe("Yamp CLI", function() {
@@ -167,11 +168,36 @@ describe("Yamp CLI", function() {
                 });
             });
         });
-
     });
-    it.skip("--html", () => {
+    it("--html", (done) => {
+        yerbamate.run(pkg.scripts.start, pkg.dir, {
+            args: defaultArgs + " --html"
+        }, function(code, out, err) {
+            assert.isTrue(yerbamate.successCode(code));
+            assert.lengthOf(err, 0);
+            assert.lengthOf(out, 1);
 
-
+            fs.readFile(testDir + "/test.html", "utf8", (err, res) => {
+                assert.notOk(err);
+                assert.ok(res);
+                assert.match(res, regex.html);
+                assert.match(res, regex.htmlBody);
+                yerbamate.run(pkg.scripts.start, pkg.dir, {
+                    args: defaultArgs + "/test2.pdf --html"
+                }, function(code, out, err) {
+                    assert.isTrue(yerbamate.successCode(code));
+                    assert.lengthOf(err, 0);
+                    assert.lengthOf(out, 1);
+                    fs.readFile(testDir + "/test2.pdf.html", "utf8", (err, res) => {
+                        assert.notOk(err);
+                        assert.ok(res);
+                        assert.match(res, regex.html);
+                        assert.match(res, regex.htmlBody);
+                        done();
+                    });
+                });
+            });
+        });
     });
     it.skip("--remark", () => {
 
