@@ -11,7 +11,9 @@
     "test": "istanbul cover _mocha -- --recursive",
     "docs": "npm start -- docs/index.md --html --pdf -o docs/index; npm start -- docs/presentation.md --remark -o docs/presentation; npm start -- README.md -o docs/readme --html --pdf; npm start -- CHANGELOG.md -o docs/CHANGELOG --html --pdf",
     "jshint": "jshint *.js app bin test",
-    "posttest": "npm run jshint"
+    "posttest": "npm run jshint",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -42,7 +44,8 @@
     "markdown-toc": "^0.13.0",
     "marked": "^0.3.6",
     "pkginfo": "^0.4.0",
-    "xejs": "~0.5.0"
+    "xejs": "~0.5.0",
+    "snyk": "^1.25.0"
   },
   "engines": {
     "node": ">= 4.0.0"
@@ -53,5 +56,6 @@
     "istanbul": "^0.4.5",
     "jshint": "^2.9.3",
     "mocha": "^3.0.2"
-  }
+  },
+  "snyk": true
 }
