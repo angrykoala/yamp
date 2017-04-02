@@ -84,12 +84,16 @@ if (selectedRenderers.length === 0) {
 let rendererList = loadRenderers(selectedRenderers, rendererOptions);
 let stats = false;
 
+let isDirectory=false;
 if (commander.output) {
+    if(commander.output[commander.output.length-1]==="/") isDirectory=true;
     try {
         stats = fs.lstatSync(commander.output);
+        if(stats.isDirectory()) isDirectory=true;
+        
     } catch (e) {}
 }
-if ((commander.output && (!stats || !stats.isDirectory())) || commander.join) { //Join files
+if ((commander.output && !isDirectory) || commander.join) { //Join files
     let inputFiles = commander.args;
     for (let j = 0; j < rendererList.length; j++) {
         rendererList[j].renderFile(inputFiles, onRendererFinish);

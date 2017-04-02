@@ -14,13 +14,14 @@ const version = module.exports.version;
 const xejsOptions = {
     openTag: "{{",
     closeTag: "}}",
-    tokens: [
-        [/date/i, "getDate()"],
-        [/page\s*?break/i, "'<p style=\"page-break-after:always;\"></p>'"],
-        [/yamp\s*?version/i, "'" + version + "'"],
-        [/toc/i,"'<!-- toc -->'"]
-    ]
 };
+
+const xejsTokens = [
+    [/date/i, "getDate()"],
+    [/page\s*?break/i, "'<p style=\"page-break-after:always;\"></p>'"],
+    [/yamp\s*?version/i, "'" + version + "'"],
+    [/toc/i, "'<!-- toc -->'"]
+];
 
 function getDate() {
     let date = new Date();
@@ -31,10 +32,17 @@ function getDate() {
 }
 
 module.exports = function(file, options, tokens, done) {
-    options=options || {};
+    options = options || {};
+    tokens=tokens || [];
     let args = Object.assign({}, options);
     args.getDate = getDate;
     let rendererOptions = Object.assign({}, xejsOptions);
-    if(tokens.length>0) rendererOptions.tokens = rendererOptions.tokens.concat(tokens);
-    xejs(file, rendererOptions, args, done);
+    tokens = xejsTokens.concat(tokens);
+    
+    const xejsRenderer = new xejs({
+        options: rendererOptions,
+        tokens: tokens,
+        args: args
+    });
+    xejsRenderer.render(file, done);
 };

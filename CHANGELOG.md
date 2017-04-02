@@ -1,3 +1,14 @@
+0.4.2 / 2017-04-02
+==================
+
+  * Added unit tests for cli.js
+  * Added coverage to cli.js
+  * Removed Nodejs 4.6.1 from CI tests
+  * Added yerbamate cli test library 1.0
+  * Xejs updated to 0.7.0
+  * Dependencies updated
+  * Output to an inexistent folder (appending `/` to output) will create the folder
+
 0.4.1 / 2016-10-18
 ==================
 
@@ -50,16 +61,17 @@
 0.3.9 / 2016-09-23
 ==================
 
-  * xejs updated, new tests, close [#64](https://github.com/angrykoala/yamp/issues/64)
-  * file title only uses output filename without extensions, file now generated on execution folder by default, close [#65](https://github.com/angrykoala/yamp/issues/65)
-  * html attributes supported in title parser, close [#40](https://github.com/angrykoala/yamp/issues/40)
-  * code highlight disabled if not necessary, close [#42](https://github.com/angrykoala/yamp/issues/42)
-  * docs updated
-  * tests improved
-  * jshint updated, small changes
-  * xejs parser fixed, xejs dependency updated, tests added [#36](https://github.com/angrykoala/yamp/issues/36)
-  * unnecessary dependencies removed
-  * yamp cli improved
+  * File title only uses output filename without extensions
+  * File now generated on execution folder by default
+  * Html attributes supported in title parser
+  * Code highlight disabled if not necessary
+  * Docs updated
+  * Unit tests improved
+  * Jshint updated
+  * Xejs parser fixed,
+  * Xejs updated
+  * Unnecessary dependencies removed
+  * Yamp cli improved
 
 0.3.8 / 2016-09-19
 ==================
@@ -87,7 +99,8 @@
 
 0.3.5 / 2016-09-17
 ==================
-
+   
+  * Node.js version for tests updated
   * Remark slides support
   * Readme updated
 

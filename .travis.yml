@@ -5,8 +5,7 @@ os:
     - osx
 node_js:
     - "stable"
-    - "6.4.0"
-    - "4.5.0"
+    - "6.9.1"
     - "4.0.0"
 sudo: false
 script:

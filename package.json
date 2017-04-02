@@ -1,6 +1,6 @@
 {
   "name": "yamp",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Yet Another Markdown Parser",
   "main": "index.js",
   "bin": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node ./bin/yamp_cli.js",
-    "test": "istanbul cover _mocha -- --recursive",
+    "test": "nyc --reporter=lcov --reporter=text-summary mocha --recursive",
     "docs": "npm start -- docs/index.md --html --pdf -o docs/index; npm start -- docs/presentation.md --remark -o docs/presentation; npm start -- README.md -o docs/readme --html --pdf; npm start -- CHANGELOG.md -o docs/CHANGELOG --html --pdf",
     "jshint": "jshint *.js app bin test",
     "posttest": "npm run jshint"
@@ -39,19 +39,20 @@
     "highlight.js": "^9.6.0",
     "html-minifier": "^3.0.3",
     "html-pdf": "^2.1.0",
-    "markdown-toc": "^0.13.0",
+    "markdown-toc": "^1.1.0",
     "marked": "^0.3.6",
     "pkginfo": "^0.4.0",
-    "xejs": "~0.5.0"
+    "xejs": "~0.7.0"
   },
   "engines": {
     "node": ">= 4.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "fs-extra": "^0.30.0",
-    "istanbul": "^0.4.5",
-    "jshint": "^2.9.3",
-    "mocha": "^3.0.2"
+    "fs-extra": "^2.1.2",
+    "jshint": "^2.9.4",
+    "mocha": "^3.0.2",
+    "nyc": "^10.2.0",
+    "yerbamate": "^1.0.0"
   }
 }
