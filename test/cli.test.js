@@ -182,6 +182,7 @@ describe("Yamp CLI", function() {
                 assert.ok(res);
                 assert.match(res, regex.html);
                 assert.match(res, regex.htmlBody);
+                assert.match(res, /(<style>[\s\S]*<\/style>[\s\S]*){2}/);
                 yerbamate.run(pkg.scripts.start, pkg.dir, {
                     args: defaultArgs + "/test2.pdf --html"
                 }, function(code, out, err) {
@@ -254,8 +255,15 @@ describe("Yamp CLI", function() {
             });
         });
     });
-    it.skip("--list-styles", () => {
-
+    it("--list-styles", (done) => {
+        yerbamate.run(pkg.scripts.start, pkg.dir, {
+            args: " --list-styles"
+        }, function(code, out, err) {
+            assert.isTrue(yerbamate.successCode(code));
+            assert.lengthOf(err, 0);
+            assert.isAtLeast(out.length, 4);
+            done();
+        });
     });
     it.skip("--style <yamp style>", () => {
 
@@ -264,14 +272,41 @@ describe("Yamp CLI", function() {
 
 
     });
-    it.skip("--no-style", () => {
+    it("--no-style and --no-highlight", (done) => {
+        yerbamate.run(pkg.scripts.start, pkg.dir, {
+            args: defaultArgs + " --html --no-style --no-highlight"
+        }, function(code, out, err) {
+            assert.isTrue(yerbamate.successCode(code));
+            assert.lengthOf(err, 0);
+            assert.lengthOf(out, 1);
 
+            fs.readFile(testDir + "/test.html", "utf8", (err, res) => {
+                assert.notOk(err);
+                assert.ok(res);
+                assert.notMatch(res, /<style>/);
+                assert.notMatch(res, /<\/style>/);
+                done();
+            });
+        });
     });
-    it.skip("--minify", () => {
+    it("--minify", (done) => {
+        //This tests that minify actually returns the correct html, it doesn't test that it was actually minified
+        yerbamate.run(pkg.scripts.start, pkg.dir, {
+            args: defaultArgs + " --html --minify"
+        }, function(code, out, err) {
+            assert.isTrue(yerbamate.successCode(code));
+            assert.lengthOf(err, 0);
+            assert.lengthOf(out, 1);
 
-    });
-    it.skip("--no-highlight", () => {
-
+            fs.readFile(testDir + "/test.html", "utf8", (err, res) => {
+                assert.notOk(err);
+                assert.ok(res);
+                assert.match(res, regex.html);
+                assert.match(res, regex.htmlBody);
+                assert.match(res, /(<style>[\s\S]*<\/style>[\s\S]*){2}/);
+                done();
+            });
+        });
     });
     it.skip("--no-tags", () => {
 
