@@ -223,8 +223,36 @@ describe("Yamp CLI", function() {
     it.skip("--join with multiple files input", () => {
 
     });
-    it.skip("-t/--title", () => {
+    it("-t/--title", (done) => {
+        const testTitle = "TestTitle";
+        const titleRegex = /<title>TestTitle<\/title>/;
+        yerbamate.run(pkg.scripts.start, pkg.dir, {
+            args: defaultArgs + " --html -t " + testTitle
+        }, function(code, out, err) {
+            assert.isTrue(yerbamate.successCode(code));
+            assert.lengthOf(err, 0);
+            assert.lengthOf(out, 1);
 
+            fs.readFile(testDir + "/test.html", "utf8", (err, res) => {
+                assert.notOk(err);
+                assert.ok(res);
+                assert.match(res, titleRegex);
+                yerbamate.run(pkg.scripts.start, pkg.dir, {
+                    args: defaultArgs + " --html --title " + testTitle
+                }, function(code, out, err) {
+                    assert.isTrue(yerbamate.successCode(code));
+                    assert.lengthOf(err, 0);
+                    assert.lengthOf(out, 1);
+
+                    fs.readFile(testDir + "/test.html", "utf8", (err, res) => {
+                        assert.notOk(err);
+                        assert.ok(res);
+                        assert.match(res, titleRegex);
+                        done();
+                    });
+                });
+            });
+        });
     });
     it.skip("--list-styles", () => {
 
