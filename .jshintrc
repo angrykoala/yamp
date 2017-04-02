@@ -2,7 +2,6 @@
     "maxerr": 50,
     "camelcase": true,
     "eqeqeq": true,
-    "esversion": 6,
     "forin": false,
     "latedef": false,
     "noempty": true,

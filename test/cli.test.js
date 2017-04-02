@@ -22,7 +22,7 @@ const regex = config.regex;
 
 
 describe("Yamp CLI", function() {
-    this.timeout(8000);
+    this.timeout(10000);
     const pkg = yerbamate.loadPackage(module);
     const outputArg = " -o " + testDir;
     const defaultArgs = testDir + "/" + testFiles[0] + outputArg;

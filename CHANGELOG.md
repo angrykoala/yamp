@@ -5,7 +5,8 @@
   * Added coverage to cli.js
   * Removed Nodejs 4.6.1 from CI tests
   * Added yerbamate cli test library 1.0
-  * Xejs updated to 0.6.0
+  * Xejs updated to 0.7.0
+  * Dependencies updated
   * Output to an inexistent folder (appending `/` to output) will create the folder
 
 0.4.1 / 2016-10-18
