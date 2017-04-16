@@ -12,8 +12,8 @@
             <%} catch(e){ console.log("Warning: Style "+stylePath+" not found") }; %>
         <%}%>
         <% if(highlight===true){%>
-            <style><%- include("../node_modules/highlight.js/styles/default.css")%></style>
-            <script><%- include("../node_modules/highlight.js/lib/highlight.js")%></script>
+            <style><%- include(resourcesPath+"/highlight/default.css")%></style>
+            <script><%- include(resourcesPath+"/highlight/highlight.js")%></script>
         <%}%>
 
         <% if(output==="pdf" && style===true){ %>

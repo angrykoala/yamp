@@ -66,17 +66,17 @@ function loadFile(file, options, done) {
 module.exports = class Renderer {
     // Contructor to be called by child constructor
     constructor(options, template, inputParser) {
-            this.options = setDefaultOptions();
-            this.setOptions(options);
-            this.xejsTokens = []; //modify this to add new xejs tokens
-            this.setTemplate(template);
-            this.parser = inputParser;
-            this.name = "default";
+        this.options = setDefaultOptions();
+        this.setOptions(options);
+        this.xejsTokens = []; //modify this to add new xejs tokens
+        this.setTemplate(template);
+        this.parser = inputParser;
+        this.name = "default";
 
-            if (this.options.tags) this.fileLoader = this.loadFileXEJS;
-            else this.fileLoader = loadFile;
-        }
-        // Set one or more renderer options
+        if (this.options.tags) this.fileLoader = this.loadFileXEJS;
+        else this.fileLoader = loadFile;
+    }
+    // Set one or more renderer options
     setOptions(options) {
         if (options) {
             Object.assign(this.options, options);
@@ -183,7 +183,9 @@ module.exports = class Renderer {
                 rawContent = res;
                 Object.assign(renderOptions, attr);
             }
-            tocParser(rawContent, done);
+
+            const linkifyToc = (this.output !== "pdf");
+            tocParser(rawContent,linkifyToc, done);
         });
     }
 
