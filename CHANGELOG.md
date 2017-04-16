@@ -1,7 +1,7 @@
 0.4.3 / ####-##-##
 ==================
 
-
+    * Fixed bug with hightlight dependencies when yamp installed as a dependency
 
 0.4.2 / 2017-04-02
 ==================
