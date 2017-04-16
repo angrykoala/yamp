@@ -1,8 +1,8 @@
 0.4.3 / 2017-04-16
 ==================
 
-    * Fixed bug with hightlight dependencies when yamp installed as a dependency
-    * TOC links disabled for pdf output
+  * Fixed bug with hightlight dependencies when yamp installed as a dependency
+  * TOC links disabled for pdf output
 
 0.4.2 / 2017-04-02
 ==================
