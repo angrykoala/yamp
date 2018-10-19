@@ -13,6 +13,10 @@ module.exports = [{
     md: "**bold** _italic_",
     html: "<p><strong>bold</strong> <em>italic</em></p>"
 }, {
+    testTitle: "Bold and Italic another way",
+    md: "__bold__ *italic*",
+    html: "<p><strong>bold</strong> <em>italic</em></p>"
+}, {
     testTitle: "New line",
     md: "line1   \nline2",
     html: "<p>line1<br>line2</p>"
