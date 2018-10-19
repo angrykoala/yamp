@@ -47,6 +47,10 @@ module.exports = [{
     md: "http://asdfghjklqwertyu.com",
     html: "<p><a href=\"http://asdfghjklqwertyu.com\">http://asdfghjklqwertyu.com</a></p>"
 }, {
+    testTitle: "link with title",
+    md: `[link with title](http://asdfghjklqwertyu.com "title text!")`,
+    html: `<p><a href="http://asdfghjklqwertyu.com" title="title text!">link with title</a></p>`
+}, {
     testTitle: "Special characters",
     md: "aeiouáéíóú´'*+^ç¨´{}|@#~½¬{[]}",
     html: "<p>aeiouáéíóú´&#39;*+^ç¨´{}|@#~½¬{[]}</p>"
