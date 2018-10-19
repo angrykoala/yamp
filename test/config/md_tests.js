@@ -13,6 +13,10 @@ module.exports = [{
     md: "**bold** _italic_",
     html: "<p><strong>bold</strong> <em>italic</em></p>"
 }, {
+    testTitle: "Strikethrough",
+    md: "~~Strikethrough~~",
+    html: "<p><del>Strikethrough</del></p>"
+}, {
     testTitle: "New line",
     md: "line1   \nline2",
     html: "<p>line1<br>line2</p>"
