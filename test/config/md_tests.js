@@ -51,6 +51,13 @@ module.exports = [{
     md: "aeiouáéíóú´'*+^ç¨´{}|@#~½¬{[]}",
     html: "<p>aeiouáéíóú´&#39;*+^ç¨´{}|@#~½¬{[]}</p>"
 }, {
+    testTitle: "Blockquotes",
+    md: `> Blockquotes can also be nested...
+        >> ...by using additional greater-than signs right next to each other...
+        > > > ...or with spaces between arrows.
+        `,
+    html: "<blockquote><p>Blockquotes can also be nested...</p><blockquote><p>...by using additional greater-than signs right next to each other...</p><blockquote><p>...or with spaces between arrows.</p></blockquote></blockquote></blockquote>"
+}, {
     testTitle: "Tables",
 }, {
     testTitle: "Ordered lists"
