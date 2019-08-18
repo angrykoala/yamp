@@ -11,8 +11,13 @@
     "test": "nyc --reporter=lcov --reporter=text-summary mocha --recursive",
     "docs": "npm start -- docs/index.md --html --pdf -o docs/index; npm start -- docs/presentation.md --remark -o docs/presentation; npm start -- README.md -o docs/readme --html --pdf; npm start -- CHANGELOG.md -o docs/CHANGELOG --html --pdf",
     "jshint": "jshint *.js app bin test",
-    "posttest": "npm run jshint"
+    "posttest": "npm run jshint",
+    "tslint": "tslint *.ts lib/*.ts lib/*/*.ts lib/*/*/*.ts",
+    "tsc": "rm -rf dist && tsc"
   },
+  "files": [
+      "dist"
+    ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/angrykoala/yamp.git"
@@ -32,27 +37,33 @@
   },
   "homepage": "https://github.com/angrykoala/yamp#readme",
   "dependencies": {
-    "async": "^2.0.1",
-    "commander": "^2.9.0",
-    "ejs": "^2.5.2",
-    "front-matter": "^2.1.0",
-    "highlight.js": "^9.10.0",
-    "html-minifier": "^3.0.3",
-    "html-pdf": "^2.1.0",
-    "markdown-toc": "^1.1.0",
-    "marked": "^0.3.6",
-    "pkginfo": "^0.4.0",
-    "xejs": "~0.7.0"
+    "async": "^3.1.0",
+    "commander": "^3.0.0",
+    "ejs": "^2.6.2",
+    "front-matter": "^3.0.2",
+    "highlight.js": "^9.15.9",
+    "html-minifier": "^4.0.0",
+    "html-pdf": "^2.2.0",
+    "markdown-toc": "^1.2.0",
+    "marked": "^0.7.0",
+    "pkginfo": "^0.4.1",
+    "xejs": "~0.7.1"
   },
   "engines": {
     "node": ">= 4.0.0"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "fs-extra": "^4.0.2",
-    "jshint": "^2.9.4",
-    "mocha": "^4.0.1",
-    "nyc": "^11.3.0",
-    "yerbamate": "^2.0.1"
+    "@types/chai": "^4.2.0",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.7.2",
+    "chai": "^4.2.0",
+    "fs-extra": "^8.1.0",
+    "jshint": "^2.10.2",
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3",
+    "yerbamate": "^2.1.3"
   }
 }

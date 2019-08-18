@@ -48,5 +48,6 @@ README.html
 
 # Data generated in tests
 test/test_sandbox
+dist/
 
 ## If updating this file, remember to update npmignore

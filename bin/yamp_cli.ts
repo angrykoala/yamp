@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-"use strict";
 /*
 Yamp CLI
 ========
@@ -9,10 +8,11 @@ Provides a Command Line Interface to use yamp. Will be called with `yamp` when g
 >If using npm start use -- before arguments. e.g. `npm start -- myFile.md --pdf`
 */
 
-const commander = require('commander');
-require('pkginfo')(module, "version", "author", "license", "description");
-const renderers = require('../index').renderers;
-const fs = require('fs');
+import * as fs from 'fs';
+import commander from 'commander';
+import * as pkginfo from 'pkginfo';
+pkginfo(module, "version", "author", "license", "description");
+import { renderers } from '../main';
 
 const version = module.exports.version;
 
@@ -82,16 +82,15 @@ if (selectedRenderers.length === 0) {
 }
 
 let rendererList = loadRenderers(selectedRenderers, rendererOptions);
-let stats = false;
 
-let isDirectory=false;
+let isDirectory = false;
 if (commander.output) {
-    if(commander.output[commander.output.length-1]==="/") isDirectory=true;
+    if (commander.output[commander.output.length - 1] === "/") isDirectory = true;
     try {
-        stats = fs.lstatSync(commander.output);
-        if(stats.isDirectory()) isDirectory=true;
-        
-    } catch (e) {}
+        const stats = fs.lstatSync(commander.output);
+        if (stats.isDirectory()) isDirectory = true;
+
+    } catch (e) { }
 }
 if ((commander.output && !isDirectory) || commander.join) { //Join files
     let inputFiles = commander.args;
@@ -108,15 +107,15 @@ if ((commander.output && !isDirectory) || commander.join) { //Join files
 }
 
 
-function getFileExtension(filename) {
+function getFileExtension(filename: string) {
     if (!filename) return null;
-    let filenameArr = filename.split(".");
-    if (filenameArr.length > 1) return filenameArr.pop().toLowerCase();
+    const filenameArr = filename.split(".");
+    if (filenameArr.length > 1) return (filenameArr.pop() as string).toLowerCase();
     else return null;
 }
 
 //Creates the selected renderes, return an array of rendereres
-function loadRenderers(selectedRenderers, options) {
+function loadRenderers(selectedRenderers: any, options: any) {
     let rendererList = [];
     for (let i = 0; i < selectedRenderers.length; i++) {
         let rendererName = selectedRenderers[i];
@@ -128,7 +127,7 @@ function loadRenderers(selectedRenderers, options) {
 }
 
 //Renderer callback
-function onRendererFinish(err, filename) {
+function onRendererFinish(err: Error, filename: string) {
     if (err) return console.log("Error: " + err);
     else console.log(filename + " created");
 }

@@ -232,6 +232,7 @@ module.exports = class Renderer {
             styleFile = files[index];
             options.style = true;
         }
+        options.style=true
 
         return {
             styleFile: styleFile,

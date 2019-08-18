@@ -31,7 +31,7 @@ module.exports = [{
 }, {
     testTitle: "Code highlight js",
     md: "```js\nexample code\n```\n",
-    html: "<pre><code class=\"lang-js\"><span class=\"hljs-symbol\">example</span> <span class=\"hljs-meta\">code</span></code></pre>"
+    html: "<pre><code class=\"language-js\"><span class=\"hljs-symbol\">example</span> <span class=\"hljs-meta\">code</span></code></pre>"
 }, {
     testTitle: "Highlight.js"
 

@@ -23,7 +23,7 @@ module.exports = {
             text: /This <strong>file<\/strong> is for <em>testing<\/em> purposes of/,
             link: /<a\s+href=\"https:\/\/github.com\/angrykoala\/yamp\">yamp<\/a>/,
             header2: /<h2 id="c-test-code">C\+\+ test code<\/h2>/,
-            code: /<pre>\s*<code\s+class=\"lang-c\+\+\">[\s\S]*Test[\s\S]*<\/code>\s*<\/pre>/,
+            code: /<pre>\s*<code\s+class=\"language-c\+\+\">[\s\S]*Test[\s\S]*<\/code>\s*<\/pre>/,
             included: /<body>[\s\S]*<p>This should be included<\/p>[\s\S]*<\/body>/,
             toc: /<\!-- toc --\>\s*<ul\>\s*<li\>[\s\S]*C\+\+ test code[\s\S]*<\/li\>\s*<\/ul\>\s*<\!-- tocstop --\>/
         },
@@ -56,7 +56,7 @@ module.exports = {
             /.remark-code/,
             /<body>\s*<textarea id="source">\s+# Main Title[\S\s]+<\/textarea>\s*<script>[\s\S]+<\/script>\s*<\/body>/,
             /# Main Title\s+---\s+# Slide 2\s+Sample text/,
-            /---\sclass: center,middle\s+# Slide 3\s+centered and in the middle\s+\?\?\?\s+Testing notes\s/    
+            /---\sclass: center,middle\s+# Slide 3\s+centered and in the middle\s+\?\?\?\s+Testing notes\s/
         ]
     },
     testFiles: {
