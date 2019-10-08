@@ -10,14 +10,14 @@
 //         xejs: require('./app/parsers/xejs_parser')
 //     }
 // };
-import { YampOptions } from './app/types/options';
 import { arrayfy } from './app/utils';
 import XejsLoader from './app/xejs_loader';
 import TocGenerator from './app/toc_generator';
 import Md2Html from './app/md2html';
-import TitleParser from './app/title_parser';
-import Renderer from './app/renderers/renderer';
+import { RendererOptions, Renderer } from './app/renderers/renderer';
 import HtmlRenderer from './app/renderers/html_renderer';
+import Minifier from './app/minifier';
+import TitleParser from './app/title_parser';
 //
 //     .option("-o, --output <file | directory>", "output file name (without extension) or directory, if output is a filename, joins all the resulting files")
 //     .option("--pdf", "pdf output")
@@ -35,23 +35,35 @@ import HtmlRenderer from './app/renderers/html_renderer';
 //     .option("-k, --koala", "your output will be koalafied")
 // }
 
-export { YampOptions } from './app/types/options';
+interface YampOptions {
+    minify?: boolean;
+    koala?: boolean;
+    style?: string;
+    highlight?: boolean;
+}
 
 export async function yamp(files: string | Array<string>, options: YampOptions): Promise<string | void> {
     files = arrayfy(files);
     const loader = new XejsLoader();
-    // TODO: load template!!!
     let rawMarkdown = await loader.loadFile(files[0]);
     // TODO: frontMatter
     const tocGenerator = new TocGenerator();
     rawMarkdown = await tocGenerator.insert(rawMarkdown, { linkify: true });
     const md2Html = new Md2Html();
-    const html = await md2Html.generateHtml(rawMarkdown, { highlight: true });
-    // TODO: minify
+    let html = await md2Html.generateHtml(rawMarkdown, { highlight: Boolean(options.highlight) });
+    if (options.minify) {
+        const minifier = new Minifier();
+        html = await minifier.minifyHtml(html);
+    }
     const titleParser = new TitleParser();
     const title = titleParser.getTitleFromHtml(html);
-    const renderer = getRenderer();
-    await renderer.renderToFile(html, "./output.html");
+
+    const renderer = getRenderer({
+        highlight: Boolean(options.highlight),
+        style: options.style,
+        koala: Boolean(options.koala),
+    });
+    await renderer.renderToFile(html, "./output.html", { title: title });
 
     // frontMatterParser(rawContent, (err, res, attr) => {
     //     if (err) console.log("Warning:" + err);
@@ -63,12 +75,10 @@ export async function yamp(files: string | Array<string>, options: YampOptions):
     //     const linkifyToc = (this.output !== "pdf");
     //     tocParser(rawContent,linkifyToc, done);
     // });
-
-    return "";
 }
 
-function getRenderer(): Renderer {
-    return new HtmlRenderer();
+function getRenderer(options: RendererOptions): Renderer {
+    return new HtmlRenderer(options);
 }
 
 /* Expected flow
