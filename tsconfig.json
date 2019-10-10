@@ -15,14 +15,11 @@
         "esModuleInterop": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "resolveJsonModule": true,
+        "resolveJsonModule": true
     },
     "compileOnSave": true,
     "includes": [
         "main.ts",
         "bin/yamp_cli.ts"
-    ],
-    "exclude": [
-        "tests"
     ]
 }

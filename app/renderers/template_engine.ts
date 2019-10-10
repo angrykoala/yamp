@@ -1,10 +1,13 @@
 import * as fs from 'fs';
 import * as ejs from 'ejs';
+import * as path from 'path';
+import { OutputType } from '../types';
 
 export interface TemplateEngineOptions {
     highlight: boolean;
     style?: string;
     koala: boolean;
+    output: OutputType;
 }
 
 interface TemplateData {
@@ -14,18 +17,19 @@ interface TemplateData {
     resourcesPath: string;
     koala: boolean;
     content: string;
+    output: OutputType;
     title?: string;
     fs: typeof fs;
 }
 
-const resourcesPath = __dirname + "/../resources";
+const resourcesPath = path.join(__dirname, "/../resources");
 
 export class TemplateEngine {
     private template: string;
     private options: TemplateEngineOptions;
 
     constructor(template: string, options: TemplateEngineOptions) {
-        this.template = __dirname + "/../templates/" + template;
+        this.template = path.join(__dirname, "../../templates/", template);
         this.options = options;
     }
 
@@ -57,7 +61,7 @@ export class TemplateEngine {
             style: Boolean(this.options.style),
             resourcesPath: resourcesPath,
             koala: this.options.koala,
-            // output: this.output,
+            output: this.options.output,
             content: content,
             title: title,
             fs: fs

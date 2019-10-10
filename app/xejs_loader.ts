@@ -1,5 +1,5 @@
 import Xejs from 'xejs';
-import * as pkginfo from 'pkginfo';
+import pkginfo from 'pkginfo';
 
 pkginfo(module, "version");
 const version = module.exports.version;

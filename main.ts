@@ -18,6 +18,7 @@ import { RendererOptions, Renderer } from './app/renderers/renderer';
 import HtmlRenderer from './app/renderers/html_renderer';
 import Minifier from './app/minifier';
 import TitleParser from './app/title_parser';
+import { OutputType } from './app/types';
 //
 //     .option("-o, --output <file | directory>", "output file name (without extension) or directory, if output is a filename, joins all the resulting files")
 //     .option("--pdf", "pdf output")
@@ -42,7 +43,7 @@ interface YampOptions {
     highlight?: boolean;
 }
 
-export async function yamp(files: string | Array<string>, options: YampOptions): Promise<string | void> {
+export default async function yamp(files: string | Array<string>, options: YampOptions): Promise<string | void> {
     files = arrayfy(files);
     const loader = new XejsLoader();
     let rawMarkdown = await loader.loadFile(files[0]);
@@ -62,6 +63,7 @@ export async function yamp(files: string | Array<string>, options: YampOptions):
         highlight: Boolean(options.highlight),
         style: options.style,
         koala: Boolean(options.koala),
+        output: OutputType.pdf
     });
     await renderer.renderToFile(html, "./output.html", { title: title });
 
