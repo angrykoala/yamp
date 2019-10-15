@@ -1,7 +1,10 @@
 import yamp from '../../main';
+import config from '../config';
 
 describe("nice", () => {
     it("example", async () => {
-        await yamp("tests/test_files/test.md", {});
+        await yamp(`${config.testDir}/test.md`, {
+            output: config.testDir + "/index"
+        });
     });
 });

@@ -20,5 +20,4 @@ beforeEach(async () => {
 
 afterEach(async () => {
     await fs.remove(config.testDir);
-
 });

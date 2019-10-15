@@ -47,7 +47,7 @@ README.html
 ./*.pdf
 
 # Data generated in tests
-test/test_sandbox
+test/output
 dist/
 
 ## If updating this file, remember to update npmignore

@@ -41,6 +41,7 @@ interface YampOptions {
     koala?: boolean;
     style?: string;
     highlight?: boolean;
+    output: string;
 }
 
 export default async function yamp(files: string | Array<string>, options: YampOptions): Promise<string | void> {
@@ -65,7 +66,7 @@ export default async function yamp(files: string | Array<string>, options: YampO
         koala: Boolean(options.koala),
         output: OutputType.pdf
     });
-    await renderer.renderToFile(html, "./output.html", { title: title });
+    await renderer.renderToFile(html, options.output, { title: title });
 
     // frontMatterParser(rawContent, (err, res, attr) => {
     //     if (err) console.log("Warning:" + err);
