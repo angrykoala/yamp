@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node ./bin/yamp_cli.js",
     "test-old": "nyc --reporter=lcov --reporter=text-summary mocha --recursive",
-    "test": "nyc mocha -r ts-node/register --exit tests/hooks.ts tests/**/*.test.ts",
+    "test": "nyc mocha -r ts-node/register --exit --recursive --extension ts",
     "docs": "npm start -- docs/index.md --html --pdf -o docs/index; npm start -- docs/presentation.md --remark -o docs/presentation; npm start -- README.md -o docs/readme --html --pdf; npm start -- CHANGELOG.md -o docs/CHANGELOG --html --pdf",
     "jshint": "jshint *.js app bin test",
     "posttest-old": "npm run jshint",

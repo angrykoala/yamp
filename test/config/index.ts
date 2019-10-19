@@ -59,7 +59,7 @@ export default {
         frontMatter: ["front_matter_test.md"],
         remark: ["remark_test.md"]
     },
-    testFilesOrig: "tests/test_files",
-    testDir: "tests/test_sandbox",
+    testFilesOrig: "test/config/test_files",
+    testDir: "test/test_sandbox",
     frontMatter: "---\ntitle: my title\ndescription: my description\n---\nThis is the content\n---"
 };

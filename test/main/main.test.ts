@@ -7,4 +7,5 @@ describe("nice", () => {
             output: config.testDir + "/index"
         });
     });
+    // TODO test output
 });
