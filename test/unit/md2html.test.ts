@@ -7,7 +7,7 @@ function removeNewlines(str: string): string {
     return str.replace(/(\r\n|\n|\r)/gm, "");
 }
 
-describe("Yamp MD to Html", () => {
+describe("Markdown to Html", () => {
     const defaultOptions = {
         highlight: true
     };
