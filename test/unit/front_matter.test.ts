@@ -1,36 +1,26 @@
-// const frontMatterParser = require('../../app/parsers/front_matter');
-// const assert = require('chai').assert;
+import { assert } from 'chai';
 
-// const config = require('../config/config');
+import config from '../config';
+import FrontMatterParser from '../../app/front_matter_parser';
 
-describe.skip("Front Matter parser", () => {
+describe("Front Matter parser", () => {
+    const frontMatterParser = new FrontMatterParser();
     it("Parsing content with arguments", () => {
-        // assert.ok(frontMatterParser);
-        // frontMatterParser(config.frontMatter, (err, content, args) => {
-        //     assert.notOk(err);
-        //     assert.ok(content);
-        //     assert.ok(args);
-        //     assert.strictEqual(content, "This is the content\n---");
-        //     assert.strictEqual(args.title, "my title");
-        //     assert.strictEqual(args.description, "my description");
-        //     done();
-        // });
+        const result = frontMatterParser.parse(config.frontMatter);
+        assert.ok(result);
+        assert.ok(result.content);
+        assert.ok(result.attributes);
+        assert.strictEqual(result.content, "This is the content\n---");
+        assert.strictEqual(result.attributes.title, "my title");
+        assert.strictEqual(result.attributes.description, "my description");
     });
+
     it("Parsing content without arguments", () => {
-        // frontMatterParser("my file", (err, content, args) => {
-        //     assert.notOk(err);
-        //     assert.ok(content);
-        //     assert.ok(args);
-        //     assert.strictEqual(content, "my file");
-        //     assert.strictEqual(Object.keys(args).length, 0);
-        //     frontMatterParser("\n" + config.frontMatter, (err, content, args) => {
-        //         assert.notOk(err);
-        //         assert.ok(content);
-        //         assert.ok(args);
-        //         assert.strictEqual(content, "\n" + config.frontMatter);
-        //         assert.strictEqual(Object.keys(args).length, 0);
-        //         done();
-        //     });
-        // });
+        const result = frontMatterParser.parse("text without parser");
+        assert.ok(result);
+        assert.ok(result.content);
+        assert.ok(result.attributes);
+        assert.strictEqual(result.content, "text without parser");
+        assert.strictEqual(Object.keys(result.attributes).length, 0);
     });
 });

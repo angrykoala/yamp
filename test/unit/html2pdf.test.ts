@@ -1,30 +1,23 @@
-// const fs = require('fs-extra');
-// const assert = require('chai').assert;
-// 
-// const html2pdf = require('../../app/parsers/html2pdf');
-// const config = require('../config/config');
-// 
-// const testDir = config.testDir;
+import fs from 'fs-extra';
+import { assert } from 'chai';
 
-describe.skip("Html2pdf", ()=> {
-    // const html = "<h1>Test</h1>";
-    // const filename = "testFile.pdf";
+import Html2Pdf from '../../app/html2pdf';
+import config from '../config';
 
-    it("Basic test", function() {
-        // this.timeout(5000);
-        // fs.readFile(testDir + "/" + filename, (err) => {
-        //     assert.ok(err);
-        //     html2pdf(html, testDir + "/" + "testFile", (err, res) => {
-        //         assert.notOk(err);
-        //         assert.ok(res);
-        //         assert.strictEqual(res.filename, process.cwd() + "/" + testDir + "/" + filename);
-        //         fs.stat(res.filename, (err, res) => {
-        //             assert.notOk(err);
-        //             assert.ok(res);
-        //             assert.ok(res.isFile());
-        //             done();
-        //         });
-        //     });
-        // });
+const testDir = config.testDir;
+
+describe("Html2pdf", function(): any {
+    this.timeout(5000);
+    const html = "<h1>Test</h1>";
+    const filePath = testDir + "/testFile.pdf";
+    const html2Pdf = new Html2Pdf();
+
+    it("Generate pdf", async () => {
+        const exists = await fs.pathExists(filePath);
+        assert.isFalse(exists);
+        await html2Pdf.generatePdf(html, filePath);
+        const fileStatus = await fs.stat(filePath);
+        assert.ok(fileStatus);
+        assert.ok(fileStatus.isFile());
     });
 });
