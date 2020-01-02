@@ -6,9 +6,13 @@ export default class HtmlRenderer extends Renderer {
         super("default.ejs", options);
     }
 
+    protected generateHtml(html: string, options: { title?: string }): Promise<string> {
+        return this.renderTemplate(html, options.title); // TODO: title
+    }
+
     public async renderToFile(html: string, file: string, options: { title?: string }): Promise<string> {
         const filename = file.replace(/\.html$/i, '');
-        const templatedHtml = await this.renderTemplate(html, options.title); // TODO: title
+        const templatedHtml = await this.generateHtml(html, options);
 
         return new Promise<string>((resolve, reject) => {
             fs.writeFile(filename + ".html", templatedHtml, (err) => {

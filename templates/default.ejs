@@ -16,7 +16,7 @@
             <script><%- include(resourcesPath+"/highlight/highlight.js")%></script>
         <%}%>
 
-        <% if(output==="pdf" && style===true){ %>
+        <% if(format==="pdf" && style===true){ %>
             <style>
                 pre{
                     overflow: hidden;
@@ -37,7 +37,7 @@
         <% if(koala===true){ %>
             <%
             var backHeight="100%";
-            if(output==="pdf") backHeight="824px";
+            if(format==="pdf") backHeight="824px";
             %>
             <style>
                 #pageHeader {

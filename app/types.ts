@@ -1,4 +1,1 @@
-export enum OutputType {
-    pdf = "pdf",
-    html = "html"
-}
+export type outputFormat = "pdf" | "html";

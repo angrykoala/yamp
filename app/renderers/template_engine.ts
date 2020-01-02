@@ -1,13 +1,13 @@
 import * as fs from 'fs';
 import * as ejs from 'ejs';
 import * as path from 'path';
-import { OutputType } from '../types';
+import { outputFormat } from '../types';
 
 export interface TemplateEngineOptions {
     highlight: boolean;
     style?: string;
     koala: boolean;
-    output: OutputType;
+    format: outputFormat;
 }
 
 interface TemplateData {
@@ -17,7 +17,7 @@ interface TemplateData {
     resourcesPath: string;
     koala: boolean;
     content: string;
-    output: OutputType;
+    format: outputFormat;
     title?: string;
     fs: typeof fs;
 }
@@ -61,7 +61,7 @@ export class TemplateEngine {
             style: Boolean(this.options.style),
             resourcesPath: resourcesPath,
             koala: this.options.koala,
-            output: this.options.output,
+            format: this.options.format,
             content: content,
             title: title,
             fs: fs
