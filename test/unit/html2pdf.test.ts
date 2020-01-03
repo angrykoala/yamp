@@ -19,6 +19,6 @@ describe("Html2pdf", function(): any {
         const fileStatus = await fs.stat(filePath);
         assert.ok(fileStatus);
         assert.ok(fileStatus.isFile());
-        assert.ok(fileStatus.size > 10000);
+        assert.ok(fileStatus.size > 1000);
     });
 });
