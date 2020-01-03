@@ -4,7 +4,8 @@ import yamp from '../../main';
 import config from '../config';
 import { assert } from 'chai';
 
-describe("Main", () => {
+describe("Main", function(): void {
+    this.timeout(5000);
     it("Markdown to Pdf with default options", async () => {
         const filename = await yamp(`${config.testDir}/test.md`, {
             output: `${config.testDir}/index`
