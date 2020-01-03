@@ -8,6 +8,7 @@ import Minifier from './app/minifier';
 import TitleParser from './app/title_parser';
 import { outputFormat } from './app/types';
 import PdfRenderer from './app/renderers/pdf_renderer';
+import RemarkRenderer from './app/renderers/remark_renderer';
 //
 //     .option("-o, --output <file | directory>", "output file name (without extension) or directory, if output is a filename, joins all the resulting files")
 //     .option("--pdf", "pdf output")
@@ -50,6 +51,8 @@ function getRenderer(options: RendererOptions): Renderer {
             return new HtmlRenderer(options);
         case "pdf":
             return new PdfRenderer(options);
+        case "remark":
+            return new RemarkRenderer(options);
     }
 }
 

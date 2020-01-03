@@ -10,5 +10,3 @@ node_js:
 sudo: false
 script:
     - npm test
-after_success:
-    - bash <(curl -s https://codecov.io/bash)

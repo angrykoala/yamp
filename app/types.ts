@@ -1,1 +1,1 @@
-export type outputFormat = "pdf" | "html";
+export type outputFormat = "pdf" | "html" | "remark";

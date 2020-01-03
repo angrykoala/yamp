@@ -22,7 +22,7 @@ interface TemplateData {
     fs: typeof fs;
 }
 
-const resourcesPath = path.join(__dirname, "/../resources");
+const resourcesPath = path.join(__dirname, "/../../resources");
 
 export class TemplateEngine {
     private template: string;

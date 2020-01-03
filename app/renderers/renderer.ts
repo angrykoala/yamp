@@ -5,7 +5,7 @@ export { TemplateEngineOptions as RendererOptions } from "./template_engine";
 export abstract class Renderer {
     private templateEngine: TemplateEngine;
 
-    constructor(template: string, options: TemplateEngineOptions) {
+    constructor(options: TemplateEngineOptions, template: string) {
         this.templateEngine = new TemplateEngine(template, options);
 
         // this.options = setDefaultOptions();

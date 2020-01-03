@@ -2,8 +2,8 @@ import * as fs from 'fs';
 import { RendererOptions, Renderer } from "./renderer";
 
 export default class HtmlRenderer extends Renderer {
-    constructor(options: RendererOptions) {
-        super("default.ejs", options);
+    constructor(options: RendererOptions, template: string = "default.ejs") {
+        super(options, template);
     }
 
     protected generateHtml(html: string, options: { title?: string }): Promise<string> {
