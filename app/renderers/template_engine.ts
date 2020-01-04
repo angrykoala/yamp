@@ -2,12 +2,14 @@ import * as fs from 'fs';
 import * as ejs from 'ejs';
 import * as path from 'path';
 import { outputFormat } from '../types';
+import Minifier from '../minifier';
 
 export interface TemplateEngineOptions {
     highlight: boolean;
     style?: string;
     koala: boolean;
     format: outputFormat;
+    minify: boolean;
 }
 
 interface TemplateData {
@@ -33,9 +35,21 @@ export class TemplateEngine {
         this.options = options;
     }
 
-    public render(content: string, title?: string): Promise<string> {
+    public async render(content: string, title?: string): Promise<string> {
         const templateData = this.generateTemplateData(content, title);
 
+        let html = await this.renderTemplate(templateData);
+
+        if (this.options.minify) {
+            const minifier = new Minifier();
+            html = await minifier.minifyHtml(html);
+        }
+
+        return html;
+
+    }
+
+    private renderTemplate(templateData: TemplateData): Promise<string> {
         return new Promise((resolve, reject) => {
             ejs.renderFile(this.template, templateData, {}, (err, res) => {
                 if (err) reject(err);

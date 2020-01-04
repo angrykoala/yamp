@@ -4,7 +4,6 @@ import TocGenerator from './app/toc_generator';
 import Md2Html from './app/md2html';
 import { RendererOptions, Renderer } from './app/renderers/renderer';
 import HtmlRenderer from './app/renderers/html_renderer';
-import Minifier from './app/minifier';
 import TitleParser from './app/title_parser';
 import { outputFormat } from './app/types';
 import PdfRenderer from './app/renderers/pdf_renderer';
@@ -35,14 +34,9 @@ interface YampOptions {
     output: string;
 }
 
-async function generateHtml(rawMarkdown: string, options: Pick<YampOptions, 'minify' | 'highlight'>): Promise<string> {
+function generateHtml(rawMarkdown: string, options: Pick<YampOptions, 'minify' | 'highlight'>): Promise<string> {
     const md2Html = new Md2Html();
-    let html = await md2Html.generateHtml(rawMarkdown, { highlight: Boolean(options.highlight) });
-    if (options.minify) {
-        const minifier = new Minifier();
-        html = await minifier.minifyHtml(html);
-    }
-    return html;
+    return md2Html.generateHtml(rawMarkdown, { highlight: Boolean(options.highlight) });
 }
 
 function getRenderer(options: RendererOptions): Renderer {
@@ -74,7 +68,8 @@ export default async function yamp(files: string | Array<string>, options: YampO
         highlight: Boolean(options.highlight),
         style: options.style,
         koala: Boolean(options.koala),
-        format: options.format || "pdf"
+        format: options.format || "pdf",
+        minify: Boolean(options.minify)
     });
     const filePath = await renderer.renderToFile(html, options.output, { title: title });
     return filePath;

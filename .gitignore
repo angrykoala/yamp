@@ -51,3 +51,5 @@ test/output
 dist/
 
 ## If updating this file, remember to update npmignore
+
+test/test_sandbox
