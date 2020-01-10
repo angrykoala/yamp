@@ -29,35 +29,103 @@ describe("Options", function(): void {
     });
 
     it.skip('koala');
-    it.skip('style');
 
-    it('highlight', async () => {
+    describe("highlight", () => {
+        it('highlight', async () => {
+            const filename = await yamp(`${config.testDir}/test.md`, {
+                output: `${config.testDir}/index`,
+                format: "html",
+                highlight: true
+            }) as string;
+            assert.strictEqual(filename, `${config.testDir}/index.html`);
+
+            const finalHtml = await readAndCheckFile(filename);
+            assert.match(finalHtml, /<html>(.|\n)+<p>This should be included<\/p>(.|\n)+<\/html>/);
+            assert.match(finalHtml, /\.hljs/);
+            assert.match(finalHtml, /<span class="hljs\-keyword">using<\/span>/);
+        });
+
+        it('highlight default to false', async () => {
+            const filename = await yamp(`${config.testDir}/test.md`, {
+                output: `${config.testDir}/index`,
+                format: "html",
+            }) as string;
+            assert.strictEqual(filename, `${config.testDir}/index.html`);
+
+            const finalHtml = await readAndCheckFile(filename);
+
+            assert.match(finalHtml, /<html>(.|\n)+<p>This should be included<\/p>(.|\n)+<\/html>/);
+            assert.notMatch(finalHtml, /\.hljs/);
+            assert.notMatch(finalHtml, /<span class="hljs\-keyword">using<\/span>/);
+        });
+    });
+
+    it('output to a different filename', async () => {
         const filename = await yamp(`${config.testDir}/test.md`, {
-            output: `${config.testDir}/index`,
-            format: "html",
-            highlight: true
+            output: `${config.testDir}/another_file`,
+            format: "html"
         }) as string;
-        assert.strictEqual(filename, `${config.testDir}/index.html`);
+        assert.strictEqual(filename, `${config.testDir}/another_file.html`);
 
         const finalHtml = await readAndCheckFile(filename);
         assert.match(finalHtml, /<html>(.|\n)+<p>This should be included<\/p>(.|\n)+<\/html>/);
-        assert.match(finalHtml, /\.hljs/);
-        assert.match(finalHtml, /<span class="hljs\-keyword">using<\/span>/);
+        assert.match(finalHtml, /using namespace std\;\n\nmain\(\)\{\n/);
     });
 
-    it('highlight default to false', async () => {
-        const filename = await yamp(`${config.testDir}/test.md`, {
-            output: `${config.testDir}/index`,
-            format: "html",
-        }) as string;
-        assert.strictEqual(filename, `${config.testDir}/index.html`);
+    describe("styles", () => {
+        it('invalid style throws', (done) => {
+            yamp(`${config.testDir}/test.md`, {
+                output: `${config.testDir}/index`,
+                format: "html",
+                style: "invalid"
+            }).catch(() => {
+                done();
+            });
+        });
 
-        const finalHtml = await readAndCheckFile(filename);
+        it("custom style file");
 
-        assert.match(finalHtml, /<html>(.|\n)+<p>This should be included<\/p>(.|\n)+<\/html>/);
-        assert.notMatch(finalHtml, /\.hljs/);
-        assert.notMatch(finalHtml, /<span class="hljs\-keyword">using<\/span>/);
+        it('acm-sig style', async () => {
+            const filename = await yamp(`${config.testDir}/test.md`, {
+                output: `${config.testDir}/index`,
+                format: "html",
+                style: "acm-sig.css"
+            }) as string;
+            assert.strictEqual(filename, `${config.testDir}/index.html`);
+
+            const finalHtml = await readAndCheckFile(filename);
+            assert.match(finalHtml, /font\-family\:\ \"Times\ New\ Roman\"\,\ Times\,\ serif\;/);
+            assert.match(finalHtml, /<html>(.|\n)+<p>This should be included<\/p>(.|\n)+<\/html>/);
+            assert.match(finalHtml, /using namespace std\;\n\nmain\(\)\{\n/);
+        });
+
+        it('github style', async () => {
+            const filename = await yamp(`${config.testDir}/test.md`, {
+                output: `${config.testDir}/index`,
+                format: "html",
+                style: "github.css"
+            }) as string;
+            assert.strictEqual(filename, `${config.testDir}/index.html`);
+
+            const finalHtml = await readAndCheckFile(filename);
+            assert.match(finalHtml, /\.pl\-c1\,\ \.pl\-s\ \.pl\-v\ \{/);
+            assert.match(finalHtml, /<html>(.|\n)+<p>This should be included<\/p>(.|\n)+<\/html>/);
+            assert.match(finalHtml, /using namespace std\;\n\nmain\(\)\{\n/);
+        });
+
+        it('no style', async () => {
+            const filename = await yamp(`${config.testDir}/test.md`, {
+                output: `${config.testDir}/index`,
+                format: "html"
+            }) as string;
+            assert.strictEqual(filename, `${config.testDir}/index.html`);
+
+            const finalHtml = await readAndCheckFile(filename);
+            assert.notMatch(finalHtml, /font\-family\:\ \"Times\ New\ Roman\"\,\ Times\,\ serif\;/);
+            assert.notMatch(finalHtml, /\.pl\-c1\,\ \.pl\-s\ \.pl\-v\ \{/);
+
+            assert.match(finalHtml, /<html>(.|\n)+<p>This should be included<\/p>(.|\n)+<\/html>/);
+            assert.match(finalHtml, /using namespace std\;\n\nmain\(\)\{\n/);
+        });
     });
-
-    it.skip('output');
 });

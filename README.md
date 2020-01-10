@@ -21,3 +21,24 @@ A simple to use markdown tool for terminal or Node.
 * [HTML presentations](https://remarkjs.com/)
 * Front Matter metadata
 * Custom [xejs-based](https://github.com/angrykoala/xejs) tags (`{{}}`)
+
+
+
+## Usage
+
+### CLI
+
+### Node
+
+```javascript
+const yamp = require('yamp');
+
+yamp("my_file.md",{
+    minify: false;
+    style: "my-style.css";
+    highlight: false;
+    format: "pdf";
+    output: "my_file.pdf";
+})
+
+```

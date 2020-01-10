@@ -1,14 +1,14 @@
 import * as fs from 'fs';
 import * as ejs from 'ejs';
 import * as path from 'path';
-import { outputFormat } from '../types';
+import { OutputFormat } from '../types';
 import Minifier from '../minifier';
 
 export interface TemplateEngineOptions {
     highlight: boolean;
     style?: string;
     koala: boolean;
-    format: outputFormat;
+    format: OutputFormat;
     minify: boolean;
 }
 
@@ -19,7 +19,7 @@ interface TemplateData {
     resourcesPath: string;
     koala: boolean;
     content: string;
-    format: outputFormat;
+    format: OutputFormat;
     title?: string;
     fs: typeof fs;
 }
@@ -59,13 +59,12 @@ export class TemplateEngine {
     }
 
     private getStyleFile(styleName: string): string {
-        const defaultStyle = "github.css";
-        const files = fs.readdirSync(__dirname + "/../styles");
+        const files = fs.readdirSync(__dirname + "/../../styles");
         const index = files.indexOf(styleName);
         if (index > -1) {
             return files[index];
-        } else return defaultStyle;
-
+        }
+        throw new Error(`Invalid style ${styleName}`);
     }
 
     private generateTemplateData(content: string, title?: string): TemplateData {

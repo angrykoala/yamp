@@ -46,4 +46,7 @@ describe("Html", function(): void {
         const finalHtml = await readAndCheckFile(filename);
         assert.match(finalHtml, /<html>(.|\n)+<p>This should be included<\/p>(.|\n)+<\/html>/);
     });
+
+    it("Markdown to Html with multiple files");
+    it("Frontmatter");
 });

@@ -5,7 +5,7 @@ import Md2Html from './app/md2html';
 import { RendererOptions, Renderer } from './app/renderers/renderer';
 import HtmlRenderer from './app/renderers/html_renderer';
 import TitleParser from './app/title_parser';
-import { outputFormat } from './app/types';
+import { OutputFormat } from './app/types';
 import PdfRenderer from './app/renderers/pdf_renderer';
 import RemarkRenderer from './app/renderers/remark_renderer';
 //
@@ -30,7 +30,7 @@ interface YampOptions {
     koala?: boolean;
     style?: string;
     highlight?: boolean;
-    format?: outputFormat;
+    format?: OutputFormat;
     output: string;
 }
 
