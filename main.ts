@@ -26,6 +26,7 @@ import RemarkRenderer from './app/renderers/remark_renderer';
 // }
 
 interface YampOptions {
+    title?: string;
     minify?: boolean;
     koala?: boolean;
     style?: string;
@@ -50,7 +51,7 @@ function getRenderer(options: RendererOptions): Renderer {
     }
 }
 
-export default async function yamp(files: string | Array<string>, options: YampOptions): Promise<string | void> {
+export default async function yamp(files: string | Array<string>, options: YampOptions): Promise<string> {
     files = arrayfy(files);
     const loader = new XejsLoader();
     let markdown = await loader.loadFile(files[0]);
@@ -61,8 +62,7 @@ export default async function yamp(files: string | Array<string>, options: YampO
 
     const html = await generateHtml(markdown, options);
 
-    const titleParser = new TitleParser();
-    const title = titleParser.getTitleFromHtml(html);
+    const title = options.title || new TitleParser().getTitleFromHtml(html);
 
     const renderer = getRenderer({
         highlight: Boolean(options.highlight),
@@ -71,8 +71,7 @@ export default async function yamp(files: string | Array<string>, options: YampO
         format: options.format || "pdf",
         minify: Boolean(options.minify)
     });
-    const filePath = await renderer.renderToFile(html, options.output, { title: title });
-    return filePath;
+    return renderer.renderToFile(html, options.output, { title: title });
     // frontMatterParser(rawContent, (err, res, attr) => {
     //     if (err) console.log("Warning:" + err);
     //     if (renderOptions.frontMatter) {

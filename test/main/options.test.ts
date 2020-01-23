@@ -18,7 +18,7 @@ describe("Options", function(): void {
             output: `${config.testDir}/index`,
             format: "html",
             minify: true
-        }) as string;
+        });
         assert.strictEqual(filename, `${config.testDir}/index.html`);
 
         const finalHtml = await readAndCheckFile(filename);
@@ -36,7 +36,7 @@ describe("Options", function(): void {
                 output: `${config.testDir}/index`,
                 format: "html",
                 highlight: true
-            }) as string;
+            });
             assert.strictEqual(filename, `${config.testDir}/index.html`);
 
             const finalHtml = await readAndCheckFile(filename);
@@ -49,7 +49,7 @@ describe("Options", function(): void {
             const filename = await yamp(`${config.testDir}/test.md`, {
                 output: `${config.testDir}/index`,
                 format: "html",
-            }) as string;
+            });
             assert.strictEqual(filename, `${config.testDir}/index.html`);
 
             const finalHtml = await readAndCheckFile(filename);
@@ -64,7 +64,7 @@ describe("Options", function(): void {
         const filename = await yamp(`${config.testDir}/test.md`, {
             output: `${config.testDir}/another_file`,
             format: "html"
-        }) as string;
+        });
         assert.strictEqual(filename, `${config.testDir}/another_file.html`);
 
         const finalHtml = await readAndCheckFile(filename);
@@ -90,7 +90,7 @@ describe("Options", function(): void {
                 output: `${config.testDir}/index`,
                 format: "html",
                 style: "acm-sig.css"
-            }) as string;
+            });
             assert.strictEqual(filename, `${config.testDir}/index.html`);
 
             const finalHtml = await readAndCheckFile(filename);
@@ -104,7 +104,7 @@ describe("Options", function(): void {
                 output: `${config.testDir}/index`,
                 format: "html",
                 style: "github.css"
-            }) as string;
+            });
             assert.strictEqual(filename, `${config.testDir}/index.html`);
 
             const finalHtml = await readAndCheckFile(filename);
@@ -117,7 +117,7 @@ describe("Options", function(): void {
             const filename = await yamp(`${config.testDir}/test.md`, {
                 output: `${config.testDir}/index`,
                 format: "html"
-            }) as string;
+            });
             assert.strictEqual(filename, `${config.testDir}/index.html`);
 
             const finalHtml = await readAndCheckFile(filename);
@@ -126,6 +126,31 @@ describe("Options", function(): void {
 
             assert.match(finalHtml, /<html>(.|\n)+<p>This should be included<\/p>(.|\n)+<\/html>/);
             assert.match(finalHtml, /using namespace std\;\n\nmain\(\)\{\n/);
+        });
+
+    });
+
+    describe("title", async () => {
+        it("title without option", async () => {
+            const filename = await yamp(`${config.testDir}/test.md`, {
+                output: `${config.testDir}/index`,
+                format: "html"
+            });
+            assert.strictEqual(filename, `${config.testDir}/index.html`);
+            const finalHtml = await readAndCheckFile(filename);
+            assert.match(finalHtml, /<title>Markdown\ Test<\/title>/);
+        });
+
+        it("title with option", async () => {
+            const filename = await yamp(`${config.testDir}/test.md`, {
+                output: `${config.testDir}/index`,
+                format: "html",
+                title: "another"
+            });
+            assert.strictEqual(filename, `${config.testDir}/index.html`);
+            const finalHtml = await readAndCheckFile(filename);
+            assert.notMatch(finalHtml, /<title>Markdown\ Test<\/title>/);
+            assert.match(finalHtml, /<title>another<\/title>/);
         });
     });
 });
